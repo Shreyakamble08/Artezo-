@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Footer Component - Tailwind</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Custom styles if needed -->
+    <link rel="stylesheet" href="footer.css">
+    <!-- Font Awesome 6 (free icons) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <link rel="stylesheet" href="./product-detail.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Zain:ital,wght@0,200;0,300;0,400;0,700;0,800;0,900;1,300;1,400&display=swap"
+    rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+ 
+  <script>
+    tailwind.config = {
+      content: [],
+      theme: {
+        extend: {
+          colors: {
+            primary: "#033E59",
+            accent: "#E6A62C",
+          },
+          fontFamily: {
+            lexend: ["Lexend", "sans-serif"],
+            zain: ["Zain", "sans-serif"],
+          },
+        },
+      },
+    };
+  </script>
+
+    <style>
+        /* Custom color classes if you prefer using specific names */
+        .bg-teal-main { background-color: #1D3C4A; }
+        .text-yellow-shade { color: #e39f32; }
+        .border-custom { border-color: #e5e7eb; }
+        .hover-bg-yellow-shade:hover { background-color: #e39f32; }
+        .hover-text-yellow-shade:hover { color: #e39f32; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+    <!-- Footer Component -->
+  <footer class="bg-[#1D3C4A] text-white border-t border-[#e5e7eb]">
+
+  <div class="max-w-7xl mx-auto px-6 py-16">
+
+    <!-- Main Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-4 text-sm">
+
+      <!-- Brand -->
+      <div class="pr-8 md:border-r md:border-[#e5e7eb]/30 mb-10 md:mb-0">
+        <h2 class="text-7xl font-semibold font-zain text-[#e39f32] mb-4 tracking-wide">
+          Artezo
+        </h2>
+        <p class="text-gray-300 font-lexend leading-relaxed">
+          Elegant gifting, timeless décor, and handcrafted
+          photo frames curated to celebrate life’s special moments.
+        </p>
+      </div>
+
+      <!-- Categories -->
+      <div class="px-0 md:px-8 md:border-r md:border-[#e5e7eb]/30 mb-10 md:mb-0">
+        <h3 class="text-white font-medium font-lexend mb-4 tracking-wide">
+          Shop
+        </h3>
+        <ul class="space-y-3 font-lexend font-light text-gray-300">
+          <li><a href="#" class="hover:text-[#e39f32] transition">Gifting</a></li>
+          <li><a href="#" class="hover:text-[#e39f32] transition">Home Décor</a></li>
+          <li><a href="#" class="hover:text-[#e39f32] transition">Photo Frames</a></li>
+          <li><a href="#" class="hover:text-[#e39f32] transition">Best Sellers</a></li>
+        </ul>
+      </div>
+
+      <!-- Customer -->
+      <div class="px-0 md:px-8 md:border-r md:border-[#e5e7eb]/30 mb-10 md:mb-0">
+        <h3 class="text-white font-lexend font-medium mb-4 tracking-wide">
+          Customer
+        </h3>
+        <ul class="space-y-3 font-lexend font-light text-gray-300">
+          <li><a href="#" class="hover:text-[#e39f32] transition">My Account</a></li>
+          <li><a href="#" class="hover:text-[#e39f32] transition">Track Order</a></li>
+          <li><a href="#" class="hover:text-[#e39f32] transition">Returns</a></li>
+          <li><a href="#" class="hover:text-[#e39f32] transition">FAQs</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact -->
+      <div class="pl-0 md:pl-8">
+        <h3 class="text-white font-lexend font-medium mb-4 tracking-wide">
+          Contact
+        </h3>
+        <ul class="space-y-3 font-lexend font-light text-gray-300">
+          <li>Pune, Maharashtra</li>
+          <li>+91 98765 43210</li>
+          <li>support@yourbrand.com</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Bottom -->
+    <div class="mt-12 pt-6 border-t border-[#e5e7eb]/30 flex flex-col md:flex-row justify-between items-center text-xs text-gray-400 gap-4">
+      <p>© 2026 YourBrand. All rights reserved.</p>
+      <div class="flex gap-6">
+        <a href="#" class="hover:text-[#e39f32] transition">Privacy</a>
+        <a href="#" class="hover:text-[#e39f32] transition">Terms</a>
+        <a href="#" class="hover:text-[#e39f32] transition">Shipping</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+    <script src="../Footer/footer.js"></script>
+</body>
+</html>

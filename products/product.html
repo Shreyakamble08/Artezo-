@@ -1,0 +1,1504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zando Planter Stand – Artezo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+  :root {
+    --ink: #1a1714;
+    --cream: #f8f4ef;
+    --warm-white: #fdfaf7;
+    --clay: #c4704a;
+    --clay-light: #f0e0d6;
+    --forest: #2d4a35;
+    --forest-light: #e8f0ea;
+    --stone: #8a8078;
+    --stone-light: #edeae6;
+    --gold: #c9a227;
+    --gold-light: #fdf3d7;
+    --success: #3a7d44;
+    --danger: #c0392b;
+    --shadow-soft: 0 4px 24px rgba(26,23,20,0.08);
+    --shadow-md: 0 8px 32px rgba(26,23,20,0.12);
+    --shadow-lg: 0 16px 48px rgba(26,23,20,0.16);
+    --radius: 16px;
+    --radius-sm: 8px;
+    --radius-pill: 999px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ─────────────────────────────────── */
+  nav {
+    background: var(--warm-white);
+    border-bottom: 1px solid var(--stone-light);
+    padding: 0 32px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(8px);
+  }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: var(--forest);
+  }
+  .nav-logo span { color: var(--clay); }
+  .nav-actions { display: flex; gap: 12px; align-items: center; }
+  .nav-icon-btn {
+    width: 40px; height: 40px;
+    border: 1px solid var(--stone-light);
+    border-radius: 50%;
+    background: transparent;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--ink);
+    font-size: 15px;
+    transition: all .2s;
+    position: relative;
+  }
+  .nav-icon-btn:hover { background: var(--stone-light); }
+  .cart-badge {
+    position: absolute; top: -4px; right: -4px;
+    background: var(--clay); color: white;
+    font-size: 10px; width: 18px; height: 18px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 600;
+  }
+  .breadcrumb {
+    padding: 16px 32px;
+    font-size: 12px;
+    color: var(--stone);
+    display: flex; gap: 6px; align-items: center;
+  }
+  .breadcrumb a { color: var(--stone); text-decoration: none; }
+  .breadcrumb a:hover { color: var(--clay); }
+
+  /* ── MAIN LAYOUT ────────────────────────── */
+  .product-page {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 32px 80px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+
+  /* ── LEFT: IMAGE GALLERY ─────────────────── */
+  .gallery-col { position: sticky; top: 80px; }
+  .main-image-wrap {
+    position: relative;
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--warm-white);
+    aspect-ratio: 4/5;
+    box-shadow: var(--shadow-md);
+  }
+  .main-image-wrap img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform .6s cubic-bezier(.25,.8,.25,1), opacity .4s;
+  }
+  .main-image-wrap:hover img { transform: scale(1.04); }
+  .img-badge {
+    position: absolute; top: 16px; left: 16px;
+    background: var(--clay);
+    color: white; font-size: 11px; font-weight: 600;
+    padding: 4px 10px; border-radius: var(--radius-pill);
+    letter-spacing: 0.05em; text-transform: uppercase;
+  }
+  .img-badge-stock {
+    position: absolute; top: 16px; right: 16px;
+    background: rgba(26,23,20,.7); backdrop-filter: blur(4px);
+    color: white; font-size: 11px; font-weight: 500;
+    padding: 6px 12px; border-radius: var(--radius-pill);
+    display: flex; align-items: center; gap: 6px;
+  }
+  .stock-dot { width: 6px; height: 6px; border-radius: 50%; background: #ff6b35; animation: pulse 1.5s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(1.3)} }
+
+  .thumbnail-row {
+    display: flex; gap: 10px; margin-top: 12px;
+  }
+  .thumb {
+    flex: 1; aspect-ratio: 1;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all .2s;
+    background: var(--warm-white);
+  }
+  .thumb img { width:100%; height:100%; object-fit:cover; }
+  .thumb.active { border-color: var(--clay); }
+  .thumb:hover { border-color: var(--stone); transform: translateY(-2px); }
+
+  /* ── RIGHT: INFO ─────────────────────────── */
+  .info-col { display: flex; flex-direction: column; gap: 24px; padding-top: 8px; }
+
+  .brand-tag {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--forest-light);
+    color: var(--forest);
+    font-size: 11px; font-weight: 600;
+    padding: 4px 12px; border-radius: var(--radius-pill);
+    letter-spacing: 0.05em; text-transform: uppercase;
+    width: fit-content;
+  }
+
+  h1.product-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 38px; font-weight: 500;
+    line-height: 1.2;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+  .tagline {
+    font-size: 14px; color: var(--stone);
+    font-style: italic;
+    margin-top: -16px;
+  }
+
+  /* Rating */
+  .rating-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .stars { color: var(--gold); font-size: 14px; display: flex; gap: 2px; }
+  .rating-score { font-weight: 600; font-size: 14px; }
+  .review-count {
+    font-size: 13px; color: var(--clay);
+    cursor: pointer; text-decoration: underline; text-underline-offset: 3px;
+  }
+  .verified-badge {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 11px; color: var(--success);
+    background: #edf7ee; padding: 3px 10px; border-radius: var(--radius-pill);
+  }
+
+  /* Divider */
+  hr.divider { border: none; border-top: 1px solid var(--stone-light); }
+
+  /* Pricing */
+  .price-section { display: flex; flex-direction: column; gap: 10px; }
+  .price-main { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .price-current {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 44px; font-weight: 600; color: var(--forest);
+    line-height: 1;
+  }
+  .price-mrp { font-size: 18px; color: var(--stone); text-decoration: line-through; }
+  .discount-badge {
+    background: var(--clay); color: white;
+    font-size: 12px; font-weight: 700;
+    padding: 4px 10px; border-radius: var(--radius-pill);
+    letter-spacing: 0.03em;
+  }
+  .savings-note { font-size: 13px; color: var(--success); font-weight: 500; }
+  .tax-note { font-size: 11px; color: var(--stone); }
+  .emi-row {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 13px; color: var(--stone);
+    background: var(--stone-light);
+    padding: 8px 14px; border-radius: var(--radius-sm);
+    width: fit-content;
+  }
+  .emi-row strong { color: var(--ink); }
+
+  /* Coupon Section */
+  .coupon-section {
+    border: 1px dashed var(--stone-light);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .coupon-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 18px;
+    cursor: pointer;
+    background: var(--warm-white);
+    transition: background .2s;
+    user-select: none;
+  }
+  .coupon-header:hover { background: var(--stone-light); }
+  .coupon-header-left { display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 500; }
+  .coupon-header-left i { color: var(--gold); font-size: 16px; }
+  .coupon-body { display: none; padding: 12px; background: var(--cream); border-top: 1px dashed var(--stone-light); }
+  .coupon-body.open { display: flex; flex-direction: column; gap: 8px; animation: slideDown .2s ease; }
+  @keyframes slideDown { from{opacity:0;transform:translateY(-8px)} to{opacity:1;transform:translateY(0)} }
+  
+  .coupon-input-row { display: flex; gap: 8px; }
+  .coupon-input {
+    flex: 1; border: 1px solid var(--stone-light);
+    border-radius: var(--radius-sm);
+    padding: 10px 14px; font-size: 13px;
+    font-family: 'DM Mono', monospace;
+    background: white; outline: none;
+    transition: border-color .2s;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .coupon-input:focus { border-color: var(--clay); }
+  .apply-btn {
+    background: var(--forest); color: white;
+    border: none; padding: 10px 18px;
+    border-radius: var(--radius-sm);
+    font-size: 13px; font-weight: 600; cursor: pointer;
+    transition: all .2s; white-space: nowrap;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .apply-btn:hover { background: var(--clay); transform: translateY(-1px); }
+  
+  .coupon-card {
+    display: flex; align-items: center; justify-content: space-between;
+    background: white; border-radius: var(--radius-sm);
+    padding: 10px 14px;
+    border-left: 3px solid var(--gold);
+    box-shadow: var(--shadow-soft);
+  }
+  .coupon-card-left { display: flex; flex-direction: column; gap: 2px; }
+  .coupon-code {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px; font-weight: 500; color: var(--forest);
+  }
+  .coupon-desc { font-size: 11px; color: var(--stone); }
+  .coupon-apply-btn {
+    background: none; border: 1px solid var(--forest);
+    color: var(--forest); font-size: 11px; font-weight: 600;
+    padding: 5px 12px; border-radius: var(--radius-pill);
+    cursor: pointer; transition: all .2s;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .coupon-apply-btn:hover { background: var(--forest); color: white; }
+  .coupon-applied-tag {
+    display: none; align-items: center; gap: 8px;
+    background: #edf7ee; color: var(--success);
+    font-size: 13px; font-weight: 500;
+    padding: 10px 14px; border-radius: var(--radius-sm);
+    border: 1px solid #b7e0bb;
+  }
+  .coupon-applied-tag.visible { display: flex; animation: slideDown .3s ease; }
+  .remove-coupon { margin-left: auto; background: none; border: none; color: var(--danger); font-size: 18px; cursor: pointer; }
+
+  /* Variants */
+  .variant-group { display: flex; flex-direction: column; gap: 10px; }
+  .variant-label { font-size: 13px; font-weight: 600; color: var(--stone); text-transform: uppercase; letter-spacing: 0.05em; }
+  .variant-options { display: flex; gap: 8px; flex-wrap: wrap; }
+  
+  .size-btn {
+    padding: 8px 20px; border-radius: var(--radius-sm);
+    border: 1.5px solid var(--stone-light);
+    background: white; font-size: 13px; font-weight: 500;
+    cursor: pointer; transition: all .2s; color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+  }
+  .size-btn:hover { border-color: var(--clay); color: var(--clay); }
+  .size-btn.active { background: var(--forest); color: white; border-color: var(--forest); }
+  .size-btn.disabled { opacity: .4; cursor: not-allowed; text-decoration: line-through; }
+
+  .color-swatch {
+    width: 36px; height: 36px; border-radius: 50%;
+    border: 2px solid white;
+    box-shadow: 0 0 0 2px var(--stone-light);
+    cursor: pointer; transition: all .2s;
+  }
+  .color-swatch:hover, .color-swatch.active { box-shadow: 0 0 0 2.5px var(--clay); transform: scale(1.1); }
+  .color-name { font-size: 12px; color: var(--stone); margin-top: 6px; }
+
+  /* Design cards */
+  .design-section { display: flex; flex-direction: column; gap: 10px; }
+  .design-label { font-size: 13px; font-weight: 600; color: var(--stone); text-transform: uppercase; letter-spacing: 0.05em; }
+  .design-grid { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; }
+  .design-grid::-webkit-scrollbar { display: none; }
+  .design-card {
+    flex: 0 0 80px;
+    display: flex; flex-direction: column; align-items: center; gap: 6px;
+    padding: 8px;
+    border: 1.5px solid var(--stone-light);
+    border-radius: var(--radius-sm);
+    cursor: pointer; transition: all .2s; background: white;
+  }
+  .design-card img { width: 56px; height: 56px; object-fit: cover; border-radius: 6px; }
+  .design-card span { font-size: 10px; color: var(--stone); text-align: center; line-height: 1.2; }
+  .design-card.active { border-color: var(--clay); background: var(--clay-light); }
+  .design-card:hover { border-color: var(--clay); transform: translateY(-2px); }
+
+  /* Qty + CTA */
+  .qty-row { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+  .qty-control {
+    display: flex; align-items: center;
+    border: 1.5px solid var(--stone-light);
+    border-radius: var(--radius-sm); overflow: hidden;
+    background: white;
+  }
+  .qty-btn {
+    width: 42px; height: 46px;
+    border: none; background: none; cursor: pointer;
+    font-size: 18px; color: var(--ink);
+    transition: background .2s;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .qty-btn:hover { background: var(--stone-light); }
+  .qty-display { width: 48px; text-align: center; font-size: 15px; font-weight: 600; }
+
+  .cta-add {
+    flex: 1; min-width: 140px; height: 50px;
+    border: 2px solid var(--forest);
+    background: white; color: var(--forest);
+    border-radius: var(--radius-sm);
+    font-size: 14px; font-weight: 600; cursor: pointer;
+    transition: all .25s; display: flex; align-items: center; justify-content: center; gap: 8px;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .cta-add:hover { background: var(--forest); color: white; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(45,74,53,.25); }
+  
+  .cta-buy {
+    flex: 1; min-width: 140px; height: 50px;
+    background: var(--clay); color: white;
+    border: none; border-radius: var(--radius-sm);
+    font-size: 14px; font-weight: 600; cursor: pointer;
+    transition: all .25s; display: flex; align-items: center; justify-content: center; gap: 8px;
+    font-family: 'DM Sans', sans-serif;
+    box-shadow: 0 4px 16px rgba(196,112,74,.35);
+  }
+  .cta-buy:hover { background: #b5603c; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(196,112,74,.45); }
+
+  .secondary-actions { display: flex; gap: 8px; }
+  .sec-btn {
+    flex: 1; height: 44px;
+    border: 1.5px solid var(--stone-light);
+    background: white; border-radius: var(--radius-sm);
+    font-size: 13px; font-weight: 500; cursor: pointer;
+    transition: all .2s; display: flex; align-items: center; justify-content: center; gap: 6px;
+    color: var(--stone); font-family: 'DM Sans', sans-serif;
+  }
+  .sec-btn:hover { border-color: var(--clay); color: var(--clay); background: var(--clay-light); }
+  .sec-btn.active i { color: var(--clay); }
+
+  /* Delivery */
+  .delivery-card {
+    background: var(--warm-white);
+    border: 1px solid var(--stone-light);
+    border-radius: var(--radius);
+    padding: 16px 18px;
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .delivery-title { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--stone); }
+  .pincode-row { display: flex; gap: 8px; }
+  .pincode-input {
+    flex: 1; border: 1px solid var(--stone-light);
+    border-radius: var(--radius-sm);
+    padding: 10px 14px; font-size: 13px;
+    background: white; outline: none;
+    transition: border-color .2s;
+    font-family: 'DM Mono', monospace;
+  }
+  .pincode-input:focus { border-color: var(--forest); }
+  .check-btn {
+    background: var(--forest); color: white;
+    border: none; padding: 10px 18px;
+    border-radius: var(--radius-sm); font-size: 13px; font-weight: 600; cursor: pointer;
+    transition: all .2s; font-family: 'DM Sans', sans-serif;
+  }
+  .check-btn:hover { background: var(--clay); }
+  .delivery-result { display: none; flex-direction: column; gap: 8px; animation: slideDown .3s ease; }
+  .delivery-result.visible { display: flex; }
+  .delivery-item { display: flex; align-items: center; gap: 10px; font-size: 13px; }
+  .delivery-item i { width: 16px; text-align: center; }
+  .del-free { color: var(--success); }
+  .del-express { color: var(--gold); }
+  .del-cod { color: var(--forest); }
+
+  /* Offers */
+  .offers-section { display: flex; flex-direction: column; gap: 10px; }
+  .offer-title { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--stone); }
+  .offer-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .offer-card {
+    background: white; border: 1px solid var(--stone-light);
+    border-radius: var(--radius-sm); padding: 12px;
+    display: flex; flex-direction: column; gap: 4px;
+  }
+  .offer-card-icon { font-size: 18px; }
+  .offer-card h4 { font-size: 12px; font-weight: 600; color: var(--ink); }
+  .offer-card p { font-size: 11px; color: var(--stone); line-height: 1.4; }
+
+  /* Trust badges */
+  .trust-strip {
+    display: flex; gap: 0; overflow: hidden;
+    border: 1px solid var(--stone-light);
+    border-radius: var(--radius); background: white;
+  }
+  .trust-item {
+    flex: 1; padding: 14px 10px;
+    display: flex; flex-direction: column; align-items: center; gap: 6px;
+    font-size: 11px; text-align: center; color: var(--stone);
+    border-right: 1px solid var(--stone-light);
+    transition: background .2s;
+  }
+  .trust-item:last-child { border-right: none; }
+  .trust-item:hover { background: var(--stone-light); }
+  .trust-item i { font-size: 18px; color: var(--forest); }
+  .trust-item strong { display: block; color: var(--ink); font-size: 12px; }
+
+  /* ── TABS ────────────────────────────────── */
+  .tabs-section {
+    max-width: 1280px; margin: 0 auto;
+    padding: 0 32px 80px;
+  }
+  .tabs-nav {
+    display: flex; border-bottom: 2px solid var(--stone-light);
+    margin-bottom: 32px; gap: 0; overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .tabs-nav::-webkit-scrollbar { display: none; }
+  .tab-btn {
+    padding: 14px 24px; border: none; background: none;
+    font-size: 14px; font-weight: 500; color: var(--stone);
+    cursor: pointer; transition: all .2s; white-space: nowrap;
+    border-bottom: 2px solid transparent; margin-bottom: -2px;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .tab-btn:hover { color: var(--clay); }
+  .tab-btn.active { color: var(--clay); border-bottom-color: var(--clay); font-weight: 600; }
+  .tab-panel { display: none; animation: slideDown .3s ease; }
+  .tab-panel.active { display: block; }
+
+  /* Description */
+  .desc-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 32px; }
+  .desc-text { font-size: 15px; line-height: 1.8; color: #444; }
+  .desc-text h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px; font-weight: 500; color: var(--ink);
+    margin-bottom: 12px;
+  }
+  .desc-text p + p { margin-top: 14px; }
+  .feature-list { display: flex; flex-direction: column; gap: 10px; margin-top: 16px; }
+  .feature-item { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; }
+  .feature-item i { color: var(--clay); margin-top: 2px; flex-shrink: 0; }
+  .spec-card {
+    background: white; border: 1px solid var(--stone-light);
+    border-radius: var(--radius); padding: 20px;
+    display: flex; flex-direction: column; gap: 0;
+    align-self: start;
+  }
+  .spec-row {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    padding: 12px 0; border-bottom: 1px solid var(--stone-light);
+    font-size: 13px; gap: 12px;
+  }
+  .spec-row:last-child { border-bottom: none; }
+  .spec-key { color: var(--stone); flex-shrink: 0; }
+  .spec-val { font-weight: 500; text-align: right; }
+
+  /* Specs tab */
+  .specs-full { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .spec-group { background: white; border: 1px solid var(--stone-light); border-radius: var(--radius); overflow: hidden; }
+  .spec-group-title { padding: 12px 16px; background: var(--forest); color: white; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+  .spec-group-body .spec-row { padding: 10px 16px; }
+
+  /* Reviews */
+  .reviews-header { display: grid; grid-template-columns: auto 1fr auto; gap: 32px; align-items: start; margin-bottom: 32px; }
+  .review-summary-big {
+    display: flex; flex-direction: column; align-items: center; gap: 4px;
+    background: white; border: 1px solid var(--stone-light);
+    border-radius: var(--radius); padding: 24px 32px;
+  }
+  .big-score {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 56px; font-weight: 300; color: var(--forest); line-height: 1;
+  }
+  .rating-bars { flex: 1; display: flex; flex-direction: column; gap: 8px; }
+  .rating-bar-row { display: flex; align-items: center; gap: 10px; font-size: 12px; }
+  .bar-track { flex: 1; height: 6px; background: var(--stone-light); border-radius: 3px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 3px; background: var(--gold); transition: width 1s ease; }
+  .review-sort {
+    border: 1px solid var(--stone-light); border-radius: var(--radius-sm);
+    padding: 8px 14px; font-size: 13px; cursor: pointer;
+    background: white; color: var(--ink); align-self: flex-start;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .review-cards { display: flex; flex-direction: column; gap: 16px; }
+  .review-card {
+    background: white; border: 1px solid var(--stone-light);
+    border-radius: var(--radius); padding: 20px;
+  }
+  .review-card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
+  .reviewer-name { font-weight: 600; font-size: 14px; }
+  .review-date { font-size: 12px; color: var(--stone); }
+  .review-body { font-size: 14px; line-height: 1.7; color: #555; }
+  .review-photos { display: flex; gap: 8px; margin-top: 12px; }
+  .review-photo {
+    width: 72px; height: 72px; border-radius: 8px;
+    object-fit: cover; cursor: pointer;
+    transition: transform .2s;
+  }
+  .review-photo:hover { transform: scale(1.05); }
+  .helpful-row { display: flex; align-items: center; gap: 8px; margin-top: 12px; font-size: 12px; color: var(--stone); }
+  .helpful-btn {
+    border: 1px solid var(--stone-light); background: none;
+    padding: 4px 10px; border-radius: var(--radius-pill);
+    font-size: 12px; cursor: pointer; transition: all .2s;
+    font-family: 'DM Sans', sans-serif; color: var(--stone);
+  }
+  .helpful-btn:hover { border-color: var(--clay); color: var(--clay); }
+
+  /* FBT */
+  .fbt-section { margin-bottom: 48px; }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px; font-weight: 500; margin-bottom: 20px; color: var(--ink);
+  }
+  .fbt-row { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+  .fbt-card {
+    display: flex; flex-direction: column; gap: 8px;
+    padding: 12px; background: white;
+    border: 1.5px solid var(--stone-light);
+    border-radius: var(--radius); cursor: pointer; transition: all .2s;
+    width: 150px; flex-shrink: 0;
+  }
+  .fbt-card.selected { border-color: var(--clay); background: var(--clay-light); }
+  .fbt-card:hover { border-color: var(--clay); transform: translateY(-2px); }
+  .fbt-card img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 8px; }
+  .fbt-card-name { font-size: 12px; font-weight: 500; line-height: 1.3; }
+  .fbt-card-price { font-size: 13px; font-weight: 700; color: var(--forest); }
+  .fbt-plus { font-size: 24px; color: var(--stone); }
+  .fbt-total {
+    background: var(--forest); color: white;
+    border: none; padding: 14px 24px; border-radius: var(--radius-sm);
+    font-size: 14px; font-weight: 600; cursor: pointer;
+    transition: all .2s; font-family: 'DM Sans', sans-serif;
+    margin-top: 12px; display: inline-flex; align-items: center; gap: 8px;
+  }
+  .fbt-total:hover { background: var(--clay); transform: translateY(-1px); }
+
+  /* Similar products */
+  .similar-scroll { display: flex; gap: 16px; overflow-x: auto; padding-bottom: 12px; scrollbar-width: none; }
+  .similar-scroll::-webkit-scrollbar { display: none; }
+  .product-card {
+    flex: 0 0 200px;
+    background: white; border: 1px solid var(--stone-light);
+    border-radius: var(--radius); overflow: hidden;
+    transition: all .25s; cursor: pointer;
+  }
+  .product-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+  .product-card img { width: 100%; aspect-ratio: 4/5; object-fit: cover; }
+  .product-card-body { padding: 12px; display: flex; flex-direction: column; gap: 4px; }
+  .product-card-name { font-size: 13px; font-weight: 500; line-height: 1.3; }
+  .product-card-price { font-size: 14px; font-weight: 700; color: var(--forest); }
+  .product-card-mrp { font-size: 11px; color: var(--stone); text-decoration: line-through; }
+  .product-card-stars { font-size: 11px; color: var(--gold); }
+
+  /* ── URGENCY TIMER ──── */
+  .urgency-banner {
+    background: linear-gradient(135deg, var(--clay), #a0523a);
+    color: white; padding: 10px 18px;
+    border-radius: var(--radius-sm);
+    display: flex; align-items: center; gap: 10px;
+    font-size: 13px;
+  }
+  .timer-parts { display: flex; gap: 4px; align-items: center; font-family: 'DM Mono', monospace; }
+  .timer-box {
+    background: rgba(255,255,255,.2); padding: 4px 8px;
+    border-radius: 6px; font-size: 16px; font-weight: 700; min-width: 36px; text-align: center;
+  }
+
+  /* ── STICKY MOBILE BAR ─────── */
+  .sticky-mobile {
+    display: none;
+    position: fixed; bottom: 0; left: 0; right: 0;
+    background: white; border-top: 1px solid var(--stone-light);
+    padding: 12px 16px;
+    z-index: 200;
+    gap: 10px;
+    box-shadow: 0 -4px 20px rgba(0,0,0,.1);
+  }
+
+  /* ── TOAST ──────────── */
+  .toast {
+    position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%) translateY(20px);
+    background: var(--ink); color: white;
+    padding: 12px 20px; border-radius: var(--radius-pill);
+    font-size: 13px; font-weight: 500;
+    opacity: 0; transition: all .3s; z-index: 999;
+    pointer-events: none; white-space: nowrap;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  .toast.success { background: var(--success); }
+  .toast.error { background: var(--danger); }
+
+  /* ── SHARE POPUP ──────── */
+  .share-popup {
+    display: none; position: absolute; right: 0; top: calc(100% + 8px);
+    background: white; border: 1px solid var(--stone-light);
+    border-radius: var(--radius); box-shadow: var(--shadow-md);
+    padding: 8px; z-index: 300; min-width: 160px;
+  }
+  .share-popup.open { display: block; animation: slideDown .2s ease; }
+  .share-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 12px; border-radius: var(--radius-sm);
+    cursor: pointer; font-size: 13px; transition: background .2s;
+    border: none; background: none; width: 100%; text-align: left;
+    font-family: 'DM Sans', sans-serif; color: var(--ink);
+  }
+  .share-item:hover { background: var(--stone-light); }
+  .share-item i { color: var(--clay); width: 16px; }
+
+  /* ── RESPONSIVE ───── */
+  @media (max-width: 900px) {
+    .product-page { grid-template-columns: 1fr; padding: 0 16px 100px; gap: 24px; }
+    .gallery-col { position: static; }
+    .desc-grid { grid-template-columns: 1fr; }
+    .specs-full { grid-template-columns: 1fr; }
+    .reviews-header { grid-template-columns: 1fr; }
+    .offer-cards { grid-template-columns: 1fr; }
+    .tabs-section { padding: 0 16px 80px; }
+    .breadcrumb { padding: 12px 16px; }
+    nav { padding: 0 16px; }
+    .sticky-mobile { display: flex; }
+    .qty-row { display: none; }
+    .cta-add, .cta-buy { flex: 1; height: 46px; font-size: 14px; }
+  }
+
+  /* ── ANIMATIONS ───── */
+  @keyframes cartBounce {
+    0%,100%{transform:scale(1)} 30%{transform:scale(1.3)} 60%{transform:scale(.9)} 80%{transform:scale(1.1)}
+  }
+  .cart-anim { animation: cartBounce .5s ease; }
+
+  .fade-in { animation: fadeIn .4s ease; }
+  @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Arte<span>zo</span></div>
+  <div class="nav-actions">
+    <button class="nav-icon-btn" title="Search"><i class="fa-solid fa-magnifying-glass"></i></button>
+    <button class="nav-icon-btn" title="Wishlist"><i class="fa-regular fa-heart"></i></button>
+    <button class="nav-icon-btn" id="navCartBtn" title="Cart">
+      <i class="fa-solid fa-bag-shopping"></i>
+      <span class="cart-badge" id="cartBadge">0</span>
+    </button>
+  </div>
+</nav>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <a href="#">Home</a>
+  <i class="fa-solid fa-chevron-right" style="font-size:9px"></i>
+  <a href="#">Planters</a>
+  <i class="fa-solid fa-chevron-right" style="font-size:9px"></i>
+  <a href="#">Stands</a>
+  <i class="fa-solid fa-chevron-right" style="font-size:9px"></i>
+  <span>Zando Planter Stand</span>
+</div>
+
+<!-- MAIN -->
+<div class="product-page">
+
+  <!-- LEFT: Gallery -->
+  <div class="gallery-col">
+    <div class="main-image-wrap">
+      <img id="mainImage" src="https://placehold.co/700x880/e8e0d5/2d4a35?text=Zando+Planter+Stand" alt="Zando Planter Stand">
+      <div class="img-badge">Handcrafted</div>
+      <div class="img-badge-stock">
+        <span class="stock-dot"></span>
+        Only 6 left
+      </div>
+    </div>
+    <div class="thumbnail-row">
+      <div class="thumb active" onclick="switchThumb(this, 'https://placehold.co/700x880/e8e0d5/2d4a35?text=Front+View')">
+        <img src="https://placehold.co/200x200/e8e0d5/2d4a35?text=Front" alt="">
+      </div>
+      <div class="thumb" onclick="switchThumb(this, 'https://placehold.co/700x880/4a3c31/ffffff?text=Detail+View')">
+        <img src="https://placehold.co/200x200/4a3c31/ffffff?text=Detail" alt="">
+      </div>
+      <div class="thumb" onclick="switchThumb(this, 'https://placehold.co/700x880/f5f0e8/033E59?text=Lifestyle')">
+        <img src="https://placehold.co/200x200/f5f0e8/033E59?text=Lifestyle" alt="">
+      </div>
+      <div class="thumb" onclick="switchThumb(this, 'https://placehold.co/700x880/d6e8f9/1a1714?text=Room+View')">
+        <img src="https://placehold.co/200x200/d6e8f9/1a1714?text=Room" alt="">
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT: Info -->
+  <div class="info-col">
+    
+    <div class="brand-tag"><i class="fa-solid fa-leaf"></i> Artezo · Handcrafted Collection</div>
+
+    <div>
+      <h1 class="product-title">Zando Planter Stand</h1>
+      <p class="tagline">Elevate your greens — artisan-crafted from sustainably sourced teak</p>
+    </div>
+
+    <!-- Ratings -->
+    <div class="rating-row">
+      <div class="stars">
+        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+        <i class="fa-regular fa-star-half-stroke"></i>
+      </div>
+      <span class="rating-score">4.3</span>
+      <a class="review-count" href="#reviews" onclick="openTab('reviews')">124 reviews</a>
+      <span class="verified-badge"><i class="fa-solid fa-circle-check"></i> Authentic Product</span>
+    </div>
+
+    <hr class="divider">
+
+    <!-- Price -->
+    <div class="price-section">
+      <div class="price-main">
+        <span class="price-current" id="currentPrice">₹6,599</span>
+        <span class="price-mrp" id="mrpPrice">₹15,899</span>
+        <span class="discount-badge" id="discountBadge">58% OFF</span>
+      </div>
+      <div class="savings-note">You save ₹9,300 on this order!</div>
+      <div class="tax-note">Inclusive of all taxes &nbsp;·&nbsp; <strong>Free shipping</strong> across India</div>
+      <div class="emi-row">
+        <i class="fa-solid fa-credit-card" style="color:var(--forest)"></i>
+        EMI from <strong>₹550/month</strong> &nbsp;·&nbsp; No Cost EMI available
+        &nbsp;<a href="#" style="color:var(--clay);font-size:12px">View plans</a>
+      </div>
+    </div>
+
+    <!-- Urgency Timer -->
+    <div class="urgency-banner">
+      <i class="fa-solid fa-bolt"></i>
+      <span><strong>Deal ends in</strong></span>
+      <div class="timer-parts">
+        <div class="timer-box" id="tH">02</div>:<div class="timer-box" id="tM">45</div>:<div class="timer-box" id="tS">12</div>
+      </div>
+      <span style="opacity:.8;font-size:12px">· Limited stock deal</span>
+    </div>
+
+    <hr class="divider">
+
+    <!-- Variants -->
+    <div class="variant-group">
+      <div class="variant-label">Size</div>
+      <div class="variant-options" id="sizeOptions">
+        <button class="size-btn" data-size="S" data-price="4999" onclick="selectSize(this)">S (14")</button>
+        <button class="size-btn active" data-size="M" data-price="6599" onclick="selectSize(this)">M (18")</button>
+        <button class="size-btn" data-size="L" data-price="8499" onclick="selectSize(this)">L (22")</button>
+        <button class="size-btn disabled" data-size="XL" onclick="selectSize(this)">XL (26") — OOS</button>
+      </div>
+    </div>
+
+    <div class="variant-group">
+      <div class="variant-label">Color</div>
+      <div class="variant-options" style="align-items:center;gap:12px">
+        <button class="color-swatch active" style="background:#8B6B4D"
+          data-img="https://placehold.co/700x880/e8e0d5/2d4a35?text=Natural+Teak"
+          data-color="Natural Teak" onclick="selectColor(this)" title="Natural Teak"></button>
+        <button class="color-swatch" style="background:#4a3c31"
+          data-img="https://placehold.co/700x880/4a3c31/ffffff?text=Walnut+Finish"
+          data-color="Walnut" onclick="selectColor(this)" title="Walnut"></button>
+        <button class="color-swatch" style="background:#e8e0d5;border:1px solid #ccc"
+          data-img="https://placehold.co/700x880/f5f0e8/1a1714?text=Whitewash"
+          data-color="Whitewash" onclick="selectColor(this)" title="Whitewash"></button>
+      </div>
+      <div class="color-name" id="colorName">Color: Natural Teak</div>
+    </div>
+
+    <!-- Design -->
+    <div class="design-section">
+      <div class="design-label">Design Pattern</div>
+      <div class="design-grid" id="designGrid">
+        <div class="design-card" onclick="selectDesign(this,'Abstract Fuse')">
+          <img src="https://placehold.co/80x80/f0d9c8/c4704a?text=AF" alt="Abstract Fuse">
+          <span>Abstract Fuse</span>
+        </div>
+        <div class="design-card" onclick="selectDesign(this,'Umbrella')">
+          <img src="https://placehold.co/80x80/cce0cc/2d4a35?text=UM" alt="Umbrella">
+          <span>Umbrella</span>
+        </div>
+        <div class="design-card active" onclick="selectDesign(this,'Abstract Moor')">
+          <img src="https://placehold.co/80x80/d9cfc5/4a3c31?text=AM" alt="Abstract Moor">
+          <span>Abstract Moor ✓</span>
+        </div>
+        <div class="design-card" onclick="selectDesign(this,'Butterfly')">
+          <img src="https://placehold.co/80x80/e8d5e8/6b4a6b?text=BF" alt="Butterfly">
+          <span>Butterfly</span>
+        </div>
+        <div class="design-card" onclick="selectDesign(this,'Flow')">
+          <img src="https://placehold.co/80x80/c8d9e8/1a3c5a?text=FL" alt="Flow">
+          <span>Flow</span>
+        </div>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- Quantity + CTA -->
+    <div class="qty-row">
+      <div class="qty-control">
+        <button class="qty-btn" onclick="changeQty(-1)">−</button>
+        <span class="qty-display" id="qtyDisplay">1</span>
+        <button class="qty-btn" onclick="changeQty(1)">+</button>
+      </div>
+      <button class="cta-add" onclick="addToCart()">
+        <i class="fa-solid fa-bag-shopping"></i> Add to Cart
+      </button>
+      <button class="cta-buy" onclick="buyNow()">
+        <i class="fa-solid fa-bolt"></i> Buy Now
+      </button>
+    </div>
+
+    <!-- Secondary actions -->
+    <div class="secondary-actions">
+      <button class="sec-btn" id="wishlistBtn" onclick="toggleWishlist(this)">
+        <i class="fa-regular fa-heart"></i> Wishlist
+      </button>
+      <div style="position:relative">
+        <button class="sec-btn" onclick="toggleShare()">
+          <i class="fa-solid fa-share-nodes"></i> Share
+        </button>
+        <div class="share-popup" id="sharePopup">
+          <button class="share-item" onclick="copyLink()"><i class="fa-solid fa-link"></i> Copy link</button>
+          <button class="share-item"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
+          <button class="share-item"><i class="fa-brands fa-twitter"></i> Twitter</button>
+          <button class="share-item"><i class="fa-solid fa-envelope"></i> Email</button>
+        </div>
+      </div>
+      <button class="sec-btn">
+        <i class="fa-solid fa-arrows-left-right"></i> Compare
+      </button>
+    </div>
+
+    <hr class="divider">
+
+    <!-- Coupon -->
+    <div class="coupon-section">
+      <div class="coupon-header" onclick="toggleCoupon()">
+        <div class="coupon-header-left">
+          <i class="fa-solid fa-tag"></i>
+          <span>Apply Coupon</span>
+          <span id="couponAppliedIndicator" style="display:none;font-size:11px;color:var(--success);font-weight:600">· 1 Applied</span>
+        </div>
+        <i class="fa-solid fa-chevron-down" id="couponChevron" style="font-size:11px;color:var(--stone);transition:transform .2s"></i>
+      </div>
+      <div class="coupon-body" id="couponBody">
+        <div class="coupon-applied-tag" id="couponAppliedTag">
+          <i class="fa-solid fa-circle-check"></i>
+          <span id="couponAppliedText">Coupon applied!</span>
+          <button class="remove-coupon" onclick="removeCoupon()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div id="couponInputSection">
+          <div class="coupon-input-row">
+            <input class="coupon-input" id="couponInput" placeholder="ENTER CODE" maxlength="20">
+            <button class="apply-btn" onclick="applyManualCoupon()">Apply</button>
+          </div>
+          <div style="font-size:12px;color:var(--stone);margin-top:8px">Available coupons for you:</div>
+          <div class="coupon-card">
+            <div class="coupon-card-left">
+              <span class="coupon-code">WELCOME15</span>
+              <span class="coupon-desc">15% off · max ₹200 savings</span>
+            </div>
+            <button class="coupon-apply-btn" onclick="applyCoupon('WELCOME15','15% off – ₹200 saved')">Apply</button>
+          </div>
+          <div class="coupon-card">
+            <div class="coupon-card-left">
+              <span class="coupon-code">PLANT500</span>
+              <span class="coupon-desc">Flat ₹500 off on all planters</span>
+            </div>
+            <button class="coupon-apply-btn" onclick="applyCoupon('PLANT500','₹500 off applied')">Apply</button>
+          </div>
+          <div class="coupon-card">
+            <div class="coupon-card-left">
+              <span class="coupon-code">HOMEDECOR20</span>
+              <span class="coupon-desc">20% off home décor orders</span>
+            </div>
+            <button class="coupon-apply-btn" onclick="applyCoupon('HOMEDECOR20','20% off applied')">Apply</button>
+          </div>
+          <div class="coupon-card">
+            <div class="coupon-card-left">
+              <span class="coupon-code">FESTIVE10</span>
+              <span class="coupon-desc">Extra 10% off · min ₹5,000</span>
+            </div>
+            <button class="coupon-apply-btn" onclick="applyCoupon('FESTIVE10','Extra 10% off applied')">Apply</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Delivery checker -->
+    <div class="delivery-card">
+      <div class="delivery-title"><i class="fa-solid fa-truck" style="color:var(--forest)"></i> &nbsp;Delivery Details</div>
+      <div class="pincode-row">
+        <input class="pincode-input" id="pincodeInput" placeholder="Enter pincode" maxlength="6">
+        <button class="check-btn" onclick="checkDelivery()">Check</button>
+      </div>
+      <div class="delivery-result" id="deliveryResult">
+        <div class="delivery-item del-free">
+          <i class="fa-solid fa-circle-check"></i>
+          <span>Free Delivery by <strong id="deliveryDate">Fri, Feb 21</strong></span>
+        </div>
+        <div class="delivery-item del-express">
+          <i class="fa-solid fa-bolt"></i>
+          <span>Express delivery available — tomorrow for <strong>₹99</strong></span>
+        </div>
+        <div class="delivery-item del-cod">
+          <i class="fa-solid fa-money-bill-wave"></i>
+          <span>Cash on Delivery available</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Offers -->
+    <div class="offers-section">
+      <div class="offer-title"><i class="fa-solid fa-fire-flame-curved" style="color:var(--clay)"></i> &nbsp;Available Offers</div>
+      <div class="offer-cards">
+        <div class="offer-card">
+          <div class="offer-card-icon">🏦</div>
+          <h4>Bank Offer</h4>
+          <p>10% off up to ₹1,000 with HDFC Credit Cards</p>
+        </div>
+        <div class="offer-card">
+          <div class="offer-card-icon">📅</div>
+          <h4>No Cost EMI</h4>
+          <p>0% interest EMI on orders above ₹3,000</p>
+        </div>
+        <div class="offer-card">
+          <div class="offer-card-icon">🎁</div>
+          <h4>Bundle Offer</h4>
+          <p>Buy 2 planters, get 12% off automatically</p>
+        </div>
+        <div class="offer-card">
+          <div class="offer-card-icon">🌿</div>
+          <h4>Eco Cashback</h4>
+          <p>₹150 Artezo credits on first green purchase</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Trust badges -->
+    <div class="trust-strip">
+      <div class="trust-item">
+        <i class="fa-solid fa-shield-halved"></i>
+        <div><strong>Secure Payment</strong>256-bit SSL</div>
+      </div>
+      <div class="trust-item">
+        <i class="fa-solid fa-rotate-left"></i>
+        <div><strong>7-Day Returns</strong>Hassle free</div>
+      </div>
+      <div class="trust-item">
+        <i class="fa-solid fa-leaf"></i>
+        <div><strong>Sustainably Made</strong>FSC Certified</div>
+      </div>
+      <div class="trust-item">
+        <i class="fa-solid fa-headset"></i>
+        <div><strong>24/7 Support</strong>Always here</div>
+      </div>
+    </div>
+
+  </div><!-- /info-col -->
+</div><!-- /product-page -->
+
+<!-- ═══════════ TABS ══════════════ -->
+<div class="tabs-section" id="reviews">
+  <div class="tabs-nav">
+    <button class="tab-btn active" onclick="openTab('description',this)">Description</button>
+    <button class="tab-btn" onclick="openTab('specs',this)">Specifications</button>
+    <button class="tab-btn" onclick="openTab('reviews',this)">Reviews (124)</button>
+    <button class="tab-btn" onclick="openTab('shipping',this)">Shipping & Returns</button>
+  </div>
+
+  <!-- Description -->
+  <div class="tab-panel active" id="tab-description">
+    <div class="desc-grid">
+      <div class="desc-text">
+        <h3>The Zando — Where Craft Meets Nature</h3>
+        <p>The Zando Planter Stand is a celebration of slow-made goods. Each piece is hand-shaped by artisans in Rajasthan, using sustainably harvested teak that only gets more beautiful with time. No two stands are exactly alike — slight grain variations and tonal differences are the hallmark of genuine handcraft.</p>
+        <p>Designed to cradle pots from 6" to 10" diameter, the Zando elevates your indoor or balcony garden with quiet elegance. Its tripod silhouette keeps it grounded while its turned legs add a sculptural quality rarely found at this price point.</p>
+        <div class="feature-list">
+          <div class="feature-item"><i class="fa-solid fa-seedling"></i><span>Sustainably sourced, FSC-certified teak wood — durable for indoor & sheltered outdoor use</span></div>
+          <div class="feature-item"><i class="fa-solid fa-paintbrush"></i><span>Hand-finished with natural beeswax oil — no synthetic lacquers or harmful solvents</span></div>
+          <div class="feature-item"><i class="fa-solid fa-ruler-combined"></i><span>Medium (18") stands at 46cm height — ideal for large floor pots and trailing plants</span></div>
+          <div class="feature-item"><i class="fa-solid fa-weight-hanging"></i><span>Load capacity up to 8kg — suitable for most terracotta and ceramic planters</span></div>
+          <div class="feature-item"><i class="fa-solid fa-box-open"></i><span>Arrives fully assembled, gift-ready in FSC-certified packaging</span></div>
+        </div>
+      </div>
+      <div class="spec-card">
+        <div style="font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:var(--stone);margin-bottom:8px">Quick Specs</div>
+        <div class="spec-row"><span class="spec-key">Material</span><span class="spec-val">Teak Wood</span></div>
+        <div class="spec-row"><span class="spec-key">Height</span><span class="spec-val">46 cm (M)</span></div>
+        <div class="spec-row"><span class="spec-key">Pot Dia.</span><span class="spec-val">Up to 25 cm</span></div>
+        <div class="spec-row"><span class="spec-key">Max Load</span><span class="spec-val">8 kg</span></div>
+        <div class="spec-row"><span class="spec-key">Finish</span><span class="spec-val">Beeswax Oil</span></div>
+        <div class="spec-row"><span class="spec-key">Assembly</span><span class="spec-val">Pre-assembled</span></div>
+        <div class="spec-row"><span class="spec-key">Use</span><span class="spec-val">Indoor / Covered Outdoor</span></div>
+        <div class="spec-row"><span class="spec-key">Origin</span><span class="spec-val">Rajasthan, India</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Specs -->
+  <div class="tab-panel" id="tab-specs">
+    <div class="specs-full">
+      <div class="spec-group">
+        <div class="spec-group-title">Dimensions & Weight</div>
+        <div class="spec-group-body">
+          <div class="spec-row"><span class="spec-key">Height (M)</span><span class="spec-val">46 cm</span></div>
+          <div class="spec-row"><span class="spec-key">Height (S)</span><span class="spec-val">36 cm</span></div>
+          <div class="spec-row"><span class="spec-key">Height (L)</span><span class="spec-val">56 cm</span></div>
+          <div class="spec-row"><span class="spec-key">Base Diameter</span><span class="spec-val">32 cm</span></div>
+          <div class="spec-row"><span class="spec-key">Top Opening</span><span class="spec-val">Up to 25 cm</span></div>
+          <div class="spec-row"><span class="spec-key">Net Weight</span><span class="spec-val">1.4 kg</span></div>
+          <div class="spec-row"><span class="spec-key">Max Load</span><span class="spec-val">8 kg</span></div>
+        </div>
+      </div>
+      <div class="spec-group">
+        <div class="spec-group-title">Material & Finish</div>
+        <div class="spec-group-body">
+          <div class="spec-row"><span class="spec-key">Primary Material</span><span class="spec-val">Solid Teak Wood</span></div>
+          <div class="spec-row"><span class="spec-key">Wood Grade</span><span class="spec-val">Grade A (Heartwood)</span></div>
+          <div class="spec-row"><span class="spec-key">Certification</span><span class="spec-val">FSC Certified</span></div>
+          <div class="spec-row"><span class="spec-key">Surface Finish</span><span class="spec-val">Beeswax + Linseed Oil</span></div>
+          <div class="spec-row"><span class="spec-key">Water Resistance</span><span class="spec-val">Moderate (sealed)</span></div>
+          <div class="spec-row"><span class="spec-key">UV Stability</span><span class="spec-val">High (natural teak)</span></div>
+        </div>
+      </div>
+      <div class="spec-group">
+        <div class="spec-group-title">Packaging</div>
+        <div class="spec-group-body">
+          <div class="spec-row"><span class="spec-key">Package Type</span><span class="spec-val">Gift Box</span></div>
+          <div class="spec-row"><span class="spec-key">Package Material</span><span class="spec-val">FSC Recycled Board</span></div>
+          <div class="spec-row"><span class="spec-key">Assembly Required</span><span class="spec-val">No (Pre-assembled)</span></div>
+          <div class="spec-row"><span class="spec-key">Care Card Included</span><span class="spec-val">Yes</span></div>
+        </div>
+      </div>
+      <div class="spec-group">
+        <div class="spec-group-title">Usage & Care</div>
+        <div class="spec-group-body">
+          <div class="spec-row"><span class="spec-key">Indoor Use</span><span class="spec-val">Yes</span></div>
+          <div class="spec-row"><span class="spec-key">Outdoor Use</span><span class="spec-val">Covered only</span></div>
+          <div class="spec-row"><span class="spec-key">Cleaning</span><span class="spec-val">Dry cloth / mild soap</span></div>
+          <div class="spec-row"><span class="spec-key">Re-oiling</span><span class="spec-val">Once a year</span></div>
+          <div class="spec-row"><span class="spec-key">Warranty</span><span class="spec-val">1 Year (Structural)</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Reviews -->
+  <div class="tab-panel" id="tab-reviews">
+    <div class="reviews-header">
+      <div class="review-summary-big">
+        <div class="big-score">4.3</div>
+        <div class="stars" style="font-size:16px">
+          <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+          <i class="fa-regular fa-star-half-stroke"></i>
+        </div>
+        <div style="font-size:12px;color:var(--stone);margin-top:4px">124 verified reviews</div>
+      </div>
+      <div class="rating-bars">
+        <div class="rating-bar-row"><span>5★</span><div class="bar-track"><div class="bar-fill" style="width:62%"></div></div><span>77</span></div>
+        <div class="rating-bar-row"><span>4★</span><div class="bar-track"><div class="bar-fill" style="width:20%"></div></div><span>25</span></div>
+        <div class="rating-bar-row"><span>3★</span><div class="bar-track"><div class="bar-fill" style="width:9%"></div></div><span>11</span></div>
+        <div class="rating-bar-row"><span>2★</span><div class="bar-track"><div class="bar-fill" style="width:5%"></div></div><span>6</span></div>
+        <div class="rating-bar-row"><span>1★</span><div class="bar-track"><div class="bar-fill" style="width:4%"></div></div><span>5</span></div>
+      </div>
+      <select class="review-sort">
+        <option>Most Recent</option>
+        <option>Highest Rated</option>
+        <option>Lowest Rated</option>
+        <option>With Photos</option>
+      </select>
+    </div>
+    <div class="review-cards">
+      <div class="review-card">
+        <div class="review-card-top">
+          <div>
+            <div class="reviewer-name">Priya Nair <span class="verified-badge" style="margin-left:8px;font-size:10px"><i class="fa-solid fa-circle-check"></i> Verified Purchase</span></div>
+            <div class="stars" style="font-size:12px;margin-top:4px"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+          </div>
+          <div class="review-date">Feb 12, 2026</div>
+        </div>
+        <div class="review-body">Absolutely love this planter stand! The quality of the teak is exceptional — it feels solid and looks even better in person. The Natural Teak color pairs beautifully with my terracotta pots. Delivered in 3 days, packaging was eco-friendly and secure.</div>
+        <div class="review-photos">
+          <img class="review-photo" src="https://placehold.co/72x72/e8e0d5/2d4a35?text=📸" alt="">
+          <img class="review-photo" src="https://placehold.co/72x72/c8d9c8/2d4a35?text=🌿" alt="">
+        </div>
+        <div class="helpful-row">
+          Was this helpful? <button class="helpful-btn" onclick="helpful(this)">👍 Yes (18)</button>
+          <button class="helpful-btn">👎 No</button>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-card-top">
+          <div>
+            <div class="reviewer-name">Rohan Mehta <span class="verified-badge" style="margin-left:8px;font-size:10px"><i class="fa-solid fa-circle-check"></i> Verified Purchase</span></div>
+            <div class="stars" style="font-size:12px;margin-top:4px"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i></div>
+          </div>
+          <div class="review-date">Jan 29, 2026</div>
+        </div>
+        <div class="review-body">Good quality stand, arrived well-packed. The walnut finish is darker than the photos suggest — more of a dark chocolate than walnut, but looks stunning. Sturdy enough for my monstera in a 10" ceramic pot. Took off one star only because the finish had a very slight rough patch on one leg.</div>
+        <div class="helpful-row">
+          Was this helpful? <button class="helpful-btn" onclick="helpful(this)">👍 Yes (7)</button>
+          <button class="helpful-btn">👎 No</button>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-card-top">
+          <div>
+            <div class="reviewer-name">Sneha Kulkarni <span class="verified-badge" style="margin-left:8px;font-size:10px"><i class="fa-solid fa-circle-check"></i> Verified Purchase</span></div>
+            <div class="stars" style="font-size:12px;margin-top:4px"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+          </div>
+          <div class="review-date">Jan 15, 2026</div>
+        </div>
+        <div class="review-body">Third Artezo product and they never disappoint. The Zando in whitewash is STUNNING — it photographs beautifully. My interior designer friend asked where I bought it. Gift box is premium, would make a great housewarming present!</div>
+        <div class="review-photos">
+          <img class="review-photo" src="https://placehold.co/72x72/f5f0e8/6b5a3e?text=✨" alt="">
+        </div>
+        <div class="helpful-row">
+          Was this helpful? <button class="helpful-btn" onclick="helpful(this)">👍 Yes (31)</button>
+          <button class="helpful-btn">👎 No</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Shipping -->
+  <div class="tab-panel" id="tab-shipping">
+    <div class="desc-grid">
+      <div class="desc-text">
+        <h3>Shipping & Returns</h3>
+        <p><strong>Standard Delivery:</strong> Free across India. Orders placed before 2 PM are dispatched the same day. Expected delivery in 3–5 business days to most metro cities, 5–7 days to other regions.</p>
+        <p><strong>Express Delivery:</strong> Available for ₹99. Delivered within 1–2 business days for most pincodes. Select during checkout.</p>
+        <p><strong>International Shipping:</strong> Available to 12 countries including UAE, UK, USA, Singapore, and Australia. Rates calculated at checkout. Duties and taxes applicable as per destination country.</p>
+        <p><strong>Returns Policy:</strong> We accept returns within 7 days of delivery for any product defects or damage. Items must be in original packaging. Handcrafted variations in wood grain and tonal differences are not eligible for returns as these are natural characteristics.</p>
+        <div class="feature-list">
+          <div class="feature-item"><i class="fa-solid fa-check"></i><span>Free standard delivery across India</span></div>
+          <div class="feature-item"><i class="fa-solid fa-check"></i><span>7-day return window for defects/damage</span></div>
+          <div class="feature-item"><i class="fa-solid fa-check"></i><span>Replacement or full refund — your choice</span></div>
+          <div class="feature-item"><i class="fa-solid fa-check"></i><span>1-year structural warranty from Artezo</span></div>
+          <div class="feature-item"><i class="fa-solid fa-check"></i><span>Carbon-neutral shipping via offset program</span></div>
+        </div>
+      </div>
+      <div class="spec-card" style="gap:12px">
+        <div style="font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:var(--stone)">Delivery Timeline</div>
+        <div class="spec-row"><span class="spec-key">Metro Cities</span><span class="spec-val">3–4 days</span></div>
+        <div class="spec-row"><span class="spec-key">Tier-2 Cities</span><span class="spec-val">4–6 days</span></div>
+        <div class="spec-row"><span class="spec-key">Remote Areas</span><span class="spec-val">6–9 days</span></div>
+        <div class="spec-row"><span class="spec-key">Express (add ₹99)</span><span class="spec-val">1–2 days</span></div>
+        <div class="spec-row"><span class="spec-key">International</span><span class="spec-val">7–14 days</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FBT -->
+  <div class="fbt-section" style="margin-top:48px">
+    <h2 class="section-title">Frequently Bought Together</h2>
+    <div class="fbt-row">
+      <div class="fbt-card selected" onclick="toggleFbt(this)">
+        <img src="https://placehold.co/140x140/e8e0d5/2d4a35?text=Zando+Stand" alt="">
+        <div class="fbt-card-name">Zando Planter Stand (M)</div>
+        <div class="fbt-card-price">₹6,599</div>
+      </div>
+      <div class="fbt-plus">+</div>
+      <div class="fbt-card selected" onclick="toggleFbt(this)">
+        <img src="https://placehold.co/140x140/c8d9c8/2d4a35?text=Terracotta+Pot" alt="">
+        <div class="fbt-card-name">Meru Terracotta Planter 8"</div>
+        <div class="fbt-card-price">₹1,299</div>
+      </div>
+      <div class="fbt-plus">+</div>
+      <div class="fbt-card selected" onclick="toggleFbt(this)">
+        <img src="https://placehold.co/140x140/e8d5e8/6b4a6b?text=Plant+Food" alt="">
+        <div class="fbt-card-name">Artezo Plant Nourish Kit</div>
+        <div class="fbt-card-price">₹599</div>
+      </div>
+    </div>
+    <div style="margin-top:16px;font-size:14px;color:var(--stone)">
+      Bundle total: <strong style="color:var(--forest);font-size:16px" id="bundleTotal">₹8,497</strong>
+      <span style="color:var(--clay);font-size:12px;margin-left:8px">Save ₹300 extra on bundle</span>
+    </div>
+    <button class="fbt-total" onclick="showToast('Bundle added to cart!','success')">
+      <i class="fa-solid fa-bag-shopping"></i> Add All to Cart
+    </button>
+  </div>
+
+  <!-- Similar -->
+  <div>
+    <h2 class="section-title">Similar Products</h2>
+    <div class="similar-scroll">
+      <div class="product-card">
+        <img src="https://placehold.co/200x250/e8e0d5/4a3c31?text=Mira+Stand" alt="">
+        <div class="product-card-body">
+          <div class="product-card-stars">★★★★☆</div>
+          <div class="product-card-name">Mira Bamboo Plant Stand</div>
+          <div class="product-card-price">₹4,299</div>
+          <div class="product-card-mrp">₹9,900</div>
+        </div>
+      </div>
+      <div class="product-card">
+        <img src="https://placehold.co/200x250/c8d9c8/2d4a35?text=Veda+Shelf" alt="">
+        <div class="product-card-body">
+          <div class="product-card-stars">★★★★★</div>
+          <div class="product-card-name">Veda Corner Shelf Stand</div>
+          <div class="product-card-price">₹7,999</div>
+          <div class="product-card-mrp">₹18,500</div>
+        </div>
+      </div>
+      <div class="product-card">
+        <img src="https://placehold.co/200x250/f0d9c8/c4704a?text=Okra+Stand" alt="">
+        <div class="product-card-body">
+          <div class="product-card-stars">★★★★☆</div>
+          <div class="product-card-name">Okra Macramé Hanger</div>
+          <div class="product-card-price">₹2,199</div>
+          <div class="product-card-mrp">₹4,500</div>
+        </div>
+      </div>
+      <div class="product-card">
+        <img src="https://placehold.co/200x250/e8d5e8/6b4a6b?text=Nila+Trio" alt="">
+        <div class="product-card-body">
+          <div class="product-card-stars">★★★★★</div>
+          <div class="product-card-name">Nila Tiered Plant Stand Set</div>
+          <div class="product-card-price">₹11,499</div>
+          <div class="product-card-mrp">₹24,000</div>
+        </div>
+      </div>
+      <div class="product-card">
+        <img src="https://placehold.co/200x250/d6e8f9/1a3c5a?text=Alto+Table" alt="">
+        <div class="product-card-body">
+          <div class="product-card-stars">★★★☆☆</div>
+          <div class="product-card-name">Alto Side Table with Tray</div>
+          <div class="product-card-price">₹5,799</div>
+          <div class="product-card-mrp">₹12,000</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STICKY MOBILE BAR -->
+<div class="sticky-mobile" id="stickyBar">
+  <button class="cta-add" style="font-size:13px;height:44px" onclick="addToCart()">
+    <i class="fa-solid fa-bag-shopping"></i> Add to Cart
+  </button>
+  <button class="cta-buy" style="font-size:13px;height:44px" onclick="buyNow()">
+    <i class="fa-solid fa-bolt"></i> Buy Now
+  </button>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ── TIMER ─────────────────────────────
+let totalSeconds = 2*3600 + 45*60 + 12;
+function updateTimer() {
+  const h = Math.floor(totalSeconds/3600);
+  const m = Math.floor((totalSeconds%3600)/60);
+  const s = totalSeconds%60;
+  document.getElementById('tH').textContent = String(h).padStart(2,'0');
+  document.getElementById('tM').textContent = String(m).padStart(2,'0');
+  document.getElementById('tS').textContent = String(s).padStart(2,'0');
+  if (totalSeconds > 0) totalSeconds--;
+}
+setInterval(updateTimer, 1000);
+updateTimer();
+
+// ── GALLERY ───────────────────────────
+function switchThumb(el, src) {
+  document.querySelectorAll('.thumb').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  const img = document.getElementById('mainImage');
+  img.style.opacity = '0';
+  setTimeout(() => { img.src = src; img.style.opacity = '1'; }, 200);
+}
+
+// ── SIZES ─────────────────────────────
+const sizePrices = { S: { price: '₹4,999', mrp: '₹11,500', disc: '57%', savings: '₹6,501' },
+                     M: { price: '₹6,599', mrp: '₹15,899', disc: '58%', savings: '₹9,300' },
+                     L: { price: '₹8,499', mrp: '₹19,999', disc: '57%', savings: '₹11,500' } };
+function selectSize(el) {
+  if (el.classList.contains('disabled')) return;
+  document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  const s = sizePrices[el.dataset.size];
+  if (s) {
+    document.getElementById('currentPrice').textContent = s.price;
+    document.getElementById('mrpPrice').textContent = s.mrp;
+    document.getElementById('discountBadge').textContent = s.disc + ' OFF';
+    document.querySelector('.savings-note').textContent = 'You save ' + s.savings + ' on this order!';
+  }
+}
+
+// ── COLORS ────────────────────────────
+function selectColor(el) {
+  document.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('colorName').textContent = 'Color: ' + el.dataset.color;
+  const img = document.getElementById('mainImage');
+  img.style.opacity = '0';
+  setTimeout(() => { img.src = el.dataset.img; img.style.opacity = '1'; }, 200);
+}
+
+// ── DESIGN ────────────────────────────
+function selectDesign(el, name) {
+  document.querySelectorAll('.design-card').forEach(c => {
+    c.classList.remove('active');
+    c.querySelector('span').textContent = c.querySelector('span').textContent.replace(' ✓','');
+  });
+  el.classList.add('active');
+  el.querySelector('span').textContent = name + ' ✓';
+}
+
+// ── QTY ───────────────────────────────
+let qty = 1;
+function changeQty(d) {
+  qty = Math.max(1, Math.min(10, qty + d));
+  document.getElementById('qtyDisplay').textContent = qty;
+}
+
+// ── CART ──────────────────────────────
+let cartCount = 0;
+function addToCart() {
+  cartCount++;
+  document.getElementById('cartBadge').textContent = cartCount;
+  document.getElementById('navCartBtn').classList.add('cart-anim');
+  setTimeout(() => document.getElementById('navCartBtn').classList.remove('cart-anim'), 500);
+  showToast('Added to cart! 🛍️', 'success');
+}
+function buyNow() { showToast('Redirecting to checkout...'); }
+
+// ── WISHLIST ──────────────────────────
+function toggleWishlist(btn) {
+  btn.classList.toggle('active');
+  const icon = btn.querySelector('i');
+  if (btn.classList.contains('active')) {
+    icon.className = 'fa-solid fa-heart'; icon.style.color = 'var(--clay)';
+    showToast('Added to wishlist ❤️', 'success');
+  } else {
+    icon.className = 'fa-regular fa-heart'; icon.style.color = '';
+    showToast('Removed from wishlist');
+  }
+}
+
+// ── SHARE ─────────────────────────────
+function toggleShare() {
+  document.getElementById('sharePopup').classList.toggle('open');
+}
+document.addEventListener('click', e => {
+  if (!e.target.closest('#sharePopup') && !e.target.closest('[onclick="toggleShare()"]')) {
+    document.getElementById('sharePopup').classList.remove('open');
+  }
+});
+function copyLink() {
+  navigator.clipboard?.writeText(window.location.href);
+  showToast('Link copied! 🔗', 'success');
+  document.getElementById('sharePopup').classList.remove('open');
+}
+
+// ── COUPON ────────────────────────────
+let couponOpen = false;
+let appliedCoupon = null;
+function toggleCoupon() {
+  couponOpen = !couponOpen;
+  const body = document.getElementById('couponBody');
+  const chev = document.getElementById('couponChevron');
+  if (couponOpen) { body.classList.add('open'); chev.style.transform = 'rotate(180deg)'; }
+  else { body.classList.remove('open'); chev.style.transform = ''; }
+}
+function applyCoupon(code, desc) {
+  appliedCoupon = code;
+  document.getElementById('couponAppliedTag').classList.add('visible');
+  document.getElementById('couponAppliedText').textContent = '✓ ' + code + ' — ' + desc;
+  document.getElementById('couponAppliedIndicator').style.display = 'inline';
+  document.getElementById('couponInputSection').style.display = 'none';
+  showToast('Coupon applied! ' + desc, 'success');
+}
+function applyManualCoupon() {
+  const val = document.getElementById('couponInput').value.trim().toUpperCase();
+  const codes = { 'WELCOME15':'15% off – ₹200 saved', 'PLANT500':'₹500 off applied', 'HOMEDECOR20':'20% off applied', 'FESTIVE10':'Extra 10% off applied' };
+  if (codes[val]) applyCoupon(val, codes[val]);
+  else showToast('Invalid coupon code', 'error');
+}
+function removeCoupon() {
+  appliedCoupon = null;
+  document.getElementById('couponAppliedTag').classList.remove('visible');
+  document.getElementById('couponAppliedIndicator').style.display = 'none';
+  document.getElementById('couponInputSection').style.display = 'block';
+  document.getElementById('couponInput').value = '';
+  showToast('Coupon removed');
+}
+
+// ── DELIVERY ──────────────────────────
+function checkDelivery() {
+  const pin = document.getElementById('pincodeInput').value.trim();
+  if (pin.length !== 6 || isNaN(pin)) { showToast('Please enter a valid 6-digit pincode', 'error'); return; }
+  const days = (parseInt(pin[0]) % 3) + 2;
+  const d = new Date(); d.setDate(d.getDate() + days);
+  const opts = { weekday:'short', month:'short', day:'numeric' };
+  document.getElementById('deliveryDate').textContent = d.toLocaleDateString('en-IN', opts);
+  document.getElementById('deliveryResult').classList.add('visible');
+  showToast('Delivery available to ' + pin + ' ✓', 'success');
+}
+
+// ── TABS ──────────────────────────────
+function openTab(id, el) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id)?.classList.add('active');
+  if (el) el.classList.add('active');
+  else {
+    document.querySelectorAll('.tab-btn').forEach(b => {
+      if (b.getAttribute('onclick')?.includes(id)) b.classList.add('active');
+    });
+  }
+  document.querySelector('.tabs-section').scrollIntoView({ behavior:'smooth', block:'start' });
+}
+
+// ── FBT ───────────────────────────────
+let fbtPrices = [6599, 1299, 599];
+function toggleFbt(el) {
+  el.classList.toggle('selected');
+  const idx = [...el.parentElement.querySelectorAll('.fbt-card')].indexOf(el);
+  const total = [...document.querySelectorAll('.fbt-card.selected')].reduce((sum, c, i) => {
+    const allCards = [...document.querySelectorAll('.fbt-card')];
+    return sum + fbtPrices[allCards.indexOf(c)];
+  }, 0);
+  document.getElementById('bundleTotal').textContent = '₹' + total.toLocaleString('en-IN');
+}
+
+// ── HELPFUL ───────────────────────────
+function helpful(btn) {
+  const match = btn.textContent.match(/\((\d+)\)/);
+  if (match) { btn.textContent = btn.textContent.replace('(' + match[1] + ')', '(' + (parseInt(match[1]) + 1) + ')'); }
+  btn.style.borderColor = 'var(--success)'; btn.style.color = 'var(--success)';
+}
+
+// ── TOAST ─────────────────────────────
+let toastTimer;
+function showToast(msg, type = '') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast ' + type + ' show';
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 3000);
+}
+</script>
+</body>
+</html>
