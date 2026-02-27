@@ -1,0 +1,28 @@
+button.relative:hover span.absolute {
+  transform: translateX(0);
+}
+button.relative span.absolute {
+  transition: transform 0.3s ease-in-out;
+}
+button.relative span.z-10 {
+  position: relative;
+}
+
+/* Timer Styles */
+  .time-box {
+    @apply bg-gray-100 rounded-xl w-16 h-16 md:w-20 md:h-20 flex items-center justify-center shadow-inner;
+  }
+
+  .time-box span {
+    @apply text-2xl md:text-3xl font-bold text-[#1D3C4A];
+    transition: transform 0.25s ease, opacity 0.25s ease;
+  }
+
+  .time-separator {
+    @apply text-2xl md:text-3xl font-bold text-gray-700;
+  }
+
+  .tick {
+    transform: translateY(-6px);
+    opacity: 0.6;
+  }
