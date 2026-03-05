@@ -3,7 +3,302 @@ let isLoggedIn = true;
 let cartCount = 4;
 let wishlistCount = 3;
 
-// Tailwind already initialized in HTML
+// Category data - Static JSON for now (will be replaced with API call)
+const categoryData = {
+  navCategories: [
+    {
+      categoryId: 1,
+      productCategory: "Photo Frames",
+      categoryPath: [
+        "Wooden Frames",
+        "Metal Frames",
+        "Collage Frames",
+        "Digital Frames",
+         "Wooden Frames",
+        "Metal Frames",
+        "Collage Frames",
+        "Digital Frames",
+      ],
+      productCategoryRedirect: "/Product-Details/product-detail.html",
+      categoryPathRedirect: "/products/product.html",
+    },
+    {
+      categoryId: 2,
+      productCategory: "Wall Decor",
+      categoryPath: [
+        "Wall Paintings",
+        "Wall Shelves",
+        "Wall Clocks",
+        "Mirrors",
+      ],
+      productCategoryRedirect: "/products/product.html",
+      categoryPathRedirect: "/products/product.html",
+    },
+    {
+      categoryId: 3,
+      productCategory: "Home Decor",
+      categoryPath: ["Vases", "Candles", "Showpieces", "Fountains"],
+      productCategoryRedirect: "#",
+      categoryPathRedirect: "/products/product.html",
+    },
+    {
+      categoryId: 4,
+      productCategory: "Nameplates",
+      categoryPath: [
+        "Wooden Nameplates",
+        "Metal Nameplates",
+        "Acrylic Nameplates",
+      ],
+      productCategoryRedirect: "#",
+      categoryPathRedirect: "/products/product.html",
+    },
+    {
+      categoryId: 5,
+      productCategory: "Corporate Gifting",
+      categoryPath: [
+        "Corporate Awards",
+        "Customized Gifts",
+        "Promotional Items",
+      ],
+      productCategoryRedirect: "#",
+      categoryPathRedirect: "/products/product.html",
+    },
+    {
+      categoryId: 6,
+      productCategory: "Personalised Gifts",
+      categoryPath: ["Photo Gifts", "Custom Name Gifts", "Occasion Special"],
+      productCategoryRedirect: "#",
+      categoryPathRedirect: "/products/product.html",
+    },
+    {
+      categoryId: 7,
+      productCategory: "Trophies and Mementos",
+      categoryPath: ["Sports Trophies", "Corporate Awards", "Custom Mementos"],
+      productCategoryRedirect: "#",
+      categoryPathRedirect: "/products/product.html",
+    },
+    {
+      categoryId: 8,
+      productCategory: "Trending Products",
+      categoryPath: ["Best Sellers", "New Arrivals", "Deals of the Day"],
+      productCategoryRedirect: "#",
+      categoryPathRedirect: "/products/product.html",
+    },
+  ],
+};
+
+// Fallback static menu (your existing structure)
+const fallbackCategories = [
+  "Photo Frames",
+  "Wall Decor",
+  "Home Decor",
+  "Nameplates",
+  "Corporate Gifting",
+  "Personalised Gifts",
+  "Trophies and Mementos",
+  "Trending Products",
+];
+
+// Function to fetch categories (simulated API call)
+async function fetchCategories() {
+  try {
+    // Simulate API call - replace with actual fetch when ready
+    // const response = await fetch('/api/categories');
+    // const data = await response.json();
+
+    // Using static data for now
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(categoryData.navCategories);
+      }, 100); // Simulate network delay
+    });
+  } catch (error) {
+    console.error("Error fetching categories:", error);
+    return null;
+  }
+}
+
+// Function to render desktop navigation
+function renderDesktopNavigation(categories) {
+  const navContainer = document.querySelector(".md\\:block nav");
+  if (!navContainer) return;
+
+  if (!categories || categories.length === 0) {
+    // Fallback to static menu
+    navContainer.innerHTML = fallbackCategories
+      .map(
+        (cat) =>
+          `<a href="#" class="hover:text-accent transition-colors whitespace-nowrap">${cat}</a>`,
+      )
+      .join("");
+    return;
+  }
+
+  // Create dropdown structure for desktop
+  let navHTML = "";
+
+  categories.forEach((category) => {
+    const hasSubcategories =
+      category.categoryPath && category.categoryPath.length > 0;
+
+    if (hasSubcategories) {
+      // Create dropdown item
+      navHTML += `
+        <div class="relative group">
+          <a href="${category.productCategoryRedirect || "#"}" 
+             class="hover:text-accent transition-colors whitespace-nowrap inline-flex items-center gap-1">
+            ${category.productCategory}
+            <i class="fa-solid fa-chevron-down text-[10px] group-hover:rotate-180 transition-transform"></i>
+          </a>
+          <!-- Dropdown menu -->
+        <div class="absolute left-0 top-full invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-all duration-200 z-50">
+  <div class="bg-white rounded-lg shadow-xl border border-gray-100 py-4 flex ${
+    category.categoryPath.length <= 4 ? "flex-col gap-1 min-w-[200px]" : "gap-3 min-w-[480px]"
+  }">
+    ${
+      category.categoryPath.length <= 4
+        ? category.categoryPath
+            .map(
+              (subcat) => `
+      <a href="${category.categoryPathRedirect || "#"}"
+         class="flex items-center gap-2 px-5 py-2 text-sm hover:bg-zinc-50 hover:text-accent transition-colors">
+<i class="fa-solid fa-tag text-[#E39F32] w-4"></i>       <span>${subcat}</span>
+      </a>
+    `
+            )
+            .join("")
+        : (() => {
+            const mid = Math.ceil(category.categoryPath.length / 2);
+            const left = category.categoryPath.slice(0, mid);
+            const right = category.categoryPath.slice(mid);
+
+            const createColumn = (items) =>
+              items
+                .map(
+                  (subcat) => `
+        <a href="${category.categoryPathRedirect || "#"}"
+           class="flex items-center gap-2 px-5 py-2.5 text-sm hover:bg-zinc-50 hover:text-accent transition-colors">
+<i class="fa-solid fa-tag text-[#E39F32] w-4"></i>          <span>${subcat}</span>
+        </a>
+      `
+                )
+                .join("");
+
+            return `
+      <div class="flex-1 flex flex-col gap-1">${createColumn(left)}</div>
+      <div class="w-px bg-gray-200"></div>
+      <div class="flex-1 flex flex-col gap-1">${createColumn(right)}</div>
+    `;
+          })()
+    }
+  </div>
+</div>
+</div>
+        </div>
+      `;
+    } else {
+      // Simple link without dropdown
+      navHTML += `
+        <a href="${category.productCategoryRedirect || "#"}" 
+           class="hover:text-accent transition-colors whitespace-nowrap">
+          ${category.productCategory}
+        </a>
+      `;
+    }
+  });
+
+  navContainer.innerHTML = navHTML;
+}
+
+// Function to render mobile navigation
+function renderMobileNavigation(categories) {
+  const mobileNav = document.querySelector("#mobile-menu nav");
+  if (!mobileNav) return;
+
+  if (!categories || categories.length === 0) {
+    // Fallback to static menu (already in HTML, so we can leave it)
+    return;
+  }
+
+  let mobileNavHTML = "";
+
+  categories.forEach((category) => {
+    const hasSubcategories =
+      category.categoryPath && category.categoryPath.length > 0;
+
+    if (hasSubcategories) {
+      // Create collapsible section for mobile
+      mobileNavHTML += `
+        <div class="mobile-category-group">
+          <button class="mobile-category-toggle w-full flex items-center justify-between gap-3 py-3 px-3 rounded-full bg-[#FFFDF1] hover:bg-[#ffeab3] transition-colors">
+            <span class="flex items-center gap-3">
+              <span class="material-symbols-outlined text-2xl" style="color:#e39f32;">category</span>
+              <span class="font-lexend font-medium">${category.productCategory}</span>
+            </span>
+            <i class="fa-solid fa-chevron-down text-sm text-gray-400 transition-transform"></i>
+          </button>
+          <div class="mobile-subcategories hidden pl-12 mt-1 space-y-1">
+            ${category.categoryPath
+              .map(
+                (subcat) => `
+              <a href="${category.categoryPathRedirect || "#"}" 
+                 class="block py-2 px-3 text-sm text-gray-600 hover:text-accent hover:bg-[#FFFDF1] rounded-full transition-colors">
+                ${subcat}
+              </a>
+            `,
+              )
+              .join("")}
+          </div>
+        </div>
+      `;
+    } else {
+      mobileNavHTML += `
+        <a href="${category.productCategoryRedirect || "#"}" 
+           class="flex items-center gap-3 py-3 px-3 rounded-full bg-[#FFFDF1] hover:bg-[#ffeab3] transition-colors">
+          <span class="material-symbols-outlined text-2xl" style="color:#e39f32;">category</span>
+          <span class="font-lexend font-medium">${category.productCategory}</span>
+        </a>
+      `;
+    }
+  });
+
+  // Add divider and return/exchange link
+  mobileNavHTML += `
+    <div class="my-2 border-t border-gray-100"></div>
+    <a href="#"
+       class="flex items-center gap-3 py-3 px-3 rounded-full bg-[#FFFDF1] border-b border-gray-100 text-red-600 font-semibold hover:bg-[#ffeab3] hover:text-red-700 transition-colors">
+      <span class="material-symbols-outlined text-2xl" style="color:#e39f32;">replay</span>
+      Return/Exchange
+    </a>
+  `;
+
+  mobileNav.innerHTML = mobileNavHTML;
+
+  // Add event listeners for mobile dropdowns
+  document.querySelectorAll(".mobile-category-toggle").forEach((button) => {
+    button.addEventListener("click", function () {
+      const subcategories = this.nextElementSibling;
+      const icon = this.querySelector(".fa-chevron-down");
+
+      subcategories.classList.toggle("hidden");
+      icon.classList.toggle("rotate-180");
+    });
+  });
+}
+
+// Initialize categories
+async function initializeCategories() {
+  try {
+    const categories = await fetchCategories();
+    renderDesktopNavigation(categories);
+    renderMobileNavigation(categories);
+  } catch (error) {
+    console.error("Failed to load categories:", error);
+    // Fallback to static menu
+    renderDesktopNavigation(null);
+    renderMobileNavigation(null);
+  }
+}
 
 function initTypingAnimation() {
   const phrases = [
@@ -391,8 +686,12 @@ if (
 ) {
   setTimeout(typeEffect, 100);
 }
-// Init everything
-function initializeHeader() {
+
+// Modified initialization function
+async function initializeHeader() {
+  // Initialize categories first
+  await initializeCategories();
+
   // Typing animation
   initTypingAnimation();
 
@@ -401,35 +700,45 @@ function initializeHeader() {
 
   // Search focus shows suggestions
   const searchInput = document.getElementById("search-input");
-  searchInput.addEventListener("focus", () => {
-    document.getElementById("search-suggestions").classList.remove("hidden");
-  });
+  if (searchInput) {
+    searchInput.addEventListener("focus", () => {
+      document.getElementById("search-suggestions").classList.remove("hidden");
+    });
+  }
 
   // Hamburger
-  document
-    .getElementById("hamburger-btn")
-    .addEventListener("click", openMobileMenu);
-  document
-    .getElementById("close-menu-btn")
-    .addEventListener("click", closeMobileMenu);
+  const hamburgerBtn = document.getElementById("hamburger-btn");
+  if (hamburgerBtn) {
+    hamburgerBtn.addEventListener("click", openMobileMenu);
+  }
+
+  const closeMenuBtn = document.getElementById("close-menu-btn");
+  if (closeMenuBtn) {
+    closeMenuBtn.addEventListener("click", closeMobileMenu);
+  }
 
   // Mobile search
-  document
-    .getElementById("mobile-search-btn")
-    .addEventListener("click", showMobileSearch);
+  const mobileSearchBtn = document.getElementById("mobile-search-btn");
+  if (mobileSearchBtn) {
+    mobileSearchBtn.addEventListener("click", showMobileSearch);
+  }
 
   // Cart
-  document
-    .getElementById("cart-btn")
-    .addEventListener("click", toggleCartPreview);
-  document
-    .getElementById("mobile-cart-btn")
-    .addEventListener("click", toggleCartPreview);
+  const cartBtn = document.getElementById("cart-btn");
+  if (cartBtn) {
+    cartBtn.addEventListener("click", toggleCartPreview);
+  }
+
+  const mobileCartBtn = document.getElementById("mobile-cart-btn");
+  if (mobileCartBtn) {
+    mobileCartBtn.addEventListener("click", toggleCartPreview);
+  }
 
   // Account button
-  document
-    .getElementById("account-btn")
-    .addEventListener("click", toggleAccountDropdown);
+  const accountBtn = document.getElementById("account-btn");
+  if (accountBtn) {
+    accountBtn.addEventListener("click", toggleAccountDropdown);
+  }
 
   // Global click outside
   document.addEventListener("click", handleClickOutside);
@@ -446,13 +755,20 @@ function initializeHeader() {
             <span>wall paintings </span>
         </div>
     `;
-  document.getElementById("recent-list").innerHTML = recentHTML;
+
+  const recentList = document.getElementById("recent-list");
+  if (recentList) {
+    recentList.innerHTML = recentHTML;
+  }
 
   // Demo: update cart count
   setTimeout(() => {
     cartCount = 5;
-    document.getElementById("cart-count").textContent = cartCount;
-    document.getElementById("mobile-cart-count").textContent = cartCount;
+    const cartCountEl = document.getElementById("cart-count");
+    const mobileCartCountEl = document.getElementById("mobile-cart-count");
+
+    if (cartCountEl) cartCountEl.textContent = cartCount;
+    if (mobileCartCountEl) mobileCartCountEl.textContent = cartCount;
   }, 4500);
 
   console.log(
