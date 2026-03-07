@@ -211,4 +211,26 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   //deal scroll logic
-  
+  document.addEventListener("DOMContentLoaded", function () {
+
+  const scrollContainer = document.getElementById("dealScroll");
+  const leftBtn = document.getElementById("dealLeft");
+  const rightBtn = document.getElementById("dealRight");
+
+  const scrollAmount = 300; // distance to scroll
+
+  rightBtn.addEventListener("click", function () {
+    scrollContainer.scrollBy({
+      left: scrollAmount,
+      behavior: "smooth"
+    });
+  });
+
+  leftBtn.addEventListener("click", function () {
+    scrollContainer.scrollBy({
+      left: -scrollAmount,
+      behavior: "smooth"
+    });
+  });
+
+});
