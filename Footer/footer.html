@@ -1,123 +1,469 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Footer Component - Tailwind</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Custom styles if needed -->
-    <link rel="stylesheet" href="../Footer/footer.css">
-    <!-- Font Awesome 6 (free icons) -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-  <link rel="stylesheet" href="./product-detail.css" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Artezo Footer - Cleaned</title>
+
+  <!-- Only fonts you actually use -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Zain:ital,wght@0,200;0,300;0,400;0,700;0,800;0,900;1,300;1,400&display=swap"
-    rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=DM+Sans:wght@300;400;500;700&display=swap"
+    rel="stylesheet">
 
- 
-  <script>
-    tailwind.config = {
-      content: [],
-      theme: {
-        extend: {
-          colors: {
-            primary: "#033E59",
-            accent: "#E6A62C",
-          },
-          fontFamily: {
-            lexend: ["Lexend", "sans-serif"],
-            zain: ["Zain", "sans-serif"],
-          },
-        },
-      },
-    };
-  </script>
+  <!-- Font Awesome (for icons) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
-    <style>
-        /* Custom color classes if you prefer using specific names */
-        .bg-teal-main { background-color: #1D3C4A; }
-        .text-yellow-shade { color: #e39f32; }
-        .border-custom { border-color: #e5e7eb; }
-        .hover-bg-yellow-shade:hover { background-color: #e39f32; }
-        .hover-text-yellow-shade:hover { color: #e39f32; }
-    </style>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    .artezo-footer {
+      --brand: #1D3C4A;
+      --accent: #e39f32;
+      --accent-light: #f5c96a;
+      --surface: #162e39;
+      --surface2: #0f2028;
+      --muted: #6b8fa0;
+      --text: #cde0e8;
+      color: var(--text);
+      font-family: 'DM Sans', system-ui, sans-serif;
+      background: var(--brand);
+    }
+
+    .artezo-footer * {
+      box-sizing: border-box;
+    }
+
+    .artezo-footer a {
+      color: inherit;
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .artezo-footer a:hover {
+      color: var(--accent);
+    }
+
+    .logo-font {
+      font-family: 'Playfair Display', serif;
+    }
+
+    .social-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 9999px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.25s ease;
+      background: transparent;
+    }
+
+    .social-btn:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .app-btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 10px;
+      padding: 9px 16px;
+      background: rgba(255, 255, 255, 0.04);
+      transition: all 0.25s ease;
+    }
+
+    .app-btn:hover {
+      border-color: var(--accent);
+      background: rgba(227, 159, 50, 0.08);
+      transform: translateY(-2px);
+    }
+
+    .city-pill {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 9999px;
+      padding: 4px 14px;
+      font-size: 0.75rem;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+
+    .city-pill:hover {
+      background: rgba(227, 159, 50, 0.15);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .footer-link {
+      display: block;
+      font-size: 13.5px;
+      color: var(--muted);
+      padding: 5px 0;
+      transition: all 0.2s;
+    }
+
+    .footer-link:hover {
+      color: var(--accent);
+      padding-left: 6px;
+    }
+
+    .col-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: white;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 1.125rem;
+      position: relative;
+      padding-bottom: 0.625rem;
+    }
+
+    .col-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 24px;
+      height: 2px;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+
+    .top-strip {
+      background: var(--surface2);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      font-size: 0.8125rem;
+      color: var(--muted);
+    }
+
+    .newsletter-input {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 8px 0 0 8px;
+      padding: 0.625rem 0.875rem;
+      color: white;
+      outline: none;
+      flex: 1;
+    }
+
+    .newsletter-input:focus {
+      border-color: var(--accent);
+    }
+
+    .newsletter-btn {
+      background: var(--accent);
+      border: none;
+      border-radius: 0 8px 8px 0;
+      padding: 0.625rem 1.125rem;
+      font-weight: 500;
+      color: #1a1a1a;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+
+    .newsletter-btn:hover {
+      background: var(--accent-light);
+    }
+
+    .bottom-bar {
+      background: var(--surface2);
+      font-size: 0.75rem;
+      color: var(--muted);
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .policy-link {
+      color: var(--muted);
+      font-size: 0.75rem;
+      transition: color 0.2s;
+    }
+
+    .policy-link:hover {
+      color: var(--accent);
+    }
+
+    @media (max-width: 1024px) {
+      .grid-cols-lg-3 {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .grid-cols-md-2 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .app-btn-wrapper {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .grid-cols-sm-1 {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
-<body class="min-h-screen flex flex-col">
-    <!-- Footer Component -->
-  <footer class="bg-[#1D3C4A] text-white border-t border-[#e5e7eb]">
 
-  <div class="max-w-7xl mx-auto px-6 py-16">
+<body class="bg-gray-50">
 
-    <!-- Main Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-4 text-sm">
-
-      <!-- Brand -->
-      <div class="pr-8 md:border-r md:border-[#e5e7eb]/30 mb-10 md:mb-0">
-        <h2 class="text-7xl font-semibold font-zain text-[#e39f32] mb-4 tracking-wide">
-          Artezo
-        </h2>
-        <p class="text-gray-300 font-lexend leading-relaxed">
-          Elegant gifting, timeless décor, and handcrafted
-          photo frames curated to celebrate life’s special moments.
-        </p>
-      </div>
-
-      <!-- Categories -->
-      <div class="px-0 md:px-8 md:border-r md:border-[#e5e7eb]/30 mb-10 md:mb-0">
-        <h3 class="text-white font-medium font-lexend mb-4 tracking-wide">
-          Shop
-        </h3>
-        <ul class="space-y-3 font-lexend font-light text-gray-300">
-          <li><a href="#" class="hover:text-[#e39f32] transition">Gifting</a></li>
-          <li><a href="#" class="hover:text-[#e39f32] transition">Home Décor</a></li>
-          <li><a href="#" class="hover:text-[#e39f32] transition">Photo Frames</a></li>
-          <li><a href="#" class="hover:text-[#e39f32] transition">Best Sellers</a></li>
-        </ul>
-      </div>
-
-      <!-- Customer -->
-      <div class="px-0 md:px-8 md:border-r md:border-[#e5e7eb]/30 mb-10 md:mb-0">
-        <h3 class="text-white font-lexend font-medium mb-4 tracking-wide">
-          Customer
-        </h3>
-        <ul class="space-y-3 font-lexend font-light text-gray-300">
-          <li><a href="#" class="hover:text-[#e39f32] transition">My Account</a></li>
-          <li><a href="#" class="hover:text-[#e39f32] transition">Track Order</a></li>
-          <li><a href="#" class="hover:text-[#e39f32] transition">Returns</a></li>
-          <li><a href="#" class="hover:text-[#e39f32] transition">FAQs</a></li>
-        </ul>
-      </div>
-
-      <!-- Contact -->
-      <div class="pl-0 md:pl-8">
-        <h3 class="text-white font-lexend font-medium mb-4 tracking-wide">
-          Contact
-        </h3>
-        <ul class="space-y-3 font-lexend font-light text-gray-300">
-          <li>Pune, Maharashtra</li>
-          <li>+91 98765 43210</li>
-          <li>support@yourbrand.com</li>
-        </ul>
-      </div>
-
-    </div>
-
-    <!-- Bottom -->
-    <div class="mt-12 pt-6 border-t border-[#e5e7eb]/30 flex flex-col md:flex-row justify-between items-center text-xs text-gray-400 gap-4">
-      <p>© 2026 YourBrand. All rights reserved.</p>
-      <div class="flex gap-6">
-        <a href="#" class="hover:text-[#e39f32] transition">Privacy</a>
-        <a href="#" class="hover:text-[#e39f32] transition">Terms</a>
-        <a href="#" class="hover:text-[#e39f32] transition">Shipping</a>
+  <!-- ======================= FOOTER ======================= -->
+  <footer class="artezo-footer">
+    <!-- Top strip -->
+    <div class="top-strip py-3.5">
+      <div
+        class="max-w-7xl mx-auto px-6 flex flex-wrap justify-center md:justify-between gap-4 text-center md:text-left">
+        <div class="flex items-center gap-2">
+          <i class="fas fa-phone-volume text-[var(--accent)]"></i>
+          24/7 Support: <span class="text-[var(--accent)] font-medium">+91 79016 55023</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <i class="fas fa-truck-fast text-[var(--accent)]"></i>
+          Free shipping on orders over <span class="text-[var(--accent)] font-medium">₹999</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <i class="fas fa-shield-alt text-[var(--accent)]"></i>
+          Secure & encrypted checkout
+        </div>
       </div>
     </div>
+
+    <!-- Main content -->
+    <div class="max-w-7xl mx-auto px-6 py-14 lg:py-16">
+      <!-- Top area: logo + description + social + cities + app -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mb-8 relative">
+
+        <!-- Vertical Dividers (hidden on mobile) -->
+        <div class="hidden md:block absolute left-1/3 top-0 bottom-0 w-px bg-gray-200 -translate-x-1/2"></div>
+        <div class="hidden md:block absolute left-2/3 top-0 bottom-0 w-px bg-gray-200 -translate-x-1/2"></div>
+
+        <!-- Column 1: Logo & About (Compact) -->
+        <div class="relative">
+          <img src="../Images/logo.jpg" alt="Artezo" class="h-24 mb-3 object-contain">
+          <p class="text-gray-100 leading-relaxed text-xs mb-4">
+            Curating premium products for modern lifestyles. Delivering joy, quality, and elegance.
+          </p>
+          <div class="flex gap-2">
+            <div
+              class="w-8 h-8 rounded-full bg-gray-100 text-[#1D3C4A] hover:bg-[#E39F32] hover:text-white flex items-center justify-center text-xs transition cursor-pointer">
+              <i class="fab fa-facebook-f"></i>
+            </div>
+            <div
+              class="w-8 h-8 rounded-full bg-gray-100 text-[#1D3C4A] hover:bg-[#E39F32] hover:text-white flex items-center justify-center text-xs transition cursor-pointer">
+              <i class="fab fa-instagram"></i>
+            </div>
+            <div
+              class="w-8 h-8 rounded-full bg-gray-100 text-[#1D3C4A] hover:bg-[#E39F32] hover:text-white flex items-center justify-center text-xs transition cursor-pointer">
+              <i class="fab fa-x-twitter"></i>
+            </div>
+            <div
+              class="w-8 h-8 rounded-full bg-gray-100 text-[#1D3C4A] hover:bg-[#E39F32] hover:text-white flex items-center justify-center text-xs transition cursor-pointer">
+              <i class="fab fa-youtube"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Column 2: Cities/Delivery (Compact) -->
+        <div class="relative">
+          <div class="text-xs uppercase tracking-wider text-gray-200 mb-3">
+            <span class="text-[#E39F32]">●</span> We Deliver Across India
+          </div>
+          <div class="flex flex-wrap gap-1.5">
+            <span
+              class="px-2 py-1 bg-gray-100 rounded-full text-xs text-[#1D3C4A] hover:bg-[#E39F32] hover:text-white transition cursor-default">Mumbai</span>
+            <span
+              class="px-2 py-1 bg-gray-100 rounded-full text-xs text-[#1D3C4A] hover:bg-[#E39F32] hover:text-white transition cursor-default">Delhi</span>
+            <span
+              class="px-2 py-1 bg-gray-100 rounded-full text-xs text-[#1D3C4A] hover:bg-[#E39F32] hover:text-white transition cursor-default">Bangalore</span>
+            <span
+              class="px-2 py-1 bg-gray-100 rounded-full text-xs text-[#1D3C4A] hover:bg-[#E39F32] hover:text-white transition cursor-default">Pune</span>
+            <span
+              class="px-2 py-1 bg-gray-100 rounded-full text-xs text-[#1D3C4A] hover:bg-[#E39F32] hover:text-white transition cursor-default">Hyderabad</span>
+            <span
+              class="px-2 py-1 bg-gray-100 rounded-full text-xs text-[#1D3C4A] hover:bg-[#E39F32] hover:text-white transition cursor-default">Chennai</span>
+            <span
+              class="px-2 py-1 bg-gray-100 rounded-full text-xs text-[#1D3C4A] hover:bg-[#E39F32] hover:text-white transition cursor-default">Kolkata</span>
+            <span
+              class="px-2 py-1 bg-gray-100 rounded-full text-xs text-[#1D3C4A] hover:bg-[#E39F32] hover:text-white transition cursor-default">+50
+              cities</span>
+          </div>
+        </div>
+
+        <!-- Column 3: Payment Methods (Compact with Dummy Images) -->
+        <div class="relative">
+          <div class="text-xs uppercase tracking-wider text-gray-500 mb-3">
+            <span class="text-[#E39F32]">●</span> Secure Payment
+          </div>
+
+          <!-- Cards & UPI - Compact -->
+          <div class="flex flex-wrap items-center gap-2">
+            <!-- Card 1 - Visa -->
+            <div class="w-10 h-6 bg-gray-100 rounded flex items-center justify-center hover:scale-110 transition p-1">
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1CefFQibodbtysbX6PStx8gLRhlPgfMoLlA&s"
+                alt="Visa" class="w-full h-full object-cover">
+            </div>
+
+            <!-- Card 2 - Mastercard -->
+            <div class="w-10 h-6 bg-gray-100 rounded flex items-center justify-center hover:scale-110 transition p-1">
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-70Ex5Cycl5u_hpqzycWuIJ76pOIvCT3sWQ&s"
+                alt="Mastercard" class="w-full h-full object-cover">
+            </div>
+
+            <!-- Card 3 - Amex -->
+            <div class="w-10 h-6 bg-gray-100 rounded flex items-center justify-center hover:scale-110 transition p-1">
+              <img src="https://icm.aexp-static.com/acquisition/card-art/NUS000000237_480x304_straight_withname.png"
+                alt="Amex" class="w-full h-full object-cover">
+            </div>
+
+            <!-- Card 4 - RuPay -->
+            <div class="w-10 h-6 bg-gray-100 rounded flex items-center justify-center hover:scale-110 transition p-1">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/RuPay.svg/1280px-RuPay.svg.png"
+                alt="RuPay" class="w-full h-full object-contain">
+            </div>
+
+            <!-- UPI -->
+            <div class="w-10 h-6 bg-gray-100 rounded flex items-center justify-center hover:scale-110 transition p-1">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/UPI_logo.svg/1280px-UPI_logo.svg.png"
+                alt="UPI" class="w-full h-full object-cover">
+            </div>
+
+            <!-- Paytm -->
+            <div class="w-10 h-6 bg-blue-50 rounded flex items-center justify-center hover:scale-110 transition p-1">
+              <img src="https://www.medianama.com/wp-content/uploads/2020/10/Paytm-Logo2.jpg.jpg" alt="Paytm"
+                class="w-full h-full object-contain">
+            </div>
+
+            <!-- PhonePe -->
+            <div class="w-10 h-6 bg-purple-50 rounded flex items-center justify-center hover:scale-110 transition p-1">
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzkQQrqPOBk5iZbJNkgBJjB0f09yEAMSvmRw&s"
+                alt="PhonePe" class="w-full h-full object-contain">
+            </div>
+
+            <!-- GPay -->
+            <div class="w-10 h-6 bg-gray-100 rounded flex items-center justify-center hover:scale-110 transition p-1">
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQq_S1I-kRo8EmqBe0MSfTSRdtAflozeeDoBQ&s"
+                alt="Google Pay" class="w-full h-full object-cover">
+            </div>
+
+            <!-- Net Banking -->
+            <div class="w-10 h-6 bg-gray-100 rounded flex items-center justify-center hover:scale-110 transition p-1">
+              <img src="https://www.caclubindia.com/img/preview/custom/20230826131331_sbi.jpg" alt="Net Banking"
+                class="w-full h-full object-cover">
+            </div>
+
+            <!-- EMI -->
+            <div class="w-10 h-6 bg-gray-100 rounded flex items-center justify-center hover:scale-110 transition p-1">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/f/ff/EMI_logo.svg" alt="EMI"
+                class="w-full h-full object-contain">
+            </div>
+
+            <!-- COD -->
+            <div class="w-10 h-6 bg-gray-100 rounded flex items-center justify-center hover:scale-110 transition p-1">
+              <img
+                src="https://static.vecteezy.com/system/resources/previews/035/026/415/non_2x/cash-on-delivery-or-cod-icon-design-for-shipping-coupon-bonus-logo-seal-tag-sign-seal-symbol-badge-stamp-sticker-template-website-apps-illustration-free-vector.jpg"
+                alt="Cash on Delivery" class="w-full h-full object-cover">
+            </div>
+          </div>
+
+          <!-- Security Badge - Compact -->
+          <div class="mt-3 flex items-center gap-1.5 text-xs text-gray-500">
+            <i class="fas fa-shield-alt text-[#E39F32] text-xs"></i>
+            <span class="text-[10px]">SSL Secure | 100% Safe</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Copyright Bar - Compact -->
+      <div class="border-t border-gray-200 pt-4 mt-2 text-center">
+
+      </div>
+
+      <!-- Links grid -->
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 lg:gap-10 mb-12">
+        <div>
+          <div class="col-title">Shop</div>
+          <a href="#" class="footer-link">New Arrivals</a>
+          <a href="#" class="footer-link">Best Sellers</a>
+          <a href="#" class="footer-link">Sale & Offers</a>
+          <a href="#" class="footer-link">Gift Ideas</a>
+        </div>
+        <div>
+          <div class="col-title">Support</div>
+          <a href="#" class="footer-link">Help Center</a>
+          <a href="#" class="footer-link">Track Order</a>
+          <a href="#" class="footer-link">Returns</a>
+          <a href="#" class="footer-link">Contact Us</a>
+        </div>
+        <div>
+          <div class="col-title">About</div>
+          <a href="../About/about.html" class="footer-link">Our Story</a>
+          <a href="#" class="footer-link">Blog</a>
+          <a href="#" class="footer-link">Careers</a>
+        </div>
+        <div>
+          <div class="col-title">Partners</div>
+          <a href="#" class="footer-link">Sell on Artezo</a>
+          <a href="#" class="footer-link">Affiliates</a>
+        </div>
+        <div>
+          <div class="col-title">Connect</div>
+          <a href="#" class="footer-link">Newsletter</a>
+          <a href="#" class="footer-link">Wishlist</a>
+        </div>
+      </div>
+
+
+     <!-- Bottom Bar - Simple Dark Theme -->
+<div class="border-t border-gray-700 bg-[#1D3C4A] py-5">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <!-- Main Footer Links & Copyright -->
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 pb-4 border-b border-gray-600">
+      
+      <!-- Policy Links -->
+      <div class="flex flex-wrap items-center justify-center md:justify-start gap-4 sm:gap-6">
+        <a href="#" class="text-xs text-gray-300 hover:text-white transition-colors duration-200">Terms of Service</a>
+        <span class="text-gray-600 hidden sm:inline">|</span>
+        <a href="#" class="text-xs text-gray-300 hover:text-white transition-colors duration-200">Privacy Policy</a>
+        <span class="text-gray-600 hidden sm:inline">|</span>
+        <a href="#" class="text-xs text-gray-300 hover:text-white transition-colors duration-200">Returns</a>
+        <span class="text-gray-600 hidden sm:inline">|</span>
+        <a href="#" class="text-xs text-gray-300 hover:text-white transition-colors duration-200">Security</a>
+      </div>
+      
+      <!-- Copyright -->
+      <div class="text-xs text-gray-400 text-center md:text-right">
+        © 2025 <span class="text-white font-medium">Artezo</span>. All rights reserved.
+      </div>
+    </div>
+    
+    <!-- Company Info -->
+    <div class="pt-4 space-y-1">
+      <p class="text-xs text-gray-400 text-center md:text-left">
+        Artezo Furnitures Private Limited | CIN: U36100RJ2015PTC047992
+      </p>
+      <p class="text-xs text-gray-400 text-center md:text-left">
+        Registered Office: 101-104, Luhadia Tower, C Scheme, Jaipur - 302001
+      </p>
+    </div>
+ 
   </div>
-</footer>
+</div>
 
-    <script src="../Footer/footer.js"></script>
+    </div>
+  </footer>
+
+  <script src="../Footer/footer.js"></script>
 </body>
+
 </html>

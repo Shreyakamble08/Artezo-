@@ -1,0 +1,17 @@
+/*wall decoration*/
+/* Hide scrollbar for all browsers */
+#slider::-webkit-scrollbar {
+  display: none;
+}
+#slider {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+/*fresh decor picks */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  scrollbar-width: none;
+}

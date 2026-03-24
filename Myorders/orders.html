@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>My Orders · Artezo</title>
+
+    <!-- Tailwind + Fonts -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
+    <!-- Header & Footer CSS -->
+    <link rel="stylesheet" href="../Header/header.css" />
+    <link rel="stylesheet" href="../Footer/footer.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Zain:ital,wght@0,200;0,300;0,400;0,700;0,800;0,900;1,300;1,400&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#033E59",
+                        accent: "#E6A62C",
+                        cream: "#FFF8EC",
+                        warmgray: "#F9F3E9",
+                        sand: "#F8F8EA",
+                        teal: "#133F53",
+                        warmbrown: "#957A54",
+                    },
+                    fontFamily: {
+                        lexend: ["Lexend", "sans-serif"],
+                        zain: ["Zain", "sans-serif"],
+                    },
+                },
+            },
+        };
+    </script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        body {
+            background: linear-gradient(135deg, #faf8ef 0%, #f0ebe2 100%);
+            min-height: 100vh;
+        }
+
+        /* Enhanced Order Card Styling */
+        .order-card {
+            background: white;
+            border-radius: 1.25rem;
+            border: 1px solid rgba(230, 166, 44, 0.2);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            cursor: pointer;
+            padding: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .order-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #E6A62C, #033E59, #E6A62C);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .order-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .order-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px -12px rgba(230, 166, 44, 0.25);
+            border-color: rgba(230, 166, 44, 0.4);
+        }
+
+        /* Status Badges - Enhanced */
+        .badge-placed,
+        .badge-delivered,
+        .badge-shipped,
+        .badge-processing,
+        .badge-cancelled {
+            font-size: 0.65rem;
+            padding: 0.2rem 0.7rem;
+            border-radius: 100px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .badge-placed {
+            background: #7b5e3b;
+            color: white;
+        }
+
+        .badge-cancelled {
+            background: #dc2626;
+            color: white;
+        }
+
+        .badge-delivered {
+            background: #10b981;
+            color: white;
+        }
+
+        .badge-shipped {
+            background: #f59e0b;
+            color: white;
+        }
+
+        .badge-processing {
+            background: #033E59;
+            color: white;
+        }
+
+        /* Enhanced Overlay */
+        .order-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.2s ease;
+        }
+
+        .overlay-content {
+            background: white;
+            border-radius: 0.45rem;
+            max-width: 450px;
+            width: 90%;
+            max-height: 85vh;
+            overflow-y: auto;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+            animation: slideUp 0.25s ease-out;
+        }
+
+        .overlay-content::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .overlay-content::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        .overlay-content::-webkit-scrollbar-thumb {
+            background: #E6A62C;
+            border-radius: 10px;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Filter Tabs - Enhanced */
+        .filter-tab {
+            cursor: pointer;
+            transition: all 0.2s ease;
+            padding: 0.5rem 0;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #6b7280;
+            border-bottom: 2px solid transparent;
+        }
+
+        .filter-tab:hover {
+            color: #E6A62C;
+        }
+
+        .filter-tab-active {
+            color: #E6A62C;
+            border-bottom: 2px solid #E6A62C;
+            font-weight: 600;
+        }
+
+        /* Product Image Styling */
+        .product-image {
+            width: 52px;
+            height: 52px;
+            object-fit: cover;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #f5f5f5, #eaeaea);
+            border: 1px solid rgba(230, 166, 44, 0.2);
+            transition: transform 0.2s ease;
+        }
+
+        .order-card:hover .product-image {
+            transform: scale(1.02);
+        }
+
+        /* Delivery Banner */
+        .delivery-banner {
+            background: linear-gradient(90deg, #fef3c7, #fffbeb);
+            padding: 0.4rem 0.75rem;
+            font-size: 0.7rem;
+            color: #92400e;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border-radius: 0.75rem;
+            margin-bottom: 0.75rem;
+            border-left: 3px solid #E6A62C;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 3rem 1.5rem;
+            background: white;
+            border-radius: 1.5rem;
+            border: 1px solid rgba(230, 166, 44, 0.2);
+        }
+
+        /* Skeleton Loading */
+        .skeleton-card {
+            background: white;
+            border-radius: 1.25rem;
+            padding: 1rem;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.6;
+            }
+        }
+
+        /* Button Styles */
+        .btn-primary {
+            background: #E6A62C;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 0.75rem;
+            font-weight: 500;
+            font-size: 0.75rem;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary:hover {
+            background: #d4921f;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(230, 166, 44, 0.3);
+        }
+
+        .btn-outline {
+            border: 1px solid #E6A62C;
+            background: transparent;
+            color: #033E59;
+            padding: 0.5rem 1rem;
+            border-radius: 0.75rem;
+            font-weight: 500;
+            font-size: 0.75rem;
+            transition: all 0.2s ease;
+        }
+
+        .btn-outline:hover {
+            background: #E6A62C;
+            color: white;
+        }
+
+        /* Product Row in Overlay */
+        .product-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.875rem 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .product-row:last-child {
+            border-bottom: none;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 640px) {
+            .order-card {
+                padding: 0.875rem;
+            }
+
+            .product-image {
+                width: 44px;
+                height: 44px;
+            }
+
+            .filter-tab {
+                font-size: 0.75rem;
+            }
+
+            .badge-placed,
+            .badge-delivered,
+            .badge-shipped,
+            .badge-processing,
+            .badge-cancelled {
+                font-size: 0.55rem;
+                padding: 0.15rem 0.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body class="text-primary antialiased font-lexend">
+
+    <!-- Header -->
+    <div id="header-container"></div>
+
+    <!-- Main Content -->
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 py-6 md:py-10">
+
+        <!-- Header Section -->
+        <div class="mb-6">
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-accent/10 rounded-xl flex items-center justify-center">
+                        <i class="fas fa-shopping-bag text-accent text-xl"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl sm:text-3xl font-bold font-zain text-primary tracking-tight">My Orders</h1>
+                        <p class="text-xs text-warmbrown mt-0.5">Track and manage all your purchases</p>
+                    </div>
+                </div>
+                <div id="order-count-badge"
+                    class="bg-accent text-white px-4 py-1.5 rounded-full text-sm font-semibold inline-flex items-center gap-2 w-fit">
+                    <i class="fas fa-box text-xs"></i>
+                    <span>0 orders</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filter Tabs - Enhanced with icons -->
+        <div class="flex flex-wrap gap-4 sm:gap-6 mb-6 border-b border-accent/20 pb-2">
+            <div class="filter-tab filter-tab-active" data-filter="all">
+                <i class="fas fa-list mr-1.5 text-xs"></i>All Orders
+            </div>
+            <div class="filter-tab" data-filter="delivered">
+                <i class="fas fa-check-circle mr-1.5 text-xs"></i>Delivered
+            </div>
+            <div class="filter-tab" data-filter="processing">
+                <i class="fas fa-clock mr-1.5 text-xs"></i>Processing
+            </div>
+            <div class="filter-tab" data-filter="shipped">
+                <i class="fas fa-truck mr-1.5 text-xs"></i>Shipped
+            </div>
+            <div class="filter-tab" data-filter="cancelled">
+                <i class="fas fa-ban mr-1.5 text-xs"></i>Cancelled
+            </div>
+        </div>
+
+        <!-- Orders List Container -->
+        <div id="orders-list-container" class="space-y-3">
+            <!-- Skeleton Loader -->
+            <div class="skeleton-card">
+                <div class="h-20 bg-gray-200 rounded-lg"></div>
+            </div>
+            <div class="skeleton-card">
+                <div class="h-20 bg-gray-200 rounded-lg"></div>
+            </div>
+        </div>
+
+        <!-- Empty State (Hidden by default) -->
+        <div id="empty-state" class="empty-state hidden">
+            <i class="fas fa-shopping-bag text-5xl text-accent/30 mb-3 block"></i>
+            <h3 class="text-lg font-semibold text-primary mb-1">No orders found</h3>
+            <p class="text-sm text-gray-500 mb-4">You haven't placed any orders in this category yet</p>
+            <a href="/shop"
+                class="inline-flex items-center gap-2 bg-accent text-white px-5 py-2.5 rounded-xl font-medium hover:bg-accent/90 transition">
+                <i class="fas fa-store"></i>
+                Start Shopping
+            </a>
+        </div>
+
+        <!-- Footer Note -->
+        <div class="mt-8 text-center text-[0.65rem] text-warmbrown border-t border-accent/20 pt-4">
+            <i class="fas fa-leaf text-accent mr-1 text-[0.55rem]"></i>
+            Handcrafted with love in India | Free shipping above ₹799
+            <div class="flex items-center justify-center gap-3 mt-2">
+                <span class="flex items-center gap-1"><i class="fas fa-shield-alt text-accent text-[0.5rem]"></i>Secure
+                    Payments</span>
+                <span class="flex items-center gap-1"><i class="fas fa-undo-alt text-accent text-[0.5rem]"></i>Easy
+                    Returns</span>
+                <span class="flex items-center gap-1"><i class="fas fa-headset text-accent text-[0.5rem]"></i>24/7
+                    Support</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div id="footer-container"></div>
+
+    <!-- Scripts -->
+    <script src="../Header/load-header.js" defer></script>
+    <script src="../Header/header.js" defer></script>
+    <script src="../Footer/footer-loader.js" defer></script>
+
+    <!-- Enhanced Order Data and Rendering -->
+    <script>
+        (function () {
+            // ========== ORDER DATA (Preserved with enhancements) ==========
+            const ordersData = [
+                {
+                    id: "ORD-2104",
+                    date: "12 Feb 26",
+                    status: "delivered",
+                    statusText: "Delivered",
+                    total: 3650,
+                    items: [
+                        { name: "Handmade Terracotta Planter", price: 1250, qty: 1, image: "https://images.pexels.com/photos/5973409/pexels-photo-5973409.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop", variant: "6\" diameter • Natural clay" },
+                        { name: "Cotton Dhurrie (2x3 ft)", price: 2400, qty: 1, image: "https://images.pexels.com/photos/3757059/pexels-photo-3757059.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop", variant: "2x3 ft • Indigo dye" }
+                    ],
+                    paymentMethod: "Razorpay",
+                    deliveryDate: "Delivered on Feb 12, 2026",
+                    address: "Andarud, Phatlan, Satara 415523",
+                    badgeClass: "badge-delivered",
+                    footerLeft: '<i class="fas fa-credit-card mr-1"></i>Razorpay • 2 items',
+                    showDeliveryBanner: false,
+                    actions: ["Reorder", "Rate Products"],
+                    transactionId: "RZP12345678"
+                },
+                {
+                    id: "ORD-2105",
+                    date: "10 Feb 26",
+                    status: "delivered",
+                    statusText: "Delivered",
+                    total: 3740,
+                    items: [
+                        { name: "Stone Coaster Set (4pcs)", price: 890, qty: 1, image: "https://images.pexels.com/photos/4158294/pexels-photo-4158294.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop", variant: "Set of 4 • Etched design" },
+                        { name: "Sheesham Serving Bowl (12\")", price: 2850, qty: 1, image: "https://images.pexels.com/photos/5877082/pexels-photo-5877082.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop", variant: "12\" • Food safe oil" }
+                    ],
+                    paymentMethod: "UPI",
+                    deliveryDate: "Delivered on Feb 10, 2026",
+                    address: "Andarud, Phatlan, Satara 415523",
+                    badgeClass: "badge-delivered",
+                    footerLeft: '<i class="fas fa-credit-card mr-1"></i>UPI • 2 items',
+                    showDeliveryBanner: false,
+                    actions: ["Buy Again", "Write Review"],
+                    transactionId: "UPI12345678"
+                },
+                {
+                    id: "ORD-2289",
+                    date: "16 Feb 26",
+                    status: "shipped",
+                    statusText: "Shipped",
+                    total: 3595,
+                    items: [
+                        { name: "Brass Diya (Lamp) 4\"", price: 1495, qty: 1, image: "https://images.pexels.com/photos/7173475/pexels-photo-7173475.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop", variant: "4\" • Antique finish" },
+                        { name: "Macrame Wall Hanging", price: 2100, qty: 1, image: "https://images.pexels.com/photos/4066092/pexels-photo-4066092.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop", variant: "55x90 cm • Natural beige" }
+                    ],
+                    paymentMethod: "UPI",
+                    deliveryDate: "Expected by Feb 22, 2026",
+                    address: "Andarud, Phatlan, Satara 415523",
+                    badgeClass: "badge-shipped",
+                    footerLeft: '<i class="fas fa-truck mr-1"></i>In Transit',
+                    showDeliveryBanner: true,
+                    deliveryBannerText: "Free Delivery • Expected by Feb 22",
+                    actions: ["Track Order"],
+                    transactionId: null
+                },
+                {
+                    id: "ORD-2552",
+                    date: "18 Feb 26",
+                    status: "processing",
+                    statusText: "Processing",
+                    total: 3130,
+                    items: [
+                        { name: "Ceramic Sip-and-Slow Mug", price: 1150, qty: 1, image: "https://images.pexels.com/photos/1351264/pexels-photo-1351264.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop", variant: "350ml • Matte ochre" },
+                        { name: "Linen Napkin Set (4pcs)", price: 1980, qty: 1, image: "https://images.pexels.com/photos/3757035/pexels-photo-3757035.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop", variant: "Set of 4 • Eco dyed" }
+                    ],
+                    paymentMethod: "Razorpay",
+                    deliveryDate: "Processing • Est. dispatch Feb 20",
+                    address: "Andarud, Phatlan, Satara 415523",
+                    badgeClass: "badge-processing",
+                    footerLeft: '<i class="fas fa-clock mr-1"></i>Payment Verified',
+                    showDeliveryBanner: false,
+                    actions: [],
+                    transactionId: null
+                },
+                {
+                    id: "ORD-2671",
+                    date: "19 Feb 26",
+                    status: "shipped",
+                    statusText: "Shipped",
+                    total: 5090,
+                    items: [
+                        { name: "Terracotta Matka (2.5L)", price: 1890, qty: 1, image: "https://images.pexels.com/photos/5632464/pexels-photo-5632464.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop", variant: "2.5L • Cooling clay" },
+                        { name: "Kalamkari Wall Art (20x30)", price: 3200, qty: 1, image: "https://images.pexels.com/photos/1918290/pexels-photo-1918290.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop", variant: "20x30 inch • Natural dyes" }
+                    ],
+                    paymentMethod: "Razorpay",
+                    deliveryDate: "Shipped • Tracking available",
+                    address: "Andarud, Phatlan, Satara 415523",
+                    badgeClass: "badge-shipped",
+                    footerLeft: '<i class="fas fa-truck mr-1"></i>In Transit',
+                    showDeliveryBanner: false,
+                    actions: ["Track Shipment", "Contact Seller"],
+                    transactionId: null
+                },
+                {
+                    id: "ORD-1903",
+                    date: "05 Feb 26",
+                    status: "delivered",
+                    statusText: "Delivered",
+                    total: 4100,
+                    items: [
+                        { name: "Ceramic Espresso Set", price: 1450, qty: 1, image: "https://images.pexels.com/photos/1351238/pexels-photo-1351238.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop", variant: "Cup+saucer • Two-tone glaze" },
+                        { name: "Hand Coiled Pottery Vase", price: 2650, qty: 1, image: "https://images.pexels.com/photos/9461092/pexels-photo-9461092.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop", variant: "8\" tall • White slip" }
+                    ],
+                    paymentMethod: "Credit Card",
+                    deliveryDate: "Delivered on Feb 05, 2026",
+                    address: "Andarud, Phatlan, Satara 415523",
+                    badgeClass: "badge-delivered",
+                    footerLeft: '<i class="fas fa-check-circle mr-1"></i>Delivered',
+                    showDeliveryBanner: true,
+                    deliveryBannerText: "Free Delivery • Order above ₹799",
+                    actions: ["Shop Similar"],
+                    transactionId: null
+                },
+                {
+                    id: "ORD-1904",
+                    date: "03 Feb 26",
+                    status: "delivered",
+                    statusText: "Delivered",
+                    total: 2010,
+                    items: [
+                        { name: "Carved Wooden Spoons (Set 3)", price: 1120, qty: 1, image: "https://images.pexels.com/photos/4203041/pexels-photo-4203041.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop", variant: "Set of 3 • Mango wood" },
+                        { name: "Stone Coaster Set (4pcs)", price: 890, qty: 1, image: "https://images.pexels.com/photos/4158294/pexels-photo-4158294.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop", variant: "4pcs • Hand etched" }
+                    ],
+                    paymentMethod: "UPI",
+                    deliveryDate: "Delivered on Feb 03, 2026",
+                    address: "Andarud, Phatlan, Satara 415523",
+                    badgeClass: "badge-delivered",
+                    footerLeft: '<i class="fas fa-star mr-1"></i>Rate Products',
+                    showDeliveryBanner: false,
+                    actions: ["Rate Products", "Reorder"],
+                    transactionId: null
+                },
+                {
+                    id: "ORD-2567",
+                    date: "15 Feb 26",
+                    status: "cancelled",
+                    statusText: "Cancelled",
+                    total: 3950,
+                    items: [
+                        { name: "Macrame Wall Hanging (Large)", price: 2450, qty: 1, image: "https://images.pexels.com/photos/4066092/pexels-photo-4066092.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop", variant: "Large • 70x120 cm" },
+                        { name: "Brass Diya Set (2pcs)", price: 1500, qty: 1, image: "https://images.pexels.com/photos/7173475/pexels-photo-7173475.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop", variant: "2 pieces • Traditional" }
+                    ],
+                    paymentMethod: "Razorpay",
+                    deliveryDate: "Cancelled on Feb 15, 2026",
+                    address: "Andarud, Phatlan, Satara 415523",
+                    badgeClass: "badge-cancelled",
+                    footerLeft: '<i class="fas fa-ban mr-1"></i>Payment Failed',
+                    showDeliveryBanner: false,
+                    actions: ["Retry Payment"],
+                    transactionId: null
+                },
+                {
+                    id: "ORD-3001",
+                    date: "22 Feb 26",
+                    status: "processing",
+                    statusText: "Processing",
+                    total: 4275,
+                    items: [
+                        { name: "Handwoven Bamboo Basket", price: 1850, qty: 2, image: "https://images.pexels.com/photos/3186555/pexels-photo-3186555.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop", variant: "Medium • With handles" },
+                        { name: "Cotton Table Runner", price: 1575, qty: 1, image: "https://images.pexels.com/photos/3757059/pexels-photo-3757059.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop", variant: "60 inch • Block print" }
+                    ],
+                    paymentMethod: "PhonePe",
+                    deliveryDate: "Est. dispatch Feb 25",
+                    address: "Gokhale Nagar, Pune 411016",
+                    badgeClass: "badge-processing",
+                    footerLeft: '<i class="fas fa-clock mr-1"></i>Payment Verified',
+                    showDeliveryBanner: false,
+                    actions: [],
+                    transactionId: "PHONEPE998877"
+                },
+                {
+                    id: "ORD-3002",
+                    date: "21 Feb 26",
+                    status: "shipped",
+                    statusText: "Shipped",
+                    total: 1899,
+                    items: [
+                        { name: "Brass Incense Holder", price: 899, qty: 1, image: "https://images.pexels.com/photos/205961/pexels-photo-205961.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop", variant: "4 arms • Polished" },
+                        { name: "Sandalwood Cone Incense", price: 450, qty: 2, image: "https://images.pexels.com/photos/689223/pexels-photo-689223.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop", variant: "Pack of 20 • Natural" }
+                    ],
+                    paymentMethod: "Razorpay",
+                    deliveryDate: "Shipped • In Transit",
+                    address: "M.G. Road, Bangalore 560001",
+                    badgeClass: "badge-shipped",
+                    footerLeft: '<i class="fas fa-truck mr-1"></i>In Transit',
+                    showDeliveryBanner: true,
+                    deliveryBannerText: "Free Delivery • Order above ₹799",
+                    actions: ["Track Shipment"],
+                    transactionId: null
+                },
+                {
+                    id: "ORD-3003",
+                    date: "20 Feb 26",
+                    status: "delivered",
+                    statusText: "Delivered",
+                    total: 3240,
+                    items: [
+                        { name: "Ceramic Planter Pot", price: 1240, qty: 1, image: "https://images.pexels.com/photos/5632464/pexels-photo-5632464.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop", variant: "8\" • Matte white" },
+                        { name: "Macrame Plant Hanger", price: 2000, qty: 1, image: "https://images.pexels.com/photos/4066092/pexels-photo-4066092.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop", variant: "36 inch • Natural cord" }
+                    ],
+                    paymentMethod: "Google Pay",
+                    deliveryDate: "Delivered on Feb 20",
+                    address: "Civil Lines, Delhi 110054",
+                    badgeClass: "badge-delivered",
+                    footerLeft: '<i class="fas fa-check-circle mr-1"></i>Delivered',
+                    showDeliveryBanner: false,
+                    actions: ["Reorder", "Review"],
+                    transactionId: "GPAY11223344"
+                },
+                {
+                    id: "ORD-3004",
+                    date: "19 Feb 26",
+                    status: "cancelled",
+                    statusText: "Cancelled",
+                    total: 5600,
+                    items: [
+                        { name: "Wooden Wall Shelf", price: 3200, qty: 1, image: "https://images.pexels.com/photos/2082090/pexels-photo-2082090.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop", variant: "3-tier • Mango wood" },
+                        { name: "Set of 2 Cushion Covers", price: 2400, qty: 1, image: "https://images.pexels.com/photos/3757028/pexels-photo-3757028.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop", variant: "18x18 • Kantha stitch" }
+                    ],
+                    paymentMethod: "Credit Card",
+                    deliveryDate: "Cancelled on Feb 19",
+                    address: "MG Road, Chennai 600017",
+                    badgeClass: "badge-cancelled",
+                    footerLeft: '<i class="fas fa-ban mr-1"></i>Out of Stock',
+                    showDeliveryBanner: false,
+                    actions: ["Shop Similar"],
+                    transactionId: null
+                },
+                {
+                    id: "ORD-3005",
+                    date: "18 Feb 26",
+                    status: "delivered",
+                    statusText: "Delivered",
+                    total: 1150,
+                    items: [
+                        { name: "Handcrafted Soapstone Box", price: 1150, qty: 1, image: "https://images.pexels.com/photos/1035832/pexels-photo-1035832.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop", variant: "4x3 inch • Floral motif" }
+                    ],
+                    paymentMethod: "UPI",
+                    deliveryDate: "Delivered on Feb 18",
+                    address: "Sadar Bazar, Nagpur 440001",
+                    badgeClass: "badge-delivered",
+                    footerLeft: '<i class="fas fa-check-circle mr-1"></i>Delivered',
+                    showDeliveryBanner: true,
+                    deliveryBannerText: "Free Delivery • Order above ₹799",
+                    actions: ["Rate Product"],
+                    transactionId: "UPI55443322"
+                }
+            ];
+
+            // Update order count badge only
+            function updateOrderCount() {
+                const totalOrders = ordersData.length;
+                document.getElementById('order-count-badge').innerHTML = `<i class="fas fa-box text-xs"></i><span>${totalOrders} orders</span>`;
+            }
+
+            let currentFilter = 'all';
+
+            // Render orders with filter
+            function renderOrders() {
+                const container = document.getElementById('orders-list-container');
+                const emptyState = document.getElementById('empty-state');
+
+                let filteredOrders = ordersData;
+                if (currentFilter !== 'all') {
+                    filteredOrders = ordersData.filter(order => order.status === currentFilter);
+                }
+
+                if (filteredOrders.length === 0) {
+                    container.innerHTML = '';
+                    emptyState.classList.remove('hidden');
+                    return;
+                }
+
+                emptyState.classList.add('hidden');
+
+                let cardsHtml = '';
+                let overlaysHtml = '';
+
+                filteredOrders.forEach((order, index) => {
+                    const overlayId = `overlay_${order.id}_${index}`;
+
+                    // Card HTML
+                    let bannerHtml = '';
+                    if (order.showDeliveryBanner && order.deliveryBannerText) {
+                        bannerHtml = `<div class="delivery-banner"><i class="fas fa-truck text-accent"></i><span>${order.deliveryBannerText}</span></div>`;
+                    }
+
+                    let productsHtml = '';
+                    order.items.forEach(item => {
+                        productsHtml += `
+                            <div class="flex items-center gap-3 py-1.5 border-b border-gray-100 last:border-0">
+                                <img src="${item.image}" class="product-image" alt="${item.name}" loading="lazy" onerror="this.src='https://via.placeholder.com/52x52/E6A62C/FFFFFF?text=📦'">
+                                <div class="flex-1">
+                                    <div class="font-medium text-sm">${item.name}</div>
+                                    <div class="text-[0.6rem] text-warmbrown">${item.variant || ''}</div>
+                                    <div class="flex justify-between items-center mt-1">
+                                        <span class="text-xs font-semibold">₹${item.price}</span>
+                                        <span class="text-[0.55rem] text-gray-400">Qty: ${item.qty}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    });
+
+                    const cardHtml = `
+                        <div class="order-card" onclick="window.openOverlay('${overlayId}')">
+                            ${bannerHtml}
+                            <div class="flex justify-between items-start mb-2">
+                                <div class="flex flex-col gap-1">
+                                    <div class="flex items-center gap-2 flex-wrap">
+                                        <span class="font-bold text-sm text-primary">#${order.id}</span>
+                                        <span class="${order.badgeClass}"><i class="fas ${order.status === 'delivered' ? 'fa-check-circle' : order.status === 'shipped' ? 'fa-truck' : order.status === 'processing' ? 'fa-clock' : 'fa-ban'} text-[0.55rem] mr-1"></i>${order.statusText}</span>
+                                    </div>
+                                    <div class="text-[0.6rem] text-warmbrown flex items-center gap-2">
+                                        <i class="far fa-calendar-alt"></i>
+                                        <span>${order.date}</span>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <div class="font-bold text-lg text-primary">₹${order.total}</div>
+                                    <div class="text-[0.55rem] text-gray-400">${order.items.length} item${order.items.length > 1 ? 's' : ''}</div>
+                                </div>
+                            </div>
+                            <div class="space-y-1.5 mt-2">
+                                ${productsHtml}
+                            </div>
+                            <div class="flex justify-between items-center mt-3 pt-2 border-t border-gray-100">
+                                <span class="text-[0.6rem] text-warmbrown">${order.footerLeft}</span>
+                                <span class="text-accent text-xs font-medium flex items-center gap-1">
+                                    View Details <i class="fas fa-chevron-right text-[0.6rem]"></i>
+                                </span>
+                            </div>
+                        </div>
+                    `;
+                    cardsHtml += cardHtml;
+
+                    // Overlay HTML
+                    let overlayBanner = '';
+                    if (order.showDeliveryBanner && order.deliveryBannerText) {
+                        overlayBanner = `<div class="delivery-banner mx-4 mt-3"><i class="fas fa-truck text-accent"></i><span>${order.deliveryBannerText}</span></div>`;
+                    }
+
+                    let overlayProducts = '';
+                    order.items.forEach(item => {
+                        overlayProducts += `
+                            <div class="product-row">
+                                <div class="flex items-center gap-3 flex-1">
+                                    <img src="${item.image}" class="w-14 h-14 rounded-xl object-cover border border-accent/20" alt="${item.name}" onerror="this.src='https://via.placeholder.com/56x56/E6A62C/FFFFFF?text=📦'">
+                                    <div class="flex-1">
+                                        <span class="text-sm font-semibold block">${item.name}</span>
+                                        <div class="text-[0.6rem] text-warmbrown">${item.variant || ''}</div>
+                                        <div class="text-[0.6rem] text-gray-400 mt-0.5">Qty: ${item.qty}</div>
+                                    </div>
+                                </div>
+                                <span class="text-sm font-bold">₹${item.price}</span>
+                            </div>
+                        `;
+                    });
+
+                    let actionButtons = '';
+                    if (order.actions && order.actions.length) {
+                        if (order.actions.length === 1) {
+                            actionButtons = `<button class="btn-primary w-full mt-4">${order.actions[0]}</button>`;
+                        } else {
+                            actionButtons = `<div class="flex gap-2 mt-4"><button class="btn-primary flex-1">${order.actions[0]}</button><button class="btn-outline flex-1">${order.actions[1]}</button></div>`;
+                        }
+                    }
+
+                    let paymentHtml = '';
+                    if (order.status !== 'cancelled') {
+                        paymentHtml = `
+                            <div class="mt-4 p-3 bg-cream rounded-xl">
+                                <div class="flex justify-between text-xs">
+                                    <span class="text-gray-500">Payment Method</span>
+                                    <span class="font-medium">${order.paymentMethod}</span>
+                                </div>
+                                ${order.transactionId ? `<div class="text-[0.6rem] text-warmbrown mt-1">Transaction: ${order.transactionId}</div>` : ''}
+                            </div>
+                        `;
+                    }
+
+                    const overlayHtml = `
+                        <div id="${overlayId}" class="order-overlay" onclick="window.closeOverlay(event, '${overlayId}')">
+                            <div class="overlay-content" onclick="event.stopPropagation()">
+                                <div class="sticky top-0 bg-white z-10 flex justify-between items-center p-4 border-b border-gray-200">
+                                    <div>
+                                        <h2 class="text-lg font-bold text-primary">Order ${order.id}</h2>
+                                        <p class="text-[0.6rem] text-warmbrown">${order.deliveryDate}</p>
+                                    </div>
+                                    <button onclick="window.closeOverlay(event, '${overlayId}')" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 transition">&times;</button>
+                                </div>
+                                ${overlayBanner}
+                                <div class="p-4">
+                                    <h3 class="font-semibold text-sm mb-3 flex items-center gap-2"><i class="fas fa-box text-accent text-xs"></i>Items</h3>
+                                    ${overlayProducts}
+                                    <div class="flex justify-between font-bold text-base mt-4 pt-3 border-t-2 border-gray-200">
+                                        <span>Total</span>
+                                        <span class="text-accent">₹${order.total}</span>
+                                    </div>
+                                    ${paymentHtml}
+                                    <div class="mt-3 p-3 bg-gray-50 rounded-xl">
+                                        <div class="flex items-start gap-2 text-xs">
+                                            <i class="fas fa-map-marker-alt text-accent mt-0.5"></i>
+                                            <span class="text-gray-600">${order.address}</span>
+                                        </div>
+                                    </div>
+                                    ${actionButtons}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    overlaysHtml += overlayHtml;
+                });
+
+                container.innerHTML = cardsHtml;
+
+                // Remove old overlays and add new ones
+                document.querySelectorAll('.order-overlay').forEach(el => el.remove());
+                const overlayContainer = document.createElement('div');
+                overlayContainer.innerHTML = overlaysHtml;
+                document.body.appendChild(overlayContainer);
+            }
+
+            // Global functions for overlays
+            window.openOverlay = function (overlayId) {
+                const el = document.getElementById(overlayId);
+                if (el) {
+                    el.style.display = 'flex';
+                    document.body.style.overflow = 'hidden';
+                }
+            };
+
+            window.closeOverlay = function (event, overlayId) {
+                const overlay = document.getElementById(overlayId);
+                if (overlay && (event.target === overlay || event.target.closest('button'))) {
+                    overlay.style.display = 'none';
+                    document.body.style.overflow = '';
+                }
+            };
+
+            // Filter functionality
+            document.querySelectorAll('.filter-tab').forEach(tab => {
+                tab.addEventListener('click', function () {
+                    document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('filter-tab-active'));
+                    this.classList.add('filter-tab-active');
+                    currentFilter = this.getAttribute('data-filter');
+                    renderOrders();
+                });
+            });
+
+            // Escape key close
+            document.addEventListener('keydown', function (event) {
+                if (event.key === 'Escape') {
+                    document.querySelectorAll('.order-overlay').forEach(overlay => {
+                        if (overlay.style.display === 'flex') {
+                            overlay.style.display = 'none';
+                            document.body.style.overflow = '';
+                        }
+                    });
+                }
+            });
+
+            // Initialize
+            updateOrderCount();
+
+            // Simulate loading then render
+            setTimeout(() => {
+                renderOrders();
+            }, 300);
+        })();
+    </script>
+</body>
+
+</html>

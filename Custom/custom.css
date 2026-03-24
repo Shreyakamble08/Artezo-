@@ -1,0 +1,107 @@
+
+    * {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background: #fefcf7;
+    }
+
+    .frame-set-card,
+    .thumbnail,
+    button,
+    .offer-card,
+    .category-card {
+      transition: all 0.2s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    }
+
+    .frame-set-card:hover,
+    .category-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.06);
+    }
+
+    .thumbnail:hover {
+      transform: scale(0.96);
+    }
+
+    #magnifierLens {
+      box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.9), 0 0 0 4px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 10px;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 10px;
+    }
+
+    .custom-scrollbar {
+      scrollbar-width: thin;
+    }
+
+    .frame-set-card.active-variant {
+      border-color: #f97316 !important;
+      background-color: #fff7ed !important;
+      box-shadow: 0 4px 14px rgba(249, 115, 22, 0.12);
+    }
+
+    .category-card.active-category {
+      border-color: #f97316 !important;
+      background: linear-gradient(135deg, #fff7ed 0%, #fff 100%);
+    }
+
+    @keyframes fadeSlideUp {
+      from {
+        opacity: 0;
+        transform: translateY(12px) scale(0.98);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .modal-enter-active {
+      animation: fadeSlideUp 0.25s ease forwards;
+    }
+
+    /* Image adjustment overlay styles */
+    .image-adjustment-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.9);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .cropper-container {
+      max-height: 70vh;
+      max-width: 80vw;
+    }
+
+    .adjustment-controls {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: white;
+      padding: 15px 25px;
+      border-radius: 50px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      display: flex;
+      gap: 15px;
+      z-index: 1001;
+    }

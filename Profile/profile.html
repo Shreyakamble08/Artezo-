@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Profile • Artezo</title>
+
+    <!-- Tailwind + Fonts -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    
+    <!-- Toastify CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    
+    <!-- Header & Footer CSS -->
+    <link rel="stylesheet" href="../Header/header.css" />
+    <link rel="stylesheet" href="../Footer/footer.css" />
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Zain:ital,wght@0,200;0,300;0,400;0,700;0,800;0,900;1,300;1,400&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#033E59",
+                        accent: "#E6A62C",
+                        cream: "#FFF8EC",
+                        warmgray: "#F9F3E9",
+                    },
+                    fontFamily: {
+                        lexend: ["Lexend", "sans-serif"],
+                        zain: ["Zain", "sans-serif"],
+                    },
+                },
+            },
+        };
+    </script>
+
+    <style>
+        /* modern card styles with warm tones */
+        .info-card {
+            background: linear-gradient(135deg, #FFF7EA 0%, #FEF7E9 100%);
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 10px 25px -8px rgba(230, 166, 44, 0.15);
+            border: 1px solid rgba(230, 166, 44, 0.25);
+            transition: all 0.2s;
+        }
+        .info-card:hover {
+            border-color: #E6A62C;
+            box-shadow: 0 15px 30px -8px rgba(230, 166, 44, 0.25);
+            background: #FFFBF2;
+        }
+        .field-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #9B7B4A;  /* warm brown */
+            font-weight: 600;
+        }
+        .field-value {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #033E59;  /* primary dark */
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.2rem;
+        }
+        .field-value i {
+            color: #E6A62C;
+            font-size: 1rem;
+            width: 1.4rem;
+        }
+        .address-compact-card {
+            background: #FFFFFF;
+            border-radius: 1.2rem;
+            padding: 1rem 1.2rem;
+            border: 1px solid #FFE9CE;
+            transition: all 0.2s;
+            box-shadow: 0 4px 10px -4px rgba(230, 166, 44, 0.08);
+        }
+        .address-compact-card:hover {
+            border-color: #E6A62C;
+            background-color: #FFFBF0;
+            box-shadow: 0 8px 18px -6px rgba(230, 166, 44, 0.15);
+        }
+        .address-compact-card.default {
+            background: #FFF3DD;
+            border-color: #E6A62C;
+            border-width: 1.5px;
+        }
+        .badge-type {
+            background: #FCE9D2;  /* soft accent bg */
+            padding: 0.25rem 0.9rem;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            color: #7B5832; /* deep warm */
+        }
+        .badge-default {
+            background: #E6A62C;
+            color: white;
+            padding: 0.2rem 1rem;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+        .btn-outline-accent {
+            border: 1.5px solid #E6A62C;
+            color: #033E59;
+            background: #FFF9EE;
+            border-radius: 2rem;
+            padding: 0.5rem 1.2rem;
+            font-weight: 500;
+            transition: 0.2s;
+        }
+        .btn-outline-accent:hover {
+            background: #E6A62C;
+            color: white;
+            border-color: #E6A62C;
+        }
+        .tab-button.active {
+            color: #E6A62C;
+            border-bottom-color: #E6A62C;
+        }
+
+        /* Sidebar & containers warm touch */
+        .warm-sidebar {
+            background: #FFFBF5;
+            border: 1px solid #FFE9D4;
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            background: #FFFCF7;
+            border-radius: 1.5rem;
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 1px solid #FFDDB0;
+        }
+
+        input, select, textarea {
+            background-color: #FFFCF7;
+            border: 1px solid #FFD9B0;
+        }
+        input:focus, select:focus {
+            border-color: #E6A62C;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(230, 166, 44, 0.15);
+        }
+
+        /* Custom Toastify styles */
+        .toastify-custom {
+            font-family: 'Lexend', sans-serif;
+            border-radius: 12px !important;
+            padding: 12px 20px !important;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15) !important;
+            font-weight: 500;
+        }
+        
+        .toastify-success {
+            background: linear-gradient(135deg, #033E59 0%, #045a7a 100%) !important;
+            border-left: 4px solid #E6A62C !important;
+        }
+        
+        .toastify-error {
+            background: linear-gradient(135deg, #991b1b 0%, #b91c1c 100%) !important;
+            border-left: 4px solid #fca5a5 !important;
+        }
+        
+        .toastify-warning {
+            background: linear-gradient(135deg, #92400e 0%, #b45309 100%) !important;
+            border-left: 4px solid #fcd34d !important;
+        }
+        
+        .toastify-info {
+            background: linear-gradient(135deg, #065666 0%, #0891b2 100%) !important;
+            border-left: 4px solid #7dd3fc !important;
+        }
+
+        /* Delete Confirmation Popup */
+        .delete-popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .delete-popup-overlay.active {
+            display: flex;
+        }
+
+        .delete-popup {
+            background: #FFFCF7;
+            border-radius: 1.5rem;
+            max-width: 400px;
+            width: 90%;
+            padding: 2rem;
+            border: 1px solid #FFDDB0;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            animation: popIn 0.3s ease;
+        }
+
+        @keyframes popIn {
+            0% {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .delete-popup-icon {
+            width: 70px;
+            height: 70px;
+            background: #FEE2E2;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            border: 3px solid #FCA5A5;
+        }
+
+        .delete-popup-icon i {
+            font-size: 2.5rem;
+            color: #DC2626;
+        }
+
+        .delete-popup h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #033E59;
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .delete-popup p {
+            color: #6B4E2E;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+        }
+
+        .delete-popup-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .delete-popup-btn {
+            padding: 0.75rem 2rem;
+            border-radius: 2rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+            min-width: 120px;
+        }
+
+        .delete-popup-btn.confirm {
+            background: #DC2626;
+            color: white;
+        }
+
+        .delete-popup-btn.confirm:hover {
+            background: #B91C1C;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(220, 38, 38, 0.3);
+        }
+
+        .delete-popup-btn.cancel {
+            background: #E6A62C;
+            color: #033E59;
+        }
+
+        .delete-popup-btn.cancel:hover {
+            background: #D4951A;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(230, 166, 44, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-[#FDF8F0] font-lexend">
+
+    <!-- Header will be loaded here -->
+    <div id="header-container"></div>
+
+    <!-- ========== DYNAMIC PROFILE SECTION ========== -->
+    <div class="max-w-7xl mx-auto px-6 py-12">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <!-- LEFT SIDEBAR - Dynamic with warm colors -->
+            <div class="warm-sidebar rounded-2xl shadow-md p-6 h-fit" id="profile-sidebar">
+                <!-- Filled by JavaScript -->
+            </div>
+
+            <!-- RIGHT CONTENT -->
+            <div class="md:col-span-3">
+                <div class="bg-[#FFFBF5] rounded-2xl shadow-md overflow-hidden border border-[#FFE6C7]">
+                    <!-- simple header with warm accent -->
+                    <div class="px-8 py-6 border-b border-[#FFE0BA] bg-[#FFF5E6] flex justify-between items-center">
+                        <h1 class="text-2xl font-semibold text-primary flex items-center gap-2">
+                            <i class="fa-solid fa-circle-user text-accent"></i> Profile & addresses
+                        </h1>
+                        <button id="editProfileBtnMain" class="bg-accent text-primary px-5 py-2 rounded-full hover:bg-accent/90 transition text-sm font-medium shadow-sm flex items-center gap-2 border border-accent/50">
+                            <i class="fa-solid fa-pen"></i> Edit profile
+                        </button>
+                    </div>
+
+                    <!-- PROFILE INFORMATION CARD -->
+                    <div class="p-8" id="profileInfoSection">
+                        <div class="info-card">
+                            <div class="flex items-center gap-3 mb-5">
+                                <div class="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">
+                                    <i class="fa-solid fa-id-badge text-accent text-xl"></i>
+                                </div>
+                                <h2 class="text-xl font-semibold text-primary">Personal details</h2>
+                            </div>
+                            <div class="grid md:grid-cols-2 gap-y-6 gap-x-8">
+                                <div>
+                                    <div class="field-label"><i class="fa-solid fa-user-pen mr-1"></i>Full name</div>
+                                    <div class="field-value"><i class="fa-solid fa-circle-user text-accent"></i><span id="displayName"></span></div>
+                                </div>
+                                <div>
+                                    <div class="field-label"><i class="fa-solid fa-envelope-open-text mr-1"></i>Email</div>
+                                    <div class="field-value"><i class="fa-solid fa-paper-plane text-accent"></i><span id="displayEmail"></span></div>
+                                </div>
+                                <div>
+                                    <div class="field-label"><i class="fa-solid fa-mobile-screen-button mr-1"></i>Phone</div>
+                                    <div class="field-value"><i class="fa-solid fa-phone-volume text-accent"></i><span id="displayPhone"></span></div>
+                                </div>
+                                <div>
+                                    <div class="field-label"><i class="fa-solid fa-location-dot mr-1"></i>City</div>
+                                    <div class="field-value"><i class="fa-solid fa-map-location-dot text-accent"></i><span id="displayCity"></span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ADDRESSES SECTION -->
+                    <div class="px-8 pb-8">
+                        <div class="flex items-center justify-between mb-5">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">
+                                    <i class="fa-solid fa-map-pin text-accent text-xl"></i>
+                                </div>
+                                <h2 class="text-xl font-semibold text-primary">Saved addresses</h2>
+                            </div>
+                            <button id="addAddressBtnCompact" class="btn-outline-accent text-sm flex items-center gap-2">
+                                <i class="fa-solid fa-plus"></i> Add new
+                            </button>
+                        </div>
+
+                        <!-- Address list container (dynamic) -->
+                        <div id="addresses-container" class="space-y-3">
+                            <!-- Filled by JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- EDIT PROFILE MODAL -->
+    <div id="editProfileModal" class="modal">
+        <div class="modal-content p-8">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-semibold text-primary flex items-center gap-2"><i class="fa-regular fa-pen-to-square text-accent"></i> Edit Profile</h3>
+                <button id="closeModalBtn" class="text-gray-400 hover:text-gray-600 text-2xl">&times;</button>
+            </div>
+            
+            <div class="space-y-4">
+                <div>
+                    <label class="text-sm text-amber-800 font-medium">Full Name</label>
+                    <input type="text" id="modalName" class="w-full mt-1 border border-amber-200 rounded-xl p-3 focus:border-accent outline-none bg-[#FFFDF8]">
+                </div>
+                <div>
+                    <label class="text-sm text-amber-800 font-medium">Email</label>
+                    <input type="email" id="modalEmail" class="w-full mt-1 border border-amber-200 rounded-xl p-3 focus:border-accent outline-none bg-[#FFFDF8]">
+                </div>
+                <div>
+                    <label class="text-sm text-amber-800 font-medium">Phone</label>
+                    <input type="text" id="modalPhone" class="w-full mt-1 border border-amber-200 rounded-xl p-3 focus:border-accent outline-none bg-[#FFFDF8]">
+                </div>
+                <div>
+                    <label class="text-sm text-amber-800 font-medium">City</label>
+                    <input type="text" id="modalCity" class="w-full mt-1 border border-amber-200 rounded-xl p-3 focus:border-accent outline-none bg-[#FFFDF8]">
+                </div>
+                <div>
+                    <label class="text-sm text-amber-800 font-medium">Profile Picture URL</label>
+                    <input type="text" id="modalAvatar" class="w-full mt-1 border border-amber-200 rounded-xl p-3 focus:border-accent outline-none bg-[#FFFDF8]">
+                </div>
+            </div>
+            
+            <div class="flex gap-3 mt-8">
+                <button id="saveModalBtn" class="flex-1 bg-primary text-white px-6 py-3 rounded-xl hover:bg-primary/90 transition font-medium">Save Changes</button>
+                <button id="cancelModalBtn" class="flex-1 border border-amber-300 bg-white px-6 py-3 rounded-xl hover:bg-amber-50 transition font-medium">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ADD/EDIT ADDRESS MODAL -->
+    <div id="addressModal" class="modal">
+        <div class="modal-content p-8">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-semibold text-primary flex items-center gap-2" id="addressModalTitle">
+                    <i class="fa-solid fa-plus text-accent"></i> Add New Address
+                </h3>
+                <button id="closeAddressModalBtn" class="text-gray-400 hover:text-gray-600 text-2xl">&times;</button>
+            </div>
+            
+            <div class="space-y-4">
+                <div>
+                    <label class="text-sm text-amber-800 font-medium">Address Type</label>
+                    <select id="addressType" class="w-full mt-1 border border-amber-200 rounded-xl p-3 focus:border-accent outline-none bg-[#FFFDF8]">
+                        <option value="home">🏠 Home</option>
+                        <option value="work">💼 Work</option>
+                        <option value="other">📍 Other</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="text-sm text-amber-800 font-medium">Street Address</label>
+                    <input type="text" id="street" placeholder="House no., building, street" class="w-full mt-1 border border-amber-200 rounded-xl p-3 focus:border-accent outline-none bg-[#FFFDF8]">
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="text-sm text-amber-800 font-medium">City</label>
+                        <input type="text" id="city" class="w-full mt-1 border border-amber-200 rounded-xl p-3 focus:border-accent outline-none bg-[#FFFDF8]">
+                    </div>
+                    <div>
+                        <label class="text-sm text-amber-800 font-medium">State</label>
+                        <input type="text" id="state" class="w-full mt-1 border border-amber-200 rounded-xl p-3 focus:border-accent outline-none bg-[#FFFDF8]">
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="text-sm text-amber-800 font-medium">Pincode</label>
+                        <input type="text" id="pincode" class="w-full mt-1 border border-amber-200 rounded-xl p-3 focus:border-accent outline-none bg-[#FFFDF8]">
+                    </div>
+                    <div>
+                        <label class="text-sm text-amber-800 font-medium">Country</label>
+                        <input type="text" id="country" value="India" class="w-full mt-1 border border-amber-200 rounded-xl p-3 focus:border-accent outline-none bg-[#FFFDF8]">
+                    </div>
+                </div>
+                <div>
+                    <label class="flex items-center gap-3 bg-[#FFF5E0] p-3 rounded-xl border border-amber-200">
+                        <input type="checkbox" id="isDefault" class="rounded text-accent w-4 h-4 accent-accent">
+                        <span class="text-sm text-gray-700">Set as default address</span>
+                    </label>
+                </div>
+            </div>
+            
+            <div class="flex gap-3 mt-8">
+                <button id="saveAddressBtn" class="flex-1 bg-primary text-white px-6 py-3 rounded-xl hover:bg-primary/90 transition font-medium flex items-center justify-center gap-2"><i class="fa-regular fa-floppy-disk"></i> Save Address</button>
+                <button id="cancelAddressBtn" class="flex-1 border border-amber-300 bg-white px-6 py-3 rounded-xl hover:bg-amber-50 transition font-medium">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- DELETE CONFIRMATION POPUP -->
+    <div id="deletePopup" class="delete-popup-overlay">
+        <div class="delete-popup">
+            <div class="delete-popup-icon">
+                <i class="fa-solid fa-trash-can"></i>
+            </div>
+            <h3>Delete Address?</h3>
+            <p id="deletePopupMessage">Are you sure you want to delete this address? This action cannot be undone.</p>
+            <div class="delete-popup-actions">
+                <button id="confirmDeleteBtn" class="delete-popup-btn confirm">Yes, Delete</button>
+                <button id="cancelDeleteBtn" class="delete-popup-btn cancel">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div id="footer-container"></div>
+
+    <!-- Load header scripts -->
+    <script src="../Header/load-header.js" defer></script>
+    <script src="../Header/header.js" defer></script>
+    <script src="../Footer/footer-loader.js"></script>
+    
+    <!-- Toastify JS -->
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+    <!-- Profile Page JavaScript (FULLY DYNAMIC) -->
+    <script>
+        // ========== TOASTIFY HELPER FUNCTION ==========
+        function showToast(message, type = 'success', duration = 3000) {
+            let className;
+            
+            switch(type) {
+                case 'success':
+                    className = 'toastify-success';
+                    break;
+                case 'error':
+                    className = 'toastify-error';
+                    break;
+                case 'warning':
+                    className = 'toastify-warning';
+                    break;
+                case 'info':
+                    className = 'toastify-info';
+                    break;
+                default:
+                    className = 'toastify-success';
+            }
+            
+            Toastify({
+                text: message,
+                duration: duration,
+                close: true,
+                gravity: "top",
+                position: "right",
+                stopOnFocus: true,
+                className: `toastify-custom ${className}`,
+                onClick: function() {},
+                style: {
+                    background: "transparent",
+                    boxShadow: "none"
+                }
+            }).showToast();
+        }
+
+        // ========== INITIALIZE DEFAULT DATA ==========
+        function initializeDefaultData() {
+            // Check if data exists in localStorage
+            if (!localStorage.getItem('profileData')) {
+                const defaultProfile = {
+                    name: "Shreya Sharma",
+                    email: "shreya.pune@gmail.com",
+                    phone: "9876543210",
+                    city: "Pune",
+                    avatar: "https://picsum.photos/id/64/100"
+                };
+                localStorage.setItem('profileData', JSON.stringify(defaultProfile));
+            }
+
+            if (!localStorage.getItem('addresses')) {
+                const defaultAddresses = [
+                    {
+                        id: 1,
+                        type: "home",
+                        street: "42, Shivaji Nagar, Lane No. 3",
+                        city: "Pune",
+                        state: "Maharashtra",
+                        pincode: "411005",
+                        country: "India",
+                        isDefault: true
+                    },
+                    {
+                        id: 2,
+                        type: "work",
+                        street: "15th Floor, Cyber City Tower A, Magarpatta",
+                        city: "Pune",
+                        state: "Maharashtra",
+                        pincode: "411028",
+                        country: "India",
+                        isDefault: false
+                    }
+                ];
+                localStorage.setItem('addresses', JSON.stringify(defaultAddresses));
+            }
+        }
+
+        // ========== LOAD DATA FROM LOCALSTORAGE ==========
+        function loadProfileData() {
+            const savedProfile = localStorage.getItem('profileData');
+            return savedProfile ? JSON.parse(savedProfile) : null;
+        }
+
+        function loadAddresses() {
+            const savedAddresses = localStorage.getItem('addresses');
+            return savedAddresses ? JSON.parse(savedAddresses) : [];
+        }
+
+        // ========== SAVE DATA TO LOCALSTORAGE ==========
+        function saveProfileData(profile) {
+            localStorage.setItem('profileData', JSON.stringify(profile));
+        }
+
+        function saveAddresses(addressList) {
+            localStorage.setItem('addresses', JSON.stringify(addressList));
+        }
+
+        // ========== GLOBAL STATE ==========
+        let profileData = loadProfileData();
+        let addresses = loadAddresses();
+        let currentAddressId = null; // For editing
+        let addressToDelete = null; // For delete popup
+
+        // Initialize with defaults if no data exists
+        if (!profileData) {
+            initializeDefaultData();
+            profileData = loadProfileData();
+            addresses = loadAddresses();
+        }
+
+        // ========== RENDER FUNCTIONS ==========
+        function renderSidebar() {
+            const sidebar = document.getElementById("profile-sidebar");
+            sidebar.innerHTML = `
+                <div class="text-center mb-6">
+                    <img src="${profileData.avatar}" class="w-24 h-24 rounded-full mx-auto mb-3 border-4 border-accent/30 shadow-md">
+                    <h3 class="font-semibold text-lg text-primary">${profileData.name}</h3>
+                    <p class="text-sm text-amber-700">${profileData.email}</p>
+                </div>
+                <div class="space-y-2 text-sm">
+                    <a href="#" class="block px-4 py-3 rounded-lg bg-accent/20 text-primary font-medium border-l-4 border-accent"><i class="fa fa-user mr-2"></i>Profile</a>
+                    <a href="/Myorders/orders.html" class="block px-4 py-3 rounded-lg hover:bg-amber-50 text-gray-700"><i class="fa fa-box mr-2"></i>Orders</a>
+                    <a href="#" class="block px-4 py-3 rounded-lg hover:bg-amber-50 text-gray-700"><i class="fa fa-heart mr-2"></i>Wishlist</a>
+                    <a href="#" class="block px-4 py-3 rounded-lg hover:bg-amber-50 text-gray-700"><i class="fa fa-map-marker-alt mr-2"></i>Addresses</a>
+                    <a href="#" class="block px-4 py-3 rounded-lg hover:bg-amber-50 text-gray-700"><i class="fa fa-bell mr-2"></i>Notifications</a>
+                </div>
+            `;
+        }
+
+        function updateDisplayView() {
+            document.getElementById('displayName').textContent = profileData.name;
+            document.getElementById('displayEmail').textContent = profileData.email;
+            document.getElementById('displayPhone').textContent = profileData.phone;
+            document.getElementById('displayCity').textContent = profileData.city;
+        }
+
+        function renderAddresses() {
+            const container = document.getElementById("addresses-container");
+            if (addresses.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-12 bg-[#FFF7E8] rounded-3xl border border-dashed border-amber-300">
+                        <i class="fa-solid fa-map-pin text-4xl text-amber-300 mb-3"></i>
+                        <p class="text-gray-600">No addresses saved yet</p>
+                        <p class="text-sm text-amber-600 mt-1">Click "Add new" to add one</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = addresses.map(addr => {
+                const typeIcon = addr.type === 'home' ? 'fa-house' : addr.type === 'work' ? 'fa-briefcase' : 'fa-location-dot';
+                const typeLabel = addr.type.charAt(0).toUpperCase() + addr.type.slice(1);
+                return `
+                <div class="address-compact-card ${addr.isDefault ? 'default' : ''}" data-id="${addr.id}">
+                    <div class="flex flex-wrap items-center justify-between gap-2">
+                        <div class="flex items-center gap-3">
+                            <span class="badge-type"><i class="fa-solid ${typeIcon}"></i> ${typeLabel}</span>
+                            ${addr.isDefault ? '<span class="badge-default">Default</span>' : ''}
+                        </div>
+                        <div class="flex gap-2">
+                            <button onclick="editAddress(${addr.id})" class="text-gray-400 hover:text-accent transition bg-white w-8 h-8 rounded-full flex items-center justify-center border border-amber-200 shadow-sm"><i class="fa-solid fa-pen fa-xs"></i></button>
+                            <button onclick="deleteAddress(${addr.id})" class="text-gray-400 hover:text-red-500 transition bg-white w-8 h-8 rounded-full flex items-center justify-center border border-amber-200 shadow-sm"><i class="fa-solid fa-trash fa-xs"></i></button>
+                        </div>
+                    </div>
+                    <p class="font-semibold mt-2 text-gray-800">${addr.street}</p>
+                    <p class="text-sm text-gray-600">${addr.city}, ${addr.state} - ${addr.pincode}</p>
+                    <p class="text-sm text-gray-500">${addr.country}</p>
+                    ${!addr.isDefault ? `
+                        <button onclick="setDefaultAddress(${addr.id})" class="mt-2 text-xs text-accent hover:underline flex items-center gap-1"><i class="fa-regular fa-star"></i> Set as default</button>
+                    ` : ''}
+                </div>
+            `}).join('');
+        }
+
+        // ========== PROFILE MODAL FUNCTIONS ==========
+        function openEditModal() {
+            document.getElementById('modalName').value = profileData.name;
+            document.getElementById('modalEmail').value = profileData.email;
+            document.getElementById('modalPhone').value = profileData.phone;
+            document.getElementById('modalCity').value = profileData.city;
+            document.getElementById('modalAvatar').value = profileData.avatar;
+            document.getElementById('editProfileModal').classList.add('active');
+        }
+
+        function closeEditModal() {
+            document.getElementById('editProfileModal').classList.remove('active');
+        }
+
+        function saveProfileChanges() {
+            const newName = document.getElementById('modalName').value.trim();
+            const newEmail = document.getElementById('modalEmail').value.trim();
+            const newPhone = document.getElementById('modalPhone').value.trim();
+            const newCity = document.getElementById('modalCity').value.trim();
+            const newAvatar = document.getElementById('modalAvatar').value.trim();
+
+            if (newName) profileData.name = newName;
+            if (newEmail) profileData.email = newEmail;
+            if (newPhone) profileData.phone = newPhone;
+            if (newCity) profileData.city = newCity;
+            if (newAvatar) profileData.avatar = newAvatar;
+
+            // Save to localStorage
+            saveProfileData(profileData);
+
+            renderSidebar();
+            updateDisplayView();
+            syncProfileWithHeader();
+            closeEditModal();
+            showToast('Profile updated successfully!', 'success');
+        }
+
+        function syncProfileWithHeader() {
+            if (window.updateHeaderProfile && typeof window.updateHeaderProfile === 'function') {
+                window.updateHeaderProfile(profileData);
+            } else {
+                localStorage.setItem('userProfile', JSON.stringify({
+                    name: profileData.name,
+                    email: profileData.email,
+                    avatar: profileData.avatar
+                }));
+            }
+        }
+
+        // ========== ADDRESS MODAL FUNCTIONS ==========
+        function openAddressModal(mode = 'add', addressId = null) {
+            const modal = document.getElementById('addressModal');
+            const title = document.getElementById('addressModalTitle');
+            
+            resetAddressForm();
+            
+            if (mode === 'edit' && addressId) {
+                const address = addresses.find(a => a.id === addressId);
+                if (address) {
+                    currentAddressId = addressId;
+                    document.getElementById('addressType').value = address.type;
+                    document.getElementById('street').value = address.street;
+                    document.getElementById('city').value = address.city;
+                    document.getElementById('state').value = address.state;
+                    document.getElementById('pincode').value = address.pincode;
+                    document.getElementById('country').value = address.country;
+                    document.getElementById('isDefault').checked = address.isDefault;
+                    
+                    title.innerHTML = '<i class="fa-solid fa-pen text-accent"></i> Edit Address';
+                }
+            } else {
+                title.innerHTML = '<i class="fa-solid fa-plus text-accent"></i> Add New Address';
+            }
+            
+            modal.classList.add('active');
+        }
+
+        function closeAddressModal() {
+            document.getElementById('addressModal').classList.remove('active');
+            resetAddressForm();
+        }
+
+        function resetAddressForm() {
+            document.getElementById('addressType').value = 'home';
+            document.getElementById('street').value = '';
+            document.getElementById('city').value = '';
+            document.getElementById('state').value = '';
+            document.getElementById('pincode').value = '';
+            document.getElementById('country').value = 'India';
+            document.getElementById('isDefault').checked = false;
+            currentAddressId = null;
+        }
+
+        function saveAddress() {
+            const addressData = {
+                type: document.getElementById('addressType').value,
+                street: document.getElementById('street').value,
+                city: document.getElementById('city').value,
+                state: document.getElementById('state').value,
+                pincode: document.getElementById('pincode').value,
+                country: document.getElementById('country').value,
+                isDefault: document.getElementById('isDefault').checked
+            };
+
+            if (!addressData.street || !addressData.city || !addressData.state || !addressData.pincode) {
+                showToast('Please fill in all required fields', 'warning', 3000);
+                return;
+            }
+
+            if (currentAddressId) {
+                // Update existing
+                addresses = addresses.map(addr => 
+                    addr.id === currentAddressId ? { ...addr, ...addressData } : addr
+                );
+                showToast('Address updated successfully!', 'success');
+            } else {
+                // Add new
+                addressData.id = Date.now();
+                addresses.push(addressData);
+                showToast('New address added successfully!', 'success');
+            }
+
+            // Handle default logic
+            if (addressData.isDefault) {
+                addresses = addresses.map(addr => ({
+                    ...addr,
+                    isDefault: addr.id === (currentAddressId || addressData.id)
+                }));
+            }
+
+            // Save to localStorage
+            saveAddresses(addresses);
+            renderAddresses();
+            closeAddressModal();
+        }
+
+        // ========== DELETE POPUP FUNCTIONS ==========
+        function openDeletePopup(addressId) {
+            const address = addresses.find(a => a.id === addressId);
+            if (!address) return;
+            
+            addressToDelete = addressId;
+            const typeLabel = address.type.charAt(0).toUpperCase() + address.type.slice(1);
+            document.getElementById('deletePopupMessage').textContent = `Are you sure you want to delete your ${typeLabel} address? This action cannot be undone.`;
+            document.getElementById('deletePopup').classList.add('active');
+        }
+
+        function closeDeletePopup() {
+            document.getElementById('deletePopup').classList.remove('active');
+            addressToDelete = null;
+        }
+
+        function confirmDelete() {
+            if (addressToDelete) {
+                const address = addresses.find(a => a.id === addressToDelete);
+                const typeLabel = address ? address.type : 'Address';
+                
+                addresses = addresses.filter(a => a.id !== addressToDelete);
+                
+                // Save to localStorage
+                saveAddresses(addresses);
+                renderAddresses();
+                
+                showToast(`${typeLabel.charAt(0).toUpperCase() + typeLabel.slice(1)} address deleted successfully!`, 'success');
+                
+                closeDeletePopup();
+            }
+        }
+
+        // ========== ADDRESS ACTION FUNCTIONS ==========
+        window.editAddress = function(id) {
+            openAddressModal('edit', id);
+        };
+
+        window.deleteAddress = function(id) {
+            openDeletePopup(id);
+        };
+
+        window.setDefaultAddress = function(id) {
+            addresses = addresses.map(addr => ({
+                ...addr,
+                isDefault: addr.id === id
+            }));
+            
+            // Save to localStorage
+            saveAddresses(addresses);
+            renderAddresses();
+            
+            const defaultAddress = addresses.find(a => a.id === id);
+            const addressLabel = defaultAddress ? defaultAddress.type : 'Address';
+            showToast(`${addressLabel.charAt(0).toUpperCase() + addressLabel.slice(1)} address set as default!`, 'success');
+        };
+
+        // ========== EVENT LISTENERS ==========
+        document.addEventListener('DOMContentLoaded', function() {
+            renderSidebar();
+            updateDisplayView();
+            renderAddresses();
+
+            // Edit profile buttons
+            document.getElementById('editProfileBtnMain').addEventListener('click', openEditModal);
+            
+            // Add address button
+            document.getElementById('addAddressBtnCompact').addEventListener('click', () => openAddressModal('add'));
+
+            // Profile Modal controls
+            document.getElementById('closeModalBtn').addEventListener('click', closeEditModal);
+            document.getElementById('cancelModalBtn').addEventListener('click', closeEditModal);
+            document.getElementById('saveModalBtn').addEventListener('click', saveProfileChanges);
+            document.getElementById('editProfileModal').addEventListener('click', function(e) {
+                if (e.target === this) closeEditModal();
+            });
+
+            // Address Modal controls
+            document.getElementById('closeAddressModalBtn').addEventListener('click', closeAddressModal);
+            document.getElementById('cancelAddressBtn').addEventListener('click', closeAddressModal);
+            document.getElementById('saveAddressBtn').addEventListener('click', saveAddress);
+            document.getElementById('addressModal').addEventListener('click', function(e) {
+                if (e.target === this) closeAddressModal();
+            });
+
+            // Delete Popup controls
+            document.getElementById('confirmDeleteBtn').addEventListener('click', confirmDelete);
+            document.getElementById('cancelDeleteBtn').addEventListener('click', closeDeletePopup);
+            document.getElementById('deletePopup').addEventListener('click', function(e) {
+                if (e.target === this) closeDeletePopup();
+            });
+
+            // Show welcome toast
+            setTimeout(() => {
+                showToast('Welcome to your profile! 👋', 'info', 3000);
+            }, 500);
+        });
+    </script>
+</body>
+</html>

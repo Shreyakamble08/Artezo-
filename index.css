@@ -51,3 +51,8 @@ button.relative span.z-10 {
     -ms-overflow-style: none; /* for IE and Edge */
     scrollbar-width: none; /* for Firefox */
   }
+
+  /*discovery scrollbar hide*/
+  .no-scrollbar::-webkit-scrollbar{
+display:none;
+}

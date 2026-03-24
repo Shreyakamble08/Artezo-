@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes" />
+
+  <title>Artezo Store - About Us</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="stylesheet" href="../Header/header.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&family=Zain:wght@200;300;400;700;800;900&display=swap"
+    rel="stylesheet" />
+
+  <!-- Tailwind config -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: "#1D3C4A",
+            accent: "#E39F32",
+          },
+          fontFamily: {
+            lexend: ["Lexend", "sans-serif"],
+            zain: ["Zain", "sans-serif"],
+          },
+        },
+      },
+    };
+  </script>
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    :root {
+      --teal: #1D3C4A;
+      --yellow: #e39f32;
+    }
+    
+    body {
+      overflow-x: hidden;
+      width: 100%;
+      position: relative;
+    }
+    
+    .soft-border {
+      border: 1px solid #e5e7eb;
+    }
+    
+    .card-shadow {
+      box-shadow: 0 10px 30px -10px rgb(29 60 74 / 0.1);
+    }
+    
+    .stat-number {
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Mobile-first responsive fixes */
+    @media (max-width: 640px) {
+      .container-padding {
+        padding-left: 1rem;
+        padding-right: 1rem;
+      }
+      
+      /* Better touch targets */
+      button, 
+      a,
+      [role="button"] {
+        min-height: 44px;
+        cursor: pointer;
+      }
+      
+      /* Prevent text overflow */
+      h1, h2, h3, p {
+        word-break: break-word;
+      }
+      
+      /* Ensure images don't overflow */
+      img {
+        max-width: 100%;
+        height: auto;
+      }
+      
+      /* Adjust floating badges for mobile */
+      .floating-badge {
+        transform: scale(0.9);
+      }
+    }
+    
+    /* Smooth transitions */
+    .transition-smooth {
+      transition: all 0.3s ease;
+    }
+    
+    /* Fix for sticky elements on mobile */
+    @media (max-width: 1023px) {
+      .lg\:sticky {
+        position: relative !important;
+        top: 0 !important;
+      }
+    }
+    
+    /* Ensure counters work on mobile */
+    .counter {
+      display: inline-block;
+    }
+    
+    /* Fix for grid gaps on small devices */
+    @media (max-width: 480px) {
+      .gap-3 {
+        gap: 0.5rem;
+      }
+      .gap-4 {
+        gap: 0.75rem;
+      }
+      .p-5 {
+        padding: 1rem;
+      }
+      .rounded-2xl {
+        border-radius: 1rem;
+      }
+    }
+    
+    /* Prevent horizontal scroll */
+    .overflow-hidden {
+      overflow: hidden !important;
+    }
+    
+    .max-w-7xl {
+      max-width: 100%;
+      width: 100%;
+    }
+    
+    @media (min-width: 1280px) {
+      .max-w-7xl {
+        max-width: 80rem;
+      }
+    }
+    
+    /* Better spacing for mobile */
+    @media (max-width: 640px) {
+      .mt-8 {
+        margin-top: 1.5rem;
+      }
+      .mb-8 {
+        margin-bottom: 1.5rem;
+      }
+      .py-12 {
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+      }
+    }
+  </style>
+</head>
+
+<body class="bg-white">
+
+  <!-- Decorative Top Border -->
+  <div class="w-full h-1 bg-gradient-to-r from-[#e39f32] via-[#1D3C4A] to-[#e39f32]"></div>
+
+  <!-- HERO / HEADER SECTION -->
+  <section class="w-full max-w-7xl mx-auto px-4 sm:px-5 md:px-6 lg:px-8 pt-4 pb-8 sm:pt-6 sm:pb-12 md:pt-8 md:pb-16 lg:pt-10 lg:pb-20">
+
+    <div class="flex flex-col lg:flex-row gap-6 sm:gap-8 md:gap-10 lg:gap-14 items-center">
+
+      <!-- Left Content -->
+      <div class="w-full lg:w-1/2 order-2 lg:order-1 text-center lg:text-left">
+
+        <div class="inline-flex items-center gap-2 bg-amber-50 px-3 sm:px-4 py-1.5 rounded-full mx-auto lg:mx-0 w-auto">
+          <i class="fas fa-leaf text-[#e39f32] text-xs sm:text-sm"></i>
+          <span class="text-[10px] sm:text-[11px] font-semibold tracking-widest text-[#1D3C4A] uppercase whitespace-nowrap">
+            Crafted with Purpose
+          </span>
+        </div>
+
+        <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold font-zain leading-tight mt-4 sm:mt-5 text-[#1D3C4A]">
+          Stories behind
+          <span class="relative text-[#e39f32] font-bold inline-block">
+            every print
+            <svg class="absolute -bottom-2 left-0 w-full min-w-[100px]" viewBox="0 0 200 8" fill="none">
+              <path d="M2 5.5C45 2.5 110 1.5 198 4.5" stroke="#e39f32" stroke-width="3" stroke-linecap="round" stroke-dasharray="4 3"/>
+            </svg>
+          </span>
+        </h1>
+
+        <p class="text-gray-600 text-sm sm:text-base leading-relaxed mt-4 sm:mt-5 md:mt-6 max-w-full lg:max-w-lg border-l-4 border-[#e39f32] pl-3 sm:pl-4 md:pl-5 mx-auto lg:mx-0">
+          We blend modern print-on-demand innovation with artisanal creativity, delivering premium personalized 
+          products that celebrate individuality, meaningful gifting, and sustainable craftsmanship.
+        </p>
+
+        <!-- Buttons -->
+        <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-5 sm:mt-6 md:mt-8 justify-center lg:justify-start">
+
+          <a href="#journey"
+             class="inline-flex items-center justify-center gap-2 bg-[#1D3C4A] text-white px-5 sm:px-6 md:px-7 py-2.5 sm:py-3 rounded-xl font-medium hover:bg-[#e39f32] hover:text-[#1D3C4A] transition-all text-sm sm:text-base">
+            Discover Our Journey
+            <i class="fas fa-arrow-right text-xs sm:text-sm"></i>
+          </a>
+
+          <a href="#stats"
+             class="inline-flex items-center justify-center gap-2 border-2 border-[#1D3C4A] text-[#1D3C4A] px-5 sm:px-6 md:px-7 py-2.5 sm:py-3 rounded-xl font-medium hover:bg-[#1D3C4A] hover:text-white transition-all text-sm sm:text-base">
+            <i class="fas fa-chart-line text-xs sm:text-sm"></i>
+            Our Impact
+          </a>
+        </div>
+      </div>
+
+      <!-- Right Image -->
+      <div class="w-full lg:w-1/2 relative order-1 lg:order-2 flex justify-center mt-4 sm:mt-6 lg:mt-0">
+        <div class="relative rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl w-full max-w-sm sm:max-w-md md:max-w-lg border border-gray-200">
+          <img src="https://images.pexels.com/photos/5585837/pexels-photo-5585837.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop"
+               alt="Artisan print studio"
+               class="w-full object-cover aspect-[4/3]"
+               loading="eager">
+          <div class="absolute inset-0 bg-gradient-to-tr from-[#1D3C4A]/20 to-[#e39f32]/10"></div>
+        </div>
+
+        <!-- Floating Badge -->
+        <div class="absolute -bottom-3 sm:-bottom-5 -left-2 sm:-left-5 bg-white rounded-xl shadow-lg p-2.5 sm:p-4 border flex items-center gap-2 sm:gap-3 z-10">
+          <i class="fas fa-award text-xl sm:text-2xl md:text-3xl text-[#e39f32]"></i>
+          <div>
+            <p class="text-[9px] sm:text-xs uppercase tracking-wider text-gray-500">
+              Trusted Partner
+            </p>
+            <p class="font-semibold text-[#1D3C4A] text-xs sm:text-sm md:text-base">
+              for 8+ Years
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!-- MISSION & VISION SECTION -->
+<section class="relative w-full max-w-7xl mx-auto px-4 sm:px-5 md:px-6 lg:px-8 py-8 sm:py-12 md:py-16 overflow-hidden" id="journey">
+
+  <!-- Background Shapes -->
+
+  <!-- Top Left Shape -->
+  <div class="absolute -top-24 -left-24 w-80 h-80 bg-[#e39f32]/15 rounded-full blur-3xl pointer-events-none"></div>
+
+  <!-- Top Right Shape -->
+  <div class="absolute -top-20 -right-20 w-72 h-72 bg-[#1D3C4A]/10 rounded-full blur-3xl pointer-events-none"></div>
+
+  <!-- Bottom Left Shape -->
+  <div class="absolute -bottom-24 -left-16 w-64 h-64 bg-[#1D3C4A]/10 rounded-full blur-2xl pointer-events-none"></div>
+
+  <!-- Bottom Right Shape -->
+  <div class="absolute -bottom-24 -right-20 w-72 h-72 bg-[#e39f32]/10 rounded-full blur-3xl pointer-events-none"></div>
+
+  <!-- Cards -->
+  <div class="relative grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 md:gap-6">
+
+    <!-- Mission Card -->
+    <div class="flex items-start gap-3 sm:gap-4 rounded-2xl p-4 sm:p-5 md:p-6 border border-[#e39f32]/30 bg-[#e39f32]/5 hover:shadow-lg transition-all">
+
+      <div class="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 flex-shrink-0 flex items-center justify-center rounded-xl bg-[#e39f32] text-white text-base sm:text-lg md:text-xl">
+        <i class="fas fa-bullseye"></i>
+      </div>
+
+      <div>
+        <h3 class="text-base sm:text-lg md:text-xl font-bold text-[#1D3C4A]">
+          Our Mission
+        </h3>
+
+        <p class="text-gray-600 text-xs sm:text-sm leading-relaxed mt-1 sm:mt-2">
+          Empower creators and dreamers with print-on-demand excellence where every design meets ethical
+          production, lightning-fast shipping, and uncompromising quality.
+        </p>
+
+        <div class="flex items-center gap-2 text-xs sm:text-sm text-[#e39f32] font-medium mt-2 sm:mt-3">
+          <i class="fas fa-leaf text-xs"></i>
+          Sustainable Innovation
+        </div>
+      </div>
+    </div>
+
+    <!-- Vision Card -->
+    <div class="flex items-start gap-3 sm:gap-4 rounded-2xl p-4 sm:p-5 md:p-6 border border-[#1D3C4A]/30 bg-[#1D3C4A]/5 hover:shadow-lg transition-all">
+
+      <div class="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 flex-shrink-0 flex items-center justify-center rounded-xl bg-[#1D3C4A] text-white text-base sm:text-lg md:text-xl">
+        <i class="fas fa-eye"></i>
+      </div>
+
+      <div>
+        <h3 class="text-base sm:text-lg md:text-xl font-bold text-[#1D3C4A]">
+          Our Vision
+        </h3>
+
+        <p class="text-gray-600 text-xs sm:text-sm leading-relaxed mt-1 sm:mt-2">
+          To become the global heartbeat of personalized print culture — merging technology with artisan
+          spirit and creating products that tell meaningful stories.
+        </p>
+
+        <div class="flex items-center gap-2 text-xs sm:text-sm text-[#1D3C4A] font-medium mt-2 sm:mt-3">
+          <i class="fas fa-globe text-xs"></i>
+          Global Community First
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+  <!-- STATS SECTION -->
+  <section class="w-full max-w-7xl mx-auto px-4 sm:px-5 md:px-6 lg:px-8 py-6 sm:py-8 md:py-12 relative" id="stats">
+    <div class="bg-white rounded-2xl sm:rounded-3xl border border-gray-200 shadow-sm p-4 sm:p-5 md:p-6 lg:p-10 relative">
+
+      <!-- Heading -->
+      <div class="text-center mb-5 sm:mb-6 md:mb-8 lg:mb-10">
+        <span class="bg-[#1D3C4A]/10 text-[#1D3C4A] px-3 sm:px-4 py-1 rounded-lg font-zain text-[10px] sm:text-xs font-semibold inline-block">
+          OUR GROWTH
+        </span>
+        <h2 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold font-zain text-[#1D3C4A] mt-2 sm:mt-3">
+          Trusted by Thousands
+        </h2>
+      </div>
+
+      <!-- Stats Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-5">
+
+        <!-- Card 1 -->
+        <div class="flex items-center gap-2 sm:gap-3 md:gap-4 bg-[#e39f32]/5 border border-[#e39f32]/20 rounded-xl p-3 sm:p-4 hover:shadow-md transition-smooth">
+          <div class="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 flex-shrink-0 flex items-center justify-center rounded-lg bg-[#e39f32]/15">
+            <i class="fas fa-users text-[#e39f32] text-sm sm:text-base md:text-lg"></i>
+          </div>
+          <div>
+            <div class="text-lg sm:text-xl md:text-2xl font-bold text-[#1D3C4A]">
+              <span class="counter" data-target="25000">0</span>+
+            </div>
+            <p class="text-gray-500 text-[10px] sm:text-xs md:text-sm">Happy Customers</p>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="flex items-center gap-2 sm:gap-3 md:gap-4 bg-[#1D3C4A]/5 border border-[#1D3C4A]/15 rounded-xl p-3 sm:p-4 hover:shadow-md transition-smooth">
+          <div class="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 flex-shrink-0 flex items-center justify-center rounded-lg bg-[#1D3C4A]/15">
+            <i class="fas fa-box text-[#1D3C4A] text-sm sm:text-base md:text-lg"></i>
+          </div>
+          <div>
+            <div class="text-lg sm:text-xl md:text-2xl font-bold text-[#1D3C4A]">
+              <span class="counter" data-target="850">0</span>+
+            </div>
+            <p class="text-gray-500 text-[10px] sm:text-xs md:text-sm">Unique Products</p>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="flex items-center gap-2 sm:gap-3 md:gap-4 bg-[#e39f32]/5 border border-[#e39f32]/20 rounded-xl p-3 sm:p-4 hover:shadow-md transition-smooth">
+          <div class="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 flex-shrink-0 flex items-center justify-center rounded-lg bg-[#e39f32]/15">
+            <i class="fas fa-shopping-bag text-[#e39f32] text-sm sm:text-base md:text-lg"></i>
+          </div>
+          <div>
+            <div class="text-lg sm:text-xl md:text-2xl font-bold text-[#1D3C4A]">
+              <span class="counter" data-target="120000">0</span>+
+            </div>
+            <p class="text-gray-500 text-[10px] sm:text-xs md:text-sm">Orders Delivered</p>
+          </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="flex items-center gap-2 sm:gap-3 md:gap-4 bg-[#1D3C4A]/5 border border-[#1D3C4A]/15 rounded-xl p-3 sm:p-4 hover:shadow-md transition-smooth">
+          <div class="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 flex-shrink-0 flex items-center justify-center rounded-lg bg-[#1D3C4A]/15">
+            <i class="fas fa-truck text-[#1D3C4A] text-sm sm:text-base md:text-lg"></i>
+          </div>
+          <div>
+            <div class="text-lg sm:text-xl md:text-2xl font-bold text-[#1D3C4A]">
+              <span class="counter" data-target="18">0</span>+
+            </div>
+            <p class="text-gray-500 text-[10px] sm:text-xs md:text-sm">Cities Across India</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VALUES + QUOTE SECTION -->
+  <section class="w-full max-w-7xl mx-auto px-4 sm:px-5 md:px-6 lg:px-8 py-6 sm:py-8 md:py-10">
+    <div class="flex flex-col lg:flex-row gap-6 sm:gap-8">
+      
+      <!-- Quote -->
+      <div class="w-full lg:w-1/3">
+        <div class="bg-[#1D3C4A] text-white rounded-2xl sm:rounded-3xl p-5 sm:p-6 md:p-8">
+          <i class="fas fa-quote-left text-[#e39f32] text-2xl sm:text-3xl md:text-4xl opacity-70"></i>
+          <p class="text-sm sm:text-base md:text-lg italic leading-relaxed mt-3 sm:mt-4 md:mt-5">
+            "While the internet may control many parts of printing, some things are still best felt on paper — and we honor that soul."
+          </p>
+          <p class="mt-3 sm:mt-4 md:mt-6 text-[#e39f32] font-semibold text-sm sm:text-base">— Our Philosophy</p>
+        </div>
+      </div>
+
+      <!-- Values -->
+      <div class="w-full lg:w-2/3">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 md:gap-5">
+
+          <div class="flex gap-2 sm:gap-3 md:gap-4 p-3 sm:p-4 md:p-5 rounded-2xl soft-border bg-white hover:border-[#e39f32]/50 transition-all">
+            <i class="fas fa-hand-sparkles text-lg sm:text-xl md:text-2xl text-[#e39f32] mt-1"></i>
+            <div>
+              <h4 class="font-semibold text-[#1D3C4A] text-sm sm:text-base">Eco-Conscious Materials</h4>
+              <p class="text-gray-600 text-xs sm:text-sm mt-0.5 sm:mt-1">FSC-certified papers, water-based inks & plastic-neutral packaging.</p>
+            </div>
+          </div>
+
+          <div class="flex gap-2 sm:gap-3 md:gap-4 p-3 sm:p-4 md:p-5 rounded-2xl soft-border bg-white hover:border-[#e39f32]/50 transition-all">
+            <i class="fas fa-truck-fast text-lg sm:text-xl md:text-2xl text-[#e39f32] mt-1"></i>
+            <div>
+              <h4 class="font-semibold text-[#1D3C4A] text-sm sm:text-base">Lightning Fast Shipping</h4>
+              <p class="text-gray-600 text-xs sm:text-sm mt-0.5 sm:mt-1">Real-time tracking with fast delivery across India.</p>
+            </div>
+          </div>
+
+          <div class="flex gap-2 sm:gap-3 md:gap-4 p-3 sm:p-4 md:p-5 rounded-2xl soft-border bg-white hover:border-[#e39f32]/50 transition-all">
+            <i class="fas fa-palette text-lg sm:text-xl md:text-2xl text-[#e39f32] mt-1"></i>
+            <div>
+              <h4 class="font-semibold text-[#1D3C4A] text-sm sm:text-base">Complete Creative Freedom</h4>
+              <p class="text-gray-600 text-xs sm:text-sm mt-0.5 sm:mt-1">Design with photos, text, and unlimited creativity.</p>
+            </div>
+          </div>
+
+          <div class="flex gap-2 sm:gap-3 md:gap-4 p-3 sm:p-4 md:p-5 rounded-2xl soft-border bg-white hover:border-[#e39f32]/50 transition-all">
+            <i class="fas fa-shield-heart text-lg sm:text-xl md:text-2xl text-[#e39f32] mt-1"></i>
+            <div>
+              <h4 class="font-semibold text-[#1D3C4A] text-sm sm:text-base">Quality Guaranteed</h4>
+              <p class="text-gray-600 text-xs sm:text-sm mt-0.5 sm:mt-1">Every product is carefully inspected before shipping.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY CHOOSE US SECTION -->
+  <section class="w-full max-w-7xl mx-auto px-4 sm:px-5 md:px-6 lg:px-8 py-6 sm:py-8 md:py-10">
+    
+    <div class="text-center mb-5 sm:mb-6 md:mb-8">
+      <h2 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-zain font-bold text-[#1D3C4A]">Why Customers Love Us</h2>
+      <p class="text-gray-600 mt-1 sm:mt-2 text-xs sm:text-sm">
+        Premium quality • Full customization • Reliable delivery across India
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 border border-[#e5e7eb] rounded-2xl sm:rounded-3xl overflow-hidden bg-white divide-y md:divide-y-0 md:divide-x divide-[#e5e7eb]">
+      
+      <!-- Card 1 -->
+      <div class="p-4 sm:p-5 md:p-6 lg:p-7 text-center hover:bg-[#1D3C4A]/5 transition-all group">
+        <div class="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 mx-auto bg-[#e39f32]/10 text-[#e39f32] rounded-xl flex items-center justify-center text-lg sm:text-xl md:text-2xl group-hover:scale-110 transition-transform">
+          <i class="fa-solid fa-gem"></i>
+        </div>
+        <h3 class="font-semibold text-sm sm:text-base md:text-lg text-[#1D3C4A] mt-2 sm:mt-3 md:mt-4">Premium Quality</h3>
+        <p class="text-gray-600 mt-1 sm:mt-2 text-xs sm:text-sm leading-relaxed">
+          Crafted with premium materials for lasting beauty and durability.
+        </p>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="p-4 sm:p-5 md:p-6 lg:p-7 text-center hover:bg-[#1D3C4A]/5 transition-all group">
+        <div class="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 mx-auto bg-[#e39f32]/10 text-[#e39f32] rounded-xl flex items-center justify-center text-lg sm:text-xl md:text-2xl group-hover:scale-110 transition-transform">
+          <i class="fa-solid fa-layer-group"></i>
+        </div>
+        <h3 class="font-semibold text-sm sm:text-base md:text-lg text-[#1D3C4A] mt-2 sm:mt-3 md:mt-4">Mix & Match Design</h3>
+        <p class="text-gray-600 mt-1 sm:mt-2 text-xs sm:text-sm leading-relaxed">
+          Unlimited creativity with photos, text, and custom layouts.
+        </p>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="p-4 sm:p-5 md:p-6 lg:p-7 text-center hover:bg-[#1D3C4A]/5 transition-all group">
+        <div class="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 mx-auto bg-[#e39f32]/10 text-[#e39f32] rounded-xl flex items-center justify-center text-lg sm:text-xl md:text-2xl group-hover:scale-110 transition-transform">
+          <i class="fa-solid fa-truck-fast"></i>
+        </div>
+        <h3 class="font-semibold text-sm sm:text-base md:text-lg text-[#1D3C4A] mt-2 sm:mt-3 md:mt-4">Pan India Delivery</h3>
+        <p class="text-gray-600 mt-1 sm:mt-2 text-xs sm:text-sm leading-relaxed">
+          Fast and reliable shipping to every corner of India.
+        </p>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- Footer Container -->
+  <div id="footer-container" class="mt-6 sm:mt-8 md:mt-10"></div>
+
+  <!-- Scripts -->
+  <script src="../Header/load-header.js" defer></script>
+  <script src="../Header/header.js" defer></script>
+  <script src="../Footer/footer-loader.js"></script>
+
+  <!-- Enhanced Counter Animation with mobile support -->
+  <script>
+    (function() {
+      let animationStarted = false;
+      let countersInitialized = false;
+
+      function animateCounters() {
+        const counters = document.querySelectorAll('.counter');
+        if (counters.length === 0 || countersInitialized) return;
+        
+        countersInitialized = true;
+        
+        counters.forEach(counter => {
+          const target = parseInt(counter.getAttribute('data-target'));
+          if (isNaN(target)) return;
+          
+          let count = 0;
+          const duration = 1500;
+          const steps = 60;
+          const increment = target / steps;
+          let step = 0;
+          
+          const timer = setInterval(() => {
+            step++;
+            count += increment;
+            if (step >= steps) {
+              counter.textContent = target;
+              clearInterval(timer);
+            } else {
+              counter.textContent = Math.floor(count);
+            }
+          }, duration / steps);
+        });
+      }
+
+      // Check if element is visible
+      function isElementInViewport(el) {
+        const rect = el.getBoundingClientRect();
+        return rect.top < (window.innerHeight - 100) && rect.bottom > 100;
+      }
+
+      // Try to animate on load and scroll
+      const statsSection = document.getElementById('stats');
+      
+      if (statsSection) {
+        // Check immediately
+        if (isElementInViewport(statsSection) && !animationStarted) {
+          animationStarted = true;
+          animateCounters();
+        }
+        
+        // Also on scroll
+        window.addEventListener('scroll', function() {
+          if (!animationStarted && statsSection && isElementInViewport(statsSection)) {
+            animationStarted = true;
+            animateCounters();
+          }
+        });
+        
+        // Also on touch events for mobile
+        window.addEventListener('touchstart', function() {
+          if (!animationStarted && statsSection && isElementInViewport(statsSection)) {
+            animationStarted = true;
+            animateCounters();
+          }
+        });
+      }
+      
+      // Fallback: animate after short delay
+      setTimeout(function() {
+        if (!animationStarted && statsSection && isElementInViewport(statsSection)) {
+          animationStarted = true;
+          animateCounters();
+        }
+      }, 500);
+    })();
+  </script>
+
+  <!-- Additional mobile fixes -->
+  <script>
+    (function() {
+      // Fix for iOS Safari 100vh issue
+      const setVH = () => {
+        let vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+      };
+      setVH();
+      window.addEventListener('resize', setVH);
+      
+      // Ensure all links with hash work smoothly on mobile
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+          const targetId = this.getAttribute('href');
+          if (targetId === '#') return;
+          const targetElement = document.querySelector(targetId);
+          if (targetElement) {
+            e.preventDefault();
+            targetElement.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+          }
+        });
+      });
+    })();
+  </script>
+
+</body>
+
+</html>

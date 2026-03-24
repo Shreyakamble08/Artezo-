@@ -17,7 +17,7 @@
     currentSellingPrice: 499.0,
     currentMrpPrice: 899.0,
     currentStock: 150,
-    mainImage: "../Images/chair1.jfif", // Using local fallback since API paths are relative
+    mainImage: "../Images/chair1.jfif",
     mockupImages: ["../Images/chair1.jfif", "../Images/chair2.jfif"],
 
     description: [
@@ -52,13 +52,16 @@
       {
         variantId: "VAR-GOLD",
         titleName: "matty, glossy etc",
-        color: "Golden",
+        color: "Embrald Gold",
         sku: "ART-WPLATE-GLD",
         price: 499.0,
         mrp: 899.0,
         stock: 150,
-        mainImage: "../Images/chair1.jfif",
-        mockupImages: ["../Images/chair1.jfif"],
+        mainImage:
+          "https://cdn.swadeshonline.com/v2/patient-paper-41f385/swad-p/wrkr/products/pictures/item/free/original/osEy9cZjKUd-1.jpg",
+        mockupImages: [
+          "https://cdn.swadeshonline.com/v2/patient-paper-41f385/swad-p/wrkr/products/pictures/item/free/original/osEy9cZjKUd-1.jpg",
+        ],
         mfgDate: "2024-02-15",
         expDate: null,
         size: "xyz",
@@ -77,6 +80,78 @@
         mfgDate: "2024-02-15",
         expDate: null,
         size: "xyz",
+        couponAvailable: [],
+      },
+      {
+        variantId: "VAR-WHITE",
+        titleName: "matty, glossy etc",
+        color: "Pearl White",
+        sku: "ART-WPLATE-WHT",
+        price: 399.0,
+        mrp: 699.0,
+        stock: 200,
+        mainImage:
+          "https://woodenslice.in/wp-content/uploads/2025/06/cane-chair-India-Mai.jpeg",
+        mockupImages: [
+          "https://woodenslice.in/wp-content/uploads/2025/06/cane-chair-India-Mai.jpeg",
+        ],
+        mfgDate: "2024-02-20",
+        expDate: null,
+        size: "Standard",
+        couponAvailable: [],
+      },
+      {
+        variantId: "VAR-ROSE",
+        titleName: "matty, glossy etc",
+        color: "Rose Gold",
+        sku: "ART-WPLATE-ROS",
+        price: 579.0,
+        mrp: 999.0,
+        stock: 65,
+        mainImage:
+          "https://cdn.shopify.com/s/files/1/0632/2526/6422/files/A_3b8a9727-483e-4d51-b030-48166df930ba.jpg?v=1773719627&width=1728",
+        mockupImages: [
+          "https://cdn.shopify.com/s/files/1/0632/2526/6422/files/A_3b8a9727-483e-4d51-b030-48166df930ba.jpg?v=1773719627&width=1728",
+        ],
+        mfgDate: "2024-03-10",
+        expDate: null,
+        size: "Standard",
+        couponAvailable: [],
+      },
+      {
+        variantId: "VAR-BRASS",
+        titleName: "matty, glossy etc",
+        color: "Antique Brass",
+        sku: "ART-WPLATE-BRS",
+        price: 649.0,
+        mrp: 1099.0,
+        stock: 45,
+        mainImage:
+          "https://cdn.swadeshonline.com/v2/patient-paper-41f385/swad-p/wrkr/products/pictures/item/free/original/fjFQ3ObFeha-1.jpg",
+        mockupImages: [
+          "https://cdn.swadeshonline.com/v2/patient-paper-41f385/swad-p/wrkr/products/pictures/item/free/original/fjFQ3ObFeha-1.jpg",
+        ],
+        mfgDate: "2024-01-25",
+        expDate: null,
+        size: "Standard",
+        couponAvailable: [],
+      },
+      {
+        variantId: "VAR-COPPER",
+        titleName: "matty, glossy etc",
+        color: "Copper Finish",
+        sku: "ART-WPLATE-CPR",
+        price: 599.0,
+        mrp: 1049.0,
+        stock: 78,
+        mainImage:
+          "https://uberdecor.in/cdn/shop/files/ab579204-88bf-4cd8-9313-6077deb109ce.png?crop=center&height=940&v=1772015156&width=940",
+        mockupImages: [
+          "https://uberdecor.in/cdn/shop/files/ab579204-88bf-4cd8-9313-6077deb109ce.png?crop=center&height=940&v=1772015156&width=940",
+        ],
+        mfgDate: "2024-02-28",
+        expDate: null,
+        size: "Standard",
         couponAvailable: [],
       },
     ],
@@ -385,6 +460,7 @@
   });
   html += `
                 </div>
+
                 <!-- Main image -->
                 <div class="relative flex-1 bg-white rounded-xl border border-stone-100 shadow-sm flex items-center justify-center p-2 h-[320px]">
                   <img id="mainProductImage" src="${transformedData.mainImages[0].full}" alt="Product" class="max-h-full max-w-full object-contain" />
@@ -393,13 +469,15 @@
               </div>
             </div>
           </div>
+
           <!-- RIGHT COLUMN scrollable -->
           <div class="md:col-span-7">
             <div class="overflow-y-auto max-h-[calc(100vh-5rem)] pr-2 space-y-3 hide-scrollbar">
               <!-- Product title -->
-              <h1 class="text-3xl md:text-4xl font-normal font-zain leading-tight text-[#033E59]">${transformedData.name}</h1>
-              
-              <!-- Reviews + Brand - FIXED: Now properly spaced without overlapping -->
+<h1 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-normal font-zain leading-tight text-[#033E59]">
+  ${transformedData.name}
+</h1>              
+              <!-- Reviews + Brand-->
               <div class="flex items-start justify-between gap-3 mb-2">
                 <div class="flex items-center gap-2 flex-wrap flex-1">
                   <div class="flex text-amber-400 text-sm gap-0.5">${renderStars(transformedData.rating)}</div>
@@ -409,7 +487,7 @@
                   </div>
                 </div>
                 
-                <!-- Share button - with proper spacing and z-index -->
+                <!-- Share button  -->
                 <div class="relative flex-shrink-0" id="shareContainer" style="z-index: 30;">
                   <button id="shareButton" class="w-9 h-9 rounded-full border border-stone-200 flex items-center justify-center hover:bg-stone-100 transition bg-white shadow-sm"><i class="fa-solid fa-share-nodes text-[#033E59]"></i></button>
                   <div id="sharePopup" class="absolute right-0 mt-2 w-48 bg-white shadow-xl rounded-xl border p-2 z-40 hidden">
@@ -422,70 +500,129 @@
                 </div>
               </div>
 
-             <!-- DEAL OF THE DAY - Option 3: Premium/Luxury with Custom Color Theme -->
-<div class="pt-6 pr-6 pb-4 pl-6 sm:pt-5 sm:pr-5 sm:pb-3 sm:pl-5 rounded-2xl bg-gradient-to-br from-[#e39f32]/5 to-[#1D3C4A]/5 flex flex-col md:flex-row gap-6 border border-[#e5e7eb] shadow-xl relative overflow-visible">
-  <!-- Decorative elements with theme colors -->
-  <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#e39f32]/10 to-[#1D3C4A]/10 rounded-bl-full"></div>
-  <div class="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-[#e39f32]/10 to-[#1D3C4A]/10 rounded-tr-full"></div>
-  
-  <div class="flex-1 space-y-4 relative z-10">
-    <div>
-      <span class="inline-block border border-[#e39f32] text-[#1D3C4A] text-xs font-medium px-3 py-1 rounded-full bg-white/80 backdrop-blur">✨ LIMITED TIME OFFER</span>
-      <div class="flex items-baseline gap-3 mt-3">
-        <span class="text-4xl sm:text-5xl font-light font-lexend text-[#1D3C4A]">₹${transformedData.price.toLocaleString()}</span>
-        <span class="text-base font-lexend text-[#e39f32] line-through">₹${transformedData.originalPrice.toLocaleString()}</span>
-        <span class="bg-[#e39f32] text-white text-xs font-medium px-3 py-1.5 rounded-full">Save ${transformedData.discountPercent}%</span>
+<!-- DEAL OF THE DAY -->
+<div class="max-w-[520px] p-2.5 rounded-2xl bg-gradient-to-br from-[#e39f32]/5 to-[#1D3C4A]/5 border border-[#e5e7eb] relative space-y-2 overflow-hidden">
+
+  <!-- decorative shapes -->
+  <div class="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-[#e39f32]/10 to-[#1D3C4A]/10 rounded-bl-full"></div>
+  <div class="absolute bottom-0 left-0 w-14 h-14 bg-gradient-to-tr from-[#e39f32]/10 to-[#1D3C4A]/10 rounded-tr-full"></div>
+
+
+  <!-- RECTANGLE 1 : PRICE + TIMER -->
+  <div class="relative z-10 bg-white/85 backdrop-blur rounded-xl border border-[#e5e7eb] px-2.5 py-2 flex items-center justify-between gap-2.5">
+
+    <!-- PRICE + OFFER -->
+    <div class="flex items-center gap-2">
+
+      <div class="flex items-end gap-1">
+
+        <span class="text-xl md:text-2xl font-bold text-[#1D3C4A]">
+          ₹${transformedData.price.toLocaleString()}
+        </span>
+
+        <span class="text-xs text-[#e39f32] line-through">
+          ₹${transformedData.originalPrice.toLocaleString()}
+        </span>
+
+        <span class="bg-[#e39f32] text-white text-[8px] px-1.5 py-[2px] rounded-full">
+          ${transformedData.discountPercent}% OFF
+        </span>
+
       </div>
+
     </div>
-    
-    <!-- Premium Timer with theme colors -->
-    <div class="bg-white/80 backdrop-blur rounded-lg p-3 border border-[#e5e7eb]">
-      <div class="flex items-center justify-between">
-        <span class="text-sm font-lexend text-[#1D3C4A]">⏳ Hurry, offer ends in</span>
-        <div class="flex items-center gap-2">
-          <div class="text-center">
-            <span class="block bg-[#e39f32]/10 text-[#1D3C4A] px-3 py-1.5 rounded font-mono font-bold text-lg" id="timerHours">02</span>
-            <span class="text-[10px] text-[#1D3C4A]/60">HRS</span>
-          </div>
-          <span class="text-[#e39f32] font-bold text-xl">:</span>
-          <div class="text-center">
-            <span class="block bg-[#e39f32]/10 text-[#1D3C4A] px-3 py-1.5 rounded font-mono font-bold text-lg" id="timerMinutes">45</span>
-            <span class="text-[10px] text-[#1D3C4A]/60">MIN</span>
-          </div>
-          <span class="text-[#e39f32] font-bold text-xl">:</span>
-          <div class="text-center">
-            <span class="block bg-[#e39f32]/10 text-[#1D3C4A] px-3 py-1.5 rounded font-mono font-bold text-lg" id="timerSeconds">12</span>
-            <span class="text-[10px] text-[#1D3C4A]/60">SEC</span>
-          </div>
+
+
+    <!-- DIVIDER -->
+    <div class="hidden md:block w-px h-7 bg-[#e5e7eb]"></div>
+
+
+    <!-- TIMER -->
+    <div class="flex items-center gap-1 text-center">
+
+      <span class="text-[10px] text-[#1D3C4A]/70 hidden sm:block">
+        Ends in
+      </span>
+
+      <div class="flex items-center gap-[3px]">
+
+        <div class="bg-[#e39f32]/10 px-1 py-[2px] rounded text-[11px] font-mono font-bold text-[#1D3C4A]" id="timerHours">
+          02
         </div>
+
+        <span class="text-[#e39f32] font-bold text-[10px]">:</span>
+
+        <div class="bg-[#e39f32]/10 px-1 py-[2px] rounded text-[11px] font-mono font-bold text-[#1D3C4A]" id="timerMinutes">
+          45
+        </div>
+
+        <span class="text-[#e39f32] font-bold text-[10px]">:</span>
+
+        <div class="bg-[#e39f32]/10 px-1 py-[2px] rounded text-[11px] font-mono font-bold text-[#1D3C4A]" id="timerSeconds">
+          12
+        </div>
+
       </div>
+
     </div>
+
   </div>
-  
-  <div class="hidden md:block w-px bg-gradient-to-b from-transparent via-[#e5e7eb] to-transparent self-stretch"></div>
-  
-  <!-- Coupons - Premium with theme colors -->
-  <div class="flex-1 space-y-3 relative z-10">
-    <div class="bg-white/90 backdrop-blur rounded-xl p-4 border border-[#e5e7eb] shadow-sm">
-      <span class="text-xs font-lexend text-[#e39f32] uppercase tracking-wider">Exclusive Coupon</span>
-      <div class="flex items-center justify-between mt-2">
-        <div>
-          <div class="font-lexend text-2xl font-light text-[#1D3C4A]">${productData.availabeCoupons[0]?.discount || "₹80"} <span class="text-sm">OFF</span></div>
-          <div class="text-xs text-[#1D3C4A]/60 mt-1">on orders above ₹2,000</div>
-        </div>
-        <div class="text-right">
-          <div class="font-mono text-sm bg-[#e39f32]/10 text-[#1D3C4A] px-3 py-1.5 rounded border border-[#e5e7eb]">${productData.availabeCoupons[0]?.couponCode || "LUXE80"}</div>
-        </div>
+
+
+  <!-- RECTANGLE 2 : COUPON -->
+  <div class="relative z-10 bg-[#FCF8F8] border border-[#e5e7eb] rounded-xl p-2.5 flex flex-col gap-2">
+
+    <!-- TOP ROW -->
+    <div class="flex items-start justify-between gap-2.5">
+
+      <!-- LEFT TEXT -->
+      <div>
+
+        <p class="text-[9px] tracking-wide text-[#e39f32] uppercase font-semibold">
+          LIMITED TIME
+        </p>
+
+        <h3 class="text-base md:text-lg font-bold text-[#1D3C4A] leading-tight">
+          ${productData.availabeCoupons[0]?.discount || "20%"} OFF
+        </h3>
+
+        <p class="text-[10px] text-gray-500">
+          Special discount for members
+        </p>
+
       </div>
-      <button class="w-full mt-4 bg-[#1D3C4A] text-white text-sm font-lexend py-2.5 rounded-lg hover:bg-[#1D3C4A]/90 transition-all duration-300 shadow-md hover:shadow-lg">Apply Coupon</button>
+
+      <!-- COUPON CODE -->
+      <div class="font-mono text-[10px] bg-white border border-[#e5e7eb] px-2 py-[2px] rounded-md text-[#1D3C4A] shadow-sm">
+        ${productData.availabeCoupons[0]?.couponCode || "CPN-10221"}
+      </div>
+
     </div>
-    <button id="viewMoreBtn" class="w-full border border-[#e5e7eb] text-[#1D3C4A] px-4 py-2.5 rounded-lg text-sm font-lexend hover:bg-[#e39f32]/5 transition-all duration-300 flex items-center justify-center gap-2">
-      <span>View All Offers</span>
-      <i class="fa-solid fa-arrow-right text-xs text-[#e39f32]"></i>
-    </button>
+
+    <!-- BUTTONS -->
+    <div class="flex gap-2">
+
+      <!-- APPLY BUTTON -->
+      <button
+        class="flex-1 flex items-center justify-center bg-[#1D3C4A] text-white text-xs py-1.5 rounded-lg hover:bg-[#1D3C4A]/90 transition">
+        Apply Now
+      </button>
+
+      <!-- OFFERS BUTTON -->
+      <button
+        id="viewMoreBtn"
+        class="flex-1 flex items-center justify-center border border-[#e5e7eb] text-[#1D3C4A] text-xs py-1.5 rounded-lg hover:bg-[#e39f32]/5 transition gap-1">
+        Offers
+        <i class="fa-solid fa-arrow-right text-[9px] text-[#e39f32]"></i>
+      </button>
+
+    </div>
+
   </div>
+
+</div>
   
-  <!-- Modal - Premium style with theme colors -->
+  <!-- Modal Coupoun Offers-->
   <div id="offerOverlay" class="hidden fixed inset-0 bg-black/40 backdrop-blur-sm z-50 opacity-0 pointer-events-none flex items-center justify-center transition-opacity duration-300">
     <div id="offerModal" class="hidden flex flex-col bg-white w-full max-w-md mx-4 rounded-xl p-5 border border-[#e5e7eb] shadow-2xl scale-95 opacity-0 transition-all duration-300">
       <button id="closeOffersBtn" class="absolute top-4 right-4 text-[#e39f32] hover:text-[#1D3C4A] transition-colors text-xl">✕</button>
@@ -514,192 +651,150 @@
     </div>
   </div>
 </div>
-              <!-- Size & Color Variants -->
-              <div class="space-y-4">
-                <div class="flex flex-wrap items-center gap-6 mt-4 bg-white p-4 rounded-xl shadow-sm">
-                  <!-- Size Selector -->
-                  <div class="flex items-center gap-2"><span class="text-sm font-normal font-lexend text-[#033E59]">Size</span><div class="flex items-center gap-2">`;
-  transformedData.sizes.forEach((sz, i) => {
-    let activeClass =
-      i === 1
-        ? "border-[#E6A62C] bg-[#033E59]/5"
-        : "border border-dotted border-[#cfdde5] hover:border-[#E6A62C]";
-    html += `<button class="w-20 h-12 ${activeClass} rounded-full flex flex-col justify-center items-center text-[#033E59] transition"><span class="text-sm font-medium">${sz.label}</span><span class="text-[11px] text-gray-400">${sz.dim}</span></button>`;
-  });
-  html += `</div></div><div class="w-px bg-gray-300 h-10 mx-4"></div>
-                  <!-- Quantity -->
-                  <div class="flex flex-col gap-2"><div class="flex items-center gap-2"><span class="text-sm font-medium text-[#033E59]">Quantity:</span><div class="flex border rounded-lg"><button id="decreaseBtn" class="px-4 py-2 border-r text-lg hover:bg-stone-50">−</button><span class="px-5 py-2 text-sm w-12 text-center" id="quantity">1</span><button id="increaseBtn" class="px-4 py-2 border-l text-lg hover:bg-stone-50">+</button></div></div><p id="stockInfo" class="text-xs font-medium font-lexend text-green-600">Only ${transformedData.stock} items left in stock</p></div>
-                </div>
+            
+             <!-- Variant Cards  -->
+<div class="space-y-2 mt-5">
 
-              <!-- Color Variants - Optimized Responsive with Yellow Hover -->
-<div class="space-y-3 mt-4">
-  <!-- Color Label -->
-  <span class="text-sm font-medium text-[#033E59] block sm:hidden">Select Color:</span>
-  
-  <!-- Color Swatches - Responsive Grid with Yellow Hover -->
-  <div class="flex flex-col sm:flex-row sm:items-start gap-4">
-    <span class="text-sm font-medium text-[#033E59] hidden sm:block sm:mt-4">Color:</span>
-    
-    <div class="grid grid-cols-2 xs:grid-cols-3 sm:flex sm:flex-wrap md:flex-nowrap gap-3 sm:gap-4 w-full" id="colorSwatches">
+  <div class="flex flex-col sm:flex-row sm:items-start gap-2">
+    <span class="text-xs font-medium text-[#033E59] hidden sm:block sm:mt-1">Variant:</span>
+
+    <!-- Grid: mobile 2x2, tablet 3-4 per row, compact gaps/padding -->
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 w-full" id="colorSwatches">
+
       ${transformedData.colors
         .map((c, idx) => {
           let selected =
             idx === 0
-              ? "ring-2 ring-[#E6A62C] ring-offset-2 bg-[#033E59]/5"
-              : "ring-1 ring-gray-200 bg-white hover:ring-[#E6A62C] hover:ring-2";
-
-          let textClass =
-            idx === 0
-              ? "text-[#033E59] font-medium"
-              : "text-gray-600 group-hover:text-[#E6A62C]";
+              ? "ring-2 ring-[#E6A62C] ring-offset-1"
+              : "ring-1 ring-gray-200 hover:ring-[#E6A62C]";
 
           return `
-          <button class="group flex flex-col items-center gap-2 color-swatch">
-            <div class="relative rounded-xl sm:rounded-2xl overflow-hidden ${selected} transition-all duration-300 p-1.5">
-              <div class="w-full aspect-square sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-lg sm:rounded-xl overflow-hidden">
-                <img src="${c.image}" 
-                     class="w-full h-full object-cover transition-all duration-500 group-hover:scale-110 group-hover:brightness-105"
-                     alt="${c.name}"/>
-              </div>
-              <!-- Yellow overlay on hover (subtle) -->
-              <div class="absolute inset-0 bg-[#E6A62C]/0 group-hover:bg-[#E6A62C]/5 transition-all duration-300 pointer-events-none"></div>
-            </div>
-            <span class="text-xs sm:text-sm ${textClass} transition-colors duration-300 font-medium">
+          
+          <!-- COMPACT CARD: reduced height, smaller padding, consistent image fitting -->
+          <button class="group bg-white rounded-lg border border-gray-200 p-2 transition-all duration-300 hover:shadow-sm ${selected}">
+
+           <!-- IMAGE CONTAINER -->
+<div class="-m-2 mb-1.5 aspect-square overflow-hidden rounded-t-lg bg-gray-50">
+  <img src="${c.image}"
+       class="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105"
+       alt="${c.name}">
+</div>
+
+            <!-- COLOR NAME: smaller font, tighter spacing -->
+            <div class="text-xs font-medium text-[#033E59] text-center mb-1">
               ${c.name}
-            </span>
+            </div>
+
+            <!-- SIZES: compact badges -->
+            <div class="flex justify-center gap-1 flex-wrap">
+              ${(c.sizes || ["S", "M", "L"])
+                .map(
+                  (size) => `
+                <span class="text-[9px] px-1.5 py-0.5 border border-gray-300 rounded text-gray-600 bg-white">
+                  ${size}
+                </span>
+              `,
+                )
+                .join("")}
+            </div>
           </button>
-        `;
+
+          `;
         })
         .join("")}
+
     </div>
   </div>
 </div>
 
-              <!-- Purchase Section -->
-              <div class="mt-12 flex flex-col gap-4"><div class="flex flex-col sm:flex-row gap-4">
-                <button class="relative overflow-hidden flex-1 flex items-center justify-center gap-2 min-w-[140px] border-2 border-[#e5e7eb] rounded-xl bg-white text-[#1D3C4A] font-medium py-3 px-5 group"><span class="absolute inset-0 bg-[#e39f32] -translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-out"></span><i class="fa-solid fa-cart-shopping text-[#e39f32] group-hover:text-white relative z-10 transition-colors duration-500"></i><span class="relative z-10">Add to Cart</span></button>
-                <button class="relative overflow-hidden flex-1 flex items-center justify-center gap-2 min-w-[140px] bg-[#1D3C4A] text-white font-medium py-3 px-5 rounded-xl group"><span class="absolute inset-0 bg-[#e39f32] -translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-out"></span><i class="fa-solid fa-bolt text-[#e39f32] group-hover:text-[#1D3C4A] relative z-10 transition-colors duration-500"></i><span class="relative z-10">Buy Now</span></button>
-              </div></div>
 
-<!-- DELIVERY & PINCODE CHECKER (COMPACT PREMIUM UI) -->
-<div class="bg-white rounded-xl border border-[#e5e7eb] shadow-sm mt-4 p-4">
+             <!-- PURCHASE + QUANTITY SECTION -->
+<div class="mt-6 bg-white p-4 rounded-xl border border-[#e5e7eb] shadow-sm space-y-3">
 
-  <!-- Header -->
-  <div class="flex items-center gap-2 mb-3">
-    <div class="w-7 h-7 rounded-full bg-[#e39f32]/10 flex items-center justify-center">
-      <i class="fa-solid fa-truck-fast text-[#e39f32] text-xs"></i>
+  <!-- Row divided equally -->
+  <div class="grid grid-cols-3 gap-3">
+
+    <!-- Quantity Selector -->
+    <div class="flex items-center justify-between border border-[#e5e7eb] rounded-lg overflow-hidden">
+
+      <button id="decreaseBtn"
+        class="px-3 py-2 text-lg hover:bg-stone-50 w-1/3 border-r border-[#e5e7eb]">
+        −
+      </button>
+
+      <span id="quantity"
+        class="text-sm text-center w-1/3 border-r border-[#e5e7eb] py-2">
+        1
+      </span>
+
+      <button id="increaseBtn"
+        class="px-3 py-2 text-lg hover:bg-stone-50 w-1/3">
+        +
+      </button>
+
     </div>
-    <h3 class="font-lexend text-sm font-medium text-[#1D3C4A]">
-      Delivery & Services
-    </h3>
+
+    <!-- Add to Cart -->
+    <button class="flex items-center justify-center gap-2 border border-[#e5e7eb] rounded-lg bg-white text-[#1D3C4A] font-medium py-2 hover:bg-[#e39f32] hover:text-white transition">
+      <i class="fa-solid fa-cart-shopping"></i>
+      <span class="text-sm">Add to Cart</span>
+    </button>
+
+    <!-- Buy Now -->
+    <button class="flex items-center justify-center gap-2 bg-[#1D3C4A] text-white rounded-lg font-medium py-2 hover:bg-[#e39f32] transition">
+      <i class="fa-solid fa-bolt"></i>
+      <span class="text-sm">Buy Now</span>
+    </button>
+
   </div>
 
-  <!-- Layout -->
-  <div class="flex flex-col md:flex-row gap-4">
-
-    <!-- LEFT : PINCODE -->
-    <div class="flex-1 space-y-2">
-
-      <label class="text-[11px] text-gray-500 font-lexend">
-        Enter pincode
-      </label>
-
-      <div class="flex gap-2">
-        <input
-          type="text"
-          id="pincodeInput"
-          maxlength="6"
-          placeholder="400001"
-          class="flex-1 border border-[#e5e7eb] rounded-lg px-3 py-2.5 text-sm
-                 focus:outline-none focus:border-[#e39f32]
-                 focus:ring-1 focus:ring-[#e39f32]/20 transition"
-        />
-
-        <button
-          id="checkPincodeBtn"
-          class="bg-[#1D3C4A] text-white px-4 py-2.5 rounded-lg
-                 text-sm font-lexend hover:bg-[#1D3C4A]/90
-                 transition shadow-sm whitespace-nowrap">
-          Check
-        </button>
-      </div>
-
-      <!-- Messages -->
-      <p id="pincodeSuccess"
-         class="hidden text-[11px] text-green-600 flex items-center gap-1">
-        <i class="fa-solid fa-circle-check"></i>
-        Delivery available (4 – 7 days)
-      </p>
-
-      <p id="pincodeError"
-         class="hidden text-[11px] text-red-500 flex items-center gap-1">
-        <i class="fa-solid fa-circle-xmark"></i>
-        Delivery not available
-      </p>
-
-    </div>
-
-    <!-- Divider -->
-    <div class="hidden md:block w-px bg-[#e5e7eb]"></div>
-
-    <!-- RIGHT : DELIVERY INFO -->
-    <div class="flex-1">
-
-      <!-- Timeline -->
-      <div class="grid grid-cols-3 gap-2 text-center">
-
-        <div class="space-y-1">
-          <div class="w-7 h-7 mx-auto rounded-full bg-[#e39f32]/10 flex items-center justify-center">
-            <i class="fa-solid fa-box text-[#e39f32] text-xs"></i>
-          </div>
-          <p class="text-[10px] text-gray-500">Dispatch</p>
-          <p class="text-xs font-medium text-[#1D3C4A]">24 – 48h</p>
-        </div>
-
-        <div class="space-y-1">
-          <div class="w-7 h-7 mx-auto rounded-full bg-[#e39f32]/10 flex items-center justify-center">
-            <i class="fa-solid fa-calendar-check text-[#e39f32] text-xs"></i>
-          </div>
-          <p class="text-[10px] text-gray-500">Delivery</p>
-          <p class="text-xs font-medium text-[#1D3C4A]">4 – 7d</p>
-        </div>
-
-        <div class="space-y-1">
-          <div class="w-7 h-7 mx-auto rounded-full bg-[#e39f32]/10 flex items-center justify-center">
-            <i class="fa-solid fa-hand-holding-dollar text-[#e39f32] text-xs"></i>
-          </div>
-          <p class="text-[10px] text-gray-500">Payment</p>
-          <p class="text-xs font-medium text-[#1D3C4A]">COD</p>
-        </div>
-
-      </div>
-
-      <!-- Trust Badges (Compact Line) -->
-      <div class="flex flex-wrap items-center justify-center gap-3 mt-3 pt-3 border-t border-[#f1f1f1] text-[11px] text-gray-600">
-
-        <span class="flex items-center gap-1">
-          <i class="fa-solid fa-check text-green-600"></i>
-          Free Shipping
-        </span>
-
-        <span class="flex items-center gap-1">
-          <i class="fa-solid fa-check text-green-600"></i>
-          Easy Returns
-        </span>
-
-        <span class="flex items-center gap-1">
-          <i class="fa-solid fa-check text-green-600"></i>
-          Secure Packaging
-        </span>
-
-      </div>
-
-    </div>
-
-  </div>
+  <!-- Stock info -->
+  <p id="stockInfo" class="text-xs text-green-600 font-medium">
+    Only ${transformedData.stock} items left in stock
+  </p>
 </div>
-              
-              <!--more info section-->
+
+<!-- DELIVERY SERVICES - COMPACT ONE LINE -->
+<div class="mt-4 px-4 py-3 rounded-lg border border-[#e5e7eb] bg-[#f8fafc]">
+
+  <div class="flex flex-wrap items-center justify-between gap-4 text-xs text-[#1D3C4A]">
+
+    <div class="flex items-center gap-2">
+      <i class="fa-solid fa-box text-[#e39f32]"></i>
+      <span>Dispatch: <span class="font-medium">24–48h</span></span>
+    </div>
+
+    <div class="w-px h-4 bg-gray-300"></div>
+
+    <div class="flex items-center gap-2">
+      <i class="fa-solid fa-calendar-check text-[#e39f32]"></i>
+      <span>Delivery: <span class="font-medium">4–7d</span></span>
+    </div>
+
+    <div class="w-px h-4 bg-gray-300"></div>
+
+    <div class="flex items-center gap-2">
+      <i class="fa-solid fa-hand-holding-dollar text-[#e39f32]"></i>
+      <span>COD Available</span>
+    </div>
+
+    <div class="w-px h-4 bg-gray-300"></div>
+
+    <div class="flex items-center gap-2">
+      <i class="fa-solid fa-truck text-[#e39f32]"></i>
+      <span>Free Shipping</span>
+    </div>
+
+    <div class="w-px h-4 bg-gray-300"></div>
+
+    <div class="flex items-center gap-2">
+      <i class="fa-solid fa-rotate-left text-[#e39f32]"></i>
+      <span>Easy Returns</span>
+    </div>
+  </div>
+</div>   
+
+              <!--additional info section-->
               <section class="max-w-3xl mx-auto px-4 pt-8 pb-0 font-sans text-[#1D3C4A]">
                 <div class="border border-[#e5e7eb] rounded-xl divide-y divide-[#e5e7eb] bg-white" id="accordionContainer"></div>
               </section>
@@ -730,35 +825,6 @@
     }
 
     console.log("Pincode elements found, attaching events...");
-
-    // Serviceable pincodes (example data)
-    const serviceablePincodes = [
-      "400001",
-      "400002",
-      "400003",
-      "400004",
-      "400005",
-      "110001",
-      "110002",
-      "110003",
-      "110004",
-      "110005",
-      "560001",
-      "560002",
-      "560003",
-      "560004",
-      "560005",
-      "600001",
-      "600002",
-      "600003",
-      "600004",
-      "600005",
-      "700001",
-      "700002",
-      "700003",
-      "700004",
-      "700005",
-    ];
 
     // Function to check pincode
     function checkPincode() {
@@ -935,8 +1001,39 @@
 
   // sticky bar
   const sticky = document.getElementById("stickyBar");
-  sticky.innerHTML = `<div class="flex items-center justify-center gap-3 order-1"><span class="font-medium font-lexend text-2xl md:text-3xl drop-shadow-sm" style="color:#e39f32">₹${transformedData.price.toLocaleString()}</span><span class="text-gray-600 line-through text-base md:text-lg opacity-90">₹${transformedData.originalPrice.toLocaleString()}</span></div><div class="flex items-center gap-3 md:gap-4 flex-wrap justify-center order-2"><button class="border-2 px-6 py-3 rounded-full text-base font-medium font-lexend flex items-center gap-2 transition-all duration-200 hover:bg-[#1D3C4A]/10 hover:shadow-md group" style="border-color:#1d3c4a;color:#1d3c4a"><i class="fas fa-cart-plus text-xl group-hover:text-[#e39f32] transition-colors"></i>Add to Cart</button><button class="px-8 py-3 rounded-full text-base font-medium font-lexend shadow-lg flex items-center gap-2 transition-all duration-200 hover:shadow-xl hover:scale-[1.04]" style="background-color:#1d3c4a;color:white">Buy Now <i class="fas fa-arrow-right text-lg"></i></button><a href="https://wa.me/+919876543210?text=Hi%2C%20I%27m%20interested%20in%20this%20product.%20Can%20you%20please%20send%20live%20product%20videos%3F%20%F0%9F%93%B9" target="_blank" class="px-7 py-3 rounded-full text-base font-medium font-lexend flex items-center gap-2 shadow-md transition-all duration-200 hover:shadow-lg hover:scale-[1.03] bg-green-600 hover:bg-green-700 text-white"><i class="fab fa-whatsapp text-xl"></i>Request Live Product Videos</a></div>`;
+  sticky.innerHTML = `
+<div class="flex items-center gap-2 whitespace-nowrap">
+  <span class="font-medium font-lexend text-lg" style="color:#e39f32">
+    ₹${transformedData.price.toLocaleString()}
+  </span>
+  <span class="text-gray-500 line-through text-sm">
+    ₹${transformedData.originalPrice.toLocaleString()}
+  </span>
+</div>
 
+<div class="flex items-center gap-2">
+
+  <button class="border px-3 py-1.5 rounded-full text-sm font-medium font-lexend flex items-center gap-1 transition hover:bg-[#1D3C4A]/10"
+  style="border-color:#1d3c4a;color:#1d3c4a">
+    <i class="fas fa-cart-plus text-xs"></i>
+    Cart
+  </button>
+
+  <button class="px-4 py-1.5 rounded-full text-sm font-medium font-lexend flex items-center gap-1"
+  style="background-color:#1d3c4a;color:white">
+    Buy
+    <i class="fas fa-arrow-right text-xs"></i>
+  </button>
+
+  <a href="https://wa.me/+919876543210?text=Hi%2C%20I%27m%20interested%20in%20this%20product.%20Can%20you%20please%20send%20live%20product%20videos%3F"
+  target="_blank"
+  class="px-3 py-1.5 rounded-full text-sm font-medium font-lexend flex items-center gap-1 bg-green-600 text-white">
+    <i class="fab fa-whatsapp text-xs"></i>
+    Video
+  </a>
+
+</div>
+`;
   // ---------- reattach all js behaviors (same as original) ----------
   // thumbnails
   const mainImg = document.getElementById("mainProductImage");
@@ -1018,39 +1115,47 @@
     });
   });
 
-  // quantity
-  let quantity = 1,
-    stock = transformedData.stock;
-  const qtySpan = document.getElementById("quantity"),
-    stockInfo = document.getElementById("stockInfo"),
-    inc = document.getElementById("increaseBtn"),
-    dec = document.getElementById("decreaseBtn");
+  // quantity logic
+  let quantity = 1;
+  let stock = transformedData.stock;
+
+  const qtySpan = document.getElementById("quantity");
+  const stockInfo = document.getElementById("stockInfo");
+  const inc = document.getElementById("increaseBtn");
+  const dec = document.getElementById("decreaseBtn");
+
   function updateQtyUI() {
     qtySpan.textContent = quantity;
-    let rem = stock - quantity;
-    stockInfo.textContent =
-      rem > 0 ? `Only ${rem} items left in stock` : "Out of stock";
-    stockInfo.className =
-      rem > 0
-        ? "text-xs font-medium text-green-600"
-        : "text-xs font-medium text-red-600";
-  }
-  if (inc && dec) {
-    inc.addEventListener("click", () => {
-      if (quantity < stock) {
-        quantity++;
-        updateQtyUI();
-      }
-    });
-    dec.addEventListener("click", () => {
-      if (quantity > 1) {
-        quantity--;
-        updateQtyUI();
-      }
-    });
-    updateQtyUI();
+
+    const remaining = stock - quantity;
+
+    if (remaining > 0) {
+      stockInfo.textContent = `Only ${remaining} items left in stock`;
+      stockInfo.className = "text-xs text-green-600 mt-1";
+    } else {
+      stockInfo.textContent = "Out of stock";
+      stockInfo.className = "text-xs text-red-600 mt-1";
+    }
   }
 
+  // increase
+  inc.addEventListener("click", () => {
+    if (quantity < stock) {
+      quantity++;
+      updateQtyUI();
+    }
+  });
+
+  // decrease
+  dec.addEventListener("click", () => {
+    if (quantity > 1) {
+      quantity--;
+      updateQtyUI();
+    }
+  });
+
+  // initial load
+  updateQtyUI();
   // timer
   function updateTimer() {
     let h = document.getElementById("timerHours"),
