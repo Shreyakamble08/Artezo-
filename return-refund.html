@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Return, Refund & Cancellation · Artezo</title>
+
+    <!-- Tailwind + Fonts -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
+    <!-- Header & Footer CSS -->
+    <link rel="stylesheet" href="../Header/header.css" />
+    <link rel="stylesheet" href="../Footer/footer.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Zain:ital,wght@0,200;0,300;0,400;0,700;0,800;0,900;1,300;1,400&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#033E59",
+                        accent: "#E6A62C",
+                        cream: "#FFF8EC",
+                        warmgray: "#F9F3E9",
+                        sand: "#F8F8EA",
+                        teal: "#133F53",
+                        warmbrown: "#957A54",
+                    },
+                    fontFamily: {
+                        lexend: ["Lexend", "sans-serif"],
+                        zain: ["Zain", "sans-serif"],
+                    },
+                },
+            },
+        };
+    </script>
+
+    <style>
+        body {
+            background-color: #F8F8EA;
+        }
+
+        .policy-card {
+            background: white;
+            border-radius: 1.5rem;
+            padding: 2rem;
+            border: 1px solid rgba(230, 166, 44, 0.2);
+            box-shadow: 0 8px 20px -8px rgba(230, 166, 44, 0.1);
+        }
+
+        .policy-section {
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #FFE9CE;
+        }
+
+        .policy-section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .exclusion-badge {
+            background: #FFF0E0;
+            border-radius: 2rem;
+            padding: 0.3rem 1rem;
+            font-size: 0.75rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+    </style>
+</head>
+
+<body class="bg-sand text-primary antialiased font-lexend">
+
+    <!-- ========== HEADER ========== -->
+    <div id="header-container"></div>
+
+    <!-- ========== MAIN CONTENT ========== -->
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+
+        <!-- Page Header -->
+        <div class="text-center mb-10">
+            <div class="inline-flex items-center gap-2 bg-cream rounded-full px-4 py-1 mb-4 border border-accent/20">
+                <i class="fas fa-rotate-left text-accent text-sm"></i>
+                <span class="text-xs font-medium text-warmbrown">Hassle-Free Returns</span>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-zain font-semibold text-primary tracking-tight">Return, Refund &
+                Cancellation</h1>
+            <p class="text-warmbrown mt-3 max-w-2xl mx-auto">At ARTEZO, we strive to ensure that every product delivered
+                meets our quality standards and your expectations. This policy outlines the terms under which returns,
+                replacements, and refunds are processed.</p>
+            <div class="mt-4">
+                <span class="last-updated"><i class="far fa-calendar-alt mr-2 text-accent"></i> Last Updated: March 24,
+                    2026</span>
+            </div>
+        </div>
+
+        <!-- Policy Content Card -->
+        <div class="policy-card">
+
+            <!-- Section 1: Eligibility for Returns -->
+            <div class="policy-section">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">
+                        <i class="fas fa-check-circle text-accent text-lg"></i>
+                    </div>
+                    <h2 class="text-xl font-semibold text-primary">1. Eligibility for Returns</h2>
+                </div>
+                <p class="text-gray-700 leading-relaxed mb-3">We accept returns or replacement requests only under the
+                    following circumstances:</p>
+                <ul class="list-disc pl-6 space-y-1 text-gray-600 mb-3">
+                    <li>The product is damaged during transit</li>
+                    <li>The product received is defective</li>
+                    <li>The wrong product was delivered</li>
+                </ul>
+                <p class="text-gray-700 leading-relaxed font-medium">To be eligible:</p>
+                <ul class="list-disc pl-6 space-y-1 text-gray-600">
+                    <li>The issue must be reported within <span class="font-semibold text-primary">24–48 hours of
+                            delivery</span></li>
+                    <li>Clear photos and an unboxing video must be shared (showing packaging and product condition)</li>
+                    <li>The product must be unused and in its original packaging</li>
+                </ul>
+            </div>
+
+            <!-- Section 2: Non-Returnable Items -->
+            <div class="policy-section">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">
+                        <i class="fas fa-ban text-accent text-lg"></i>
+                    </div>
+                    <h2 class="text-xl font-semibold text-primary">2. Non-Returnable Items</h2>
+                </div>
+                <p class="text-gray-700 leading-relaxed mb-2">The following products are not eligible for return or
+                    refund:</p>
+                <ul class="list-disc pl-6 space-y-1 text-gray-600">
+                    <li>Personalized or customized products (including nameplates, engraved gifts, custom trophies,
+                        etc.)</li>
+                    <li>Corporate or bulk orders</li>
+                    <li>Products damaged due to misuse, mishandling, or improper installation</li>
+                    <li>Minor variations in color/finish due to lighting or screen display</li>
+                </ul>
+                <p class="text-gray-700 mt-3">As many of our products are made-to-order or customized, returns are
+                    generally limited to manufacturing defects or transit damage only.</p>
+            </div>
+
+            <!-- Section 3: Replacement Policy -->
+            <div class="policy-section">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">
+                        <i class="fas fa-exchange-alt text-accent text-lg"></i>
+                    </div>
+                    <h2 class="text-xl font-semibold text-primary">3. Replacement Policy</h2>
+                </div>
+                <p class="text-gray-700 leading-relaxed mb-2">If a product is found to be damaged or defective:</p>
+                <ul class="list-disc pl-6 space-y-1 text-gray-600">
+                    <li>We may offer a replacement at no additional cost</li>
+                    <li>Replacement processing time: <span class="font-semibold text-primary">3–7 business days</span>
+                        after approval</li>
+                    <li>ARTEZO reserves the right to verify the damage before approving replacement</li>
+                </ul>
+            </div>
+
+            <!-- Section 4: Refund Policy -->
+            <div class="policy-section">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">
+                        <i class="fas fa-money-bill-wave text-accent text-lg"></i>
+                    </div>
+                    <h2 class="text-xl font-semibold text-primary">4. Refund Policy</h2>
+                </div>
+                <p class="text-gray-700 leading-relaxed mb-2">Refunds (if applicable) will be processed only when:</p>
+                <ul class="list-disc pl-6 space-y-1 text-gray-600">
+                    <li>Replacement is not possible</li>
+                    <li>The product is out of stock</li>
+                    <li>The issue qualifies under our return policy</li>
+                </ul>
+                <p class="text-gray-700 mt-3 font-medium">Refund Timeline:</p>
+                <ul class="list-disc pl-6 space-y-1 text-gray-600">
+                    <li>Refunds will be processed within <span class="font-semibold text-primary">7–10 business
+                            days</span> after approval</li>
+                    <li>Refund will be issued to the original payment method</li>
+                    <li>Shipping charges (if any) are non-refundable unless the error was on our part</li>
+                </ul>
+            </div>
+
+            <!-- Section 5: Cancellation Policy -->
+            <div class="policy-section">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">
+                        <i class="fas fa-calendar-times text-accent text-lg"></i>
+                    </div>
+                    <h2 class="text-xl font-semibold text-primary">5. Cancellation Policy</h2>
+                </div>
+                <p class="text-gray-700 leading-relaxed mb-2">Orders can be cancelled:</p>
+                <ul class="list-disc pl-6 space-y-1 text-gray-600">
+                    <li>Within <span class="font-semibold text-primary">12–24 hours</span> of placing the order</li>
+                    <li>Before the product is shipped</li>
+                    <li>Customized or personalized orders cannot be cancelled once production has started</li>
+                </ul>
+            </div>
+
+            <!-- Section 6: Return Shipping -->
+            <div class="policy-section">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">
+                        <i class="fas fa-truck text-accent text-lg"></i>
+                    </div>
+                    <h2 class="text-xl font-semibold text-primary">6. Return Shipping</h2>
+                </div>
+                <p class="text-gray-700 leading-relaxed">If a return is approved:</p>
+                <ul class="list-disc pl-6 space-y-1 text-gray-600 mt-2">
+                    <li>Customers may be instructed to ship the product back</li>
+                    <li>In cases of genuine defect or incorrect delivery, ARTEZO may bear return shipping costs</li>
+                </ul>
+            </div>
+
+            <!-- Section 7: Important Notice for Customized Products -->
+            <div class="policy-section">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">
+                        <i class="fas fa-gift text-accent text-lg"></i>
+                    </div>
+                    <h2 class="text-xl font-semibold text-primary">7. Important Notice for Customized Products</h2>
+                </div>
+                <p class="text-gray-700 leading-relaxed">Since ARTEZO specializes in personalized gifts, nameplates,
+                    trophies, and custom decor:</p>
+                <ul class="list-disc pl-6 space-y-1 text-gray-600 mt-2">
+                    <li>Customers are requested to carefully review spelling, customization details, and design
+                        approvals before confirming orders</li>
+                    <li>Once approved and processed, such products cannot be returned or refunded</li>
+                </ul>
+            </div>
+
+            <!-- Section 8: How to Initiate a Return -->
+            <div class="policy-section">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">
+                        <i class="fas fa-headset text-accent text-lg"></i>
+                    </div>
+                    <h2 class="text-xl font-semibold text-primary">8. How to Initiate a Return</h2>
+                </div>
+                <p class="text-gray-700 leading-relaxed mb-2">To request a return or report an issue, please contact:
+                </p>
+                <div class="bg-cream rounded-xl p-4 mb-3">
+                    <p class="text-gray-700"><i class="fas fa-envelope text-accent mr-2"></i> <span
+                            class="font-medium">Email:</span> info@artezo.in</p>
+                    <p class="text-gray-700 mt-1"><i class="fab fa-whatsapp text-accent mr-2"></i> <span
+                            class="font-medium">WhatsApp:</span> +91 99 22 23 62 99</p>
+                    <p class="text-gray-700 mt-1"><span class="font-medium">Order ID:</span> Required in all
+                        communications</p>
+                </div>
+                <p class="text-gray-700">Our support team will guide you through the process.</p>
+            </div>
+
+            <!-- Section 9: Policy Updates -->
+            <div class="policy-section">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">
+                        <i class="fas fa-edit text-accent text-lg"></i>
+                    </div>
+                    <h2 class="text-xl font-semibold text-primary">9. Policy Updates</h2>
+                </div>
+                <p class="text-gray-700 leading-relaxed">ARTEZO reserves the right to modify this Return & Refund Policy
+                    at any time without prior notice. Customers are encouraged to review this page periodically.</p>
+                <p class="text-gray-700 mt-3 font-medium">ARTEZO — Committed to Quality. Committed to Fairness.</p>
+            </div>
+
+            <!-- Contact Support Box -->
+            <div class="mt-6 p-5 bg-accent/10 rounded-xl border border-accent/30">
+                <div class="flex items-start gap-3">
+                    <i class="fas fa-question-circle text-accent text-2xl mt-0.5"></i>
+                    <div>
+                        <h3 class="font-semibold text-primary">Need Assistance?</h3>
+                        <p class="text-sm text-gray-600 mt-1">Our support team is here to help with returns,
+                            replacements, or cancellations.</p>
+                        <div class="flex flex-wrap gap-4 mt-4">
+                            <button
+                                class="bg-primary text-white px-5 py-2 rounded-full text-sm hover:bg-primary/90 transition"><i
+                                    class="fas fa-phone-alt mr-2"></i> +91 9922236299</button>
+                            <button
+                                class="border border-primary text-primary px-5 py-2 rounded-full text-sm hover:bg-primary/10 transition"><i
+                                    class="fas fa-envelope mr-2"></i> info@artezo.in</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== FOOTER ========== -->
+    <div id="footer-container"></div>
+
+    <!-- Load header & footer scripts -->
+    <script src="../Header/load-header.js" defer></script>
+    <script src="../Header/header.js" defer></script>
+    <script src="../Footer/footer-loader.js" defer></script>
+</body>
+
+</html>

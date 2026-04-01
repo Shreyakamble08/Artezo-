@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shipping & Delivery · Artezo</title>
+
+    <!-- Tailwind + Fonts -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
+    <!-- Header & Footer CSS -->
+    <link rel="stylesheet" href="../Header/header.css" />
+    <link rel="stylesheet" href="../Footer/footer.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Zain:ital,wght@0,200;0,300;0,400;0,700;0,800;0,900;1,300;1,400&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#033E59",
+                        accent: "#E6A62C",
+                        cream: "#FFF8EC",
+                        warmgray: "#F9F3E9",
+                        sand: "#F8F8EA",
+                        teal: "#133F53",
+                        warmbrown: "#957A54",
+                    },
+                    fontFamily: {
+                        lexend: ["Lexend", "sans-serif"],
+                        zain: ["Zain", "sans-serif"],
+                    },
+                },
+            },
+        };
+    </script>
+
+    <style>
+        body {
+            background-color: #F8F8EA;
+        }
+
+        .policy-card {
+            background: white;
+            border-radius: 1.5rem;
+            padding: 2rem;
+            border: 1px solid rgba(230, 166, 44, 0.2);
+            box-shadow: 0 8px 20px -8px rgba(230, 166, 44, 0.1);
+        }
+
+        .policy-section {
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #FFE9CE;
+        }
+
+        .policy-section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .delivery-badge {
+            background: #FFF3DD;
+            border-radius: 2rem;
+            padding: 0.5rem 1.2rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+            color: #7B5832;
+        }
+
+        .last-updated {
+            background: #FFF8EC;
+            border-radius: 2rem;
+            padding: 0.5rem 1.2rem;
+            display: inline-block;
+            font-size: 0.85rem;
+            color: #957A54;
+        }
+    </style>
+</head>
+
+<body class="bg-sand text-primary antialiased font-lexend">
+
+    <!-- ========== HEADER ========== -->
+    <div id="header-container"></div>
+
+    <!-- ========== MAIN CONTENT ========== -->
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+
+        <!-- Page Header -->
+        <div class="text-center mb-10">
+            <div class="inline-flex items-center gap-2 bg-cream rounded-full px-4 py-1 mb-4 border border-accent/20">
+                <i class="fas fa-truck-fast text-accent text-sm"></i>
+                <span class="text-xs font-medium text-warmbrown">Fast & Reliable</span>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-zain font-semibold text-primary tracking-tight">Shipping & Delivery
+            </h1>
+            <p class="text-warmbrown mt-3 max-w-2xl mx-auto">At ARTEZO, we are committed to delivering your products
+                safely, securely, and within a reasonable timeframe. This Shipping Policy outlines our processing times,
+                delivery timelines, and shipping practices.</p>
+            <div class="mt-4">
+                <span class="last-updated"><i class="far fa-calendar-alt mr-2 text-accent"></i> Last Updated: March 24,
+                    2026</span>
+            </div>
+        </div>
+
+        <!-- Policy Content Card -->
+        <div class="policy-card">
+
+            <!-- Section 1: Order Processing Time -->
+            <div class="policy-section">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">
+                        <i class="fas fa-stopwatch text-accent text-lg"></i>
+                    </div>
+                    <h2 class="text-xl font-semibold text-primary">1. Order Processing Time</h2>
+                </div>
+                <ul class="list-disc pl-6 space-y-2 text-gray-700 leading-relaxed">
+                    <li>All orders are dispatched within <span class="font-semibold text-primary">24-48 hours</span>
+                        after confirmation of payment.</li>
+                    <li>For personalized products, custom nameplates, corporate gifts, trophies, and mementos,
+                        processing time may take <span class="font-semibold text-primary">2-3 business days</span>,
+                        depending on design approval and customization requirements.</li>
+                    <li>Orders are not processed on Sundays or public holidays.</li>
+                </ul>
+            </div>
+
+            <!-- Section 2: Shipping & Delivery Timeline -->
+            <div class="policy-section">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">
+                        <i class="fas fa-shipping-fast text-accent text-lg"></i>
+                    </div>
+                    <h2 class="text-xl font-semibold text-primary">2. Shipping & Delivery Timeline</h2>
+                </div>
+                <p class="text-gray-700 leading-relaxed mb-2">Once dispatched, estimated delivery timelines are:</p>
+                <p class="text-gray-700 leading-relaxed">At Artezo, we ensure your orders are dispatched within 48 hours
+                    of confirmation. We deliver across India, and you can expect your order to arrive within <span
+                        class="font-semibold text-primary">4 to 7 business days</span> after dispatch.</p>
+                <p class="text-gray-600 text-sm mt-3">Delivery timelines may vary depending on courier services and
+                    location accessibility.</p>
+            </div>
+
+            <!-- Section 3: Shipping Charges -->
+            <div class="policy-section">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">
+                        <i class="fas fa-tag text-accent text-lg"></i>
+                    </div>
+                    <h2 class="text-xl font-semibold text-primary">3. Shipping Charges</h2>
+                </div>
+                <ul class="list-disc pl-6 space-y-2 text-gray-700">
+                    <li>Shipping charges (if applicable) will be calculated and displayed at checkout.</li>
+                    <li>We may offer:
+                        <ul class="list-circle pl-6 mt-1 space-y-1 text-gray-600">
+                            <li>Free shipping on select products</li>
+                            <li>Free shipping above a certain order value</li>
+                            <li>Special shipping terms for bulk or corporate orders</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Section 4: Order Tracking -->
+            <div class="policy-section">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">
+                        <i class="fas fa-map-marker-alt text-accent text-lg"></i>
+                    </div>
+                    <h2 class="text-xl font-semibold text-primary">4. Order Tracking</h2>
+                </div>
+                <p class="text-gray-700 leading-relaxed">You can easily log into your Account to track your order
+                    anytime. Our reliable shipping partners, <span class="font-semibold text-primary">Bluedart,
+                        Xpressbees, Delhivery, DTDC, ATS</span>, and other trusted partners, help us facilitate seamless
+                    delivery nationwide.</p>
+                <p class="text-gray-700 mt-3">Please get in touch with our customer support team if you have any
+                    questions or need further assistance.</p>
+            </div>
+
+            <!-- Section 5: Packaging -->
+            <div class="policy-section">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">
+                        <i class="fas fa-box-open text-accent text-lg"></i>
+                    </div>
+                    <h2 class="text-xl font-semibold text-primary">5. Packaging</h2>
+                </div>
+                <p class="text-gray-700 leading-relaxed mb-2">All ARTEZO products are securely packaged to prevent
+                    damage during transit. Special care is taken for:</p>
+                <ul class="list-disc pl-6 space-y-1 text-gray-600">
+                    <li>Photo Frames</li>
+                    <li>Wall Decor</li>
+                    <li>Glass components</li>
+                    <li>Trophies and Mementos</li>
+                </ul>
+                <p class="text-gray-700 mt-3">We prioritize protective packaging to ensure your order arrives in
+                    excellent condition.</p>
+            </div>
+
+            <!-- Section 6: Delivery Delays -->
+            <div class="policy-section">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">
+                        <i class="fas fa-clock text-accent text-lg"></i>
+                    </div>
+                    <h2 class="text-xl font-semibold text-primary">6. Delivery Delays</h2>
+                </div>
+                <p class="text-gray-700 leading-relaxed mb-2">While we strive for timely delivery, delays may occur due
+                    to:</p>
+                <ul class="list-disc pl-6 space-y-1 text-gray-600">
+                    <li>Weather conditions</li>
+                    <li>Courier disruptions</li>
+                    <li>Public holidays</li>
+                    <li>Incorrect shipping details provided by the customer</li>
+                </ul>
+                <p class="text-gray-700 mt-3">ARTEZO shall not be held liable for delays caused by external courier
+                    partners or unforeseen circumstances.</p>
+            </div>
+
+            <!-- Section 7: Incorrect Address -->
+            <div class="policy-section">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">
+                        <i class="fas fa-address-card text-accent text-lg"></i>
+                    </div>
+                    <h2 class="text-xl font-semibold text-primary">7. Incorrect Address</h2>
+                </div>
+                <p class="text-gray-700 leading-relaxed">Customers are responsible for providing accurate shipping
+                    information. If an incorrect or incomplete address is provided:</p>
+                <ul class="list-disc pl-6 mt-2 space-y-1 text-gray-600">
+                    <li>Delivery may be delayed or returned</li>
+                    <li>Additional shipping charges may apply for re-dispatch</li>
+                </ul>
+            </div>
+
+            <!-- Section 8: Damaged or Lost Shipments -->
+            <div class="policy-section">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">
+                        <i class="fas fa-truck-ramp-box text-accent text-lg"></i>
+                    </div>
+                    <h2 class="text-xl font-semibold text-primary">8. Damaged or Lost Shipments</h2>
+                </div>
+                <p class="text-gray-700 leading-relaxed">If your order arrives damaged or appears tampered:</p>
+                <ul class="list-disc pl-6 mt-2 space-y-1 text-gray-600">
+                    <li>Please notify us within <span class="font-semibold text-primary">24 hours of delivery</span>
+                    </li>
+                    <li>Share clear photos/videos of the packaging and product</li>
+                    <li>We will review the issue and assist accordingly</li>
+                </ul>
+            </div>
+
+            <!-- Section 9: Bulk & Corporate Orders -->
+            <div class="policy-section">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">
+                        <i class="fas fa-building text-accent text-lg"></i>
+                    </div>
+                    <h2 class="text-xl font-semibold text-primary">9. Bulk & Corporate Orders</h2>
+                </div>
+                <p class="text-gray-700 leading-relaxed">For large volume corporate orders, shipping timelines and
+                    charges may vary based on:</p>
+                <ul class="list-disc pl-6 mt-2 space-y-1 text-gray-600">
+                    <li>Quantity</li>
+                    <li>Customization requirements</li>
+                    <li>Delivery location</li>
+                </ul>
+                <p class="text-gray-700 mt-3">Our team will communicate expected timelines during order confirmation.
+                </p>
+            </div>
+
+            <!-- Section 10: Contact Information -->
+            <div class="policy-section">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">
+                        <i class="fas fa-headset text-accent text-lg"></i>
+                    </div>
+                    <h2 class="text-xl font-semibold text-primary">10. Contact Information</h2>
+                </div>
+                <p class="text-gray-700 leading-relaxed mb-3">If you have questions or need assistance regarding
+                    shipping, delivery, or claims:</p>
+                <div class="bg-cream rounded-xl p-4 mb-3">
+                    <p class="text-gray-700"><i class="fas fa-envelope text-accent mr-2"></i> <span
+                            class="font-medium">Email:</span> info@artezo.in</p>
+                    <p class="text-gray-700 mt-1"><i class="fab fa-whatsapp text-accent mr-2"></i> <span
+                            class="font-medium">WhatsApp:</span> +91 99 22 23 62 99</p>
+                </div>
+                <p class="text-gray-700">We're here to help you every step of the way!</p>
+                <p class="text-gray-700 mt-4 font-medium">ARTEZO — Committed to delivering quality with care.</p>
+            </div>
+
+            <!-- Contact Support Box -->
+            <div class="mt-6 p-5 bg-accent/10 rounded-xl border border-accent/30">
+                <div class="flex items-start gap-3">
+                    <i class="fas fa-truck-fast text-accent text-2xl mt-0.5"></i>
+                    <div>
+                        <h3 class="font-semibold text-primary">Need Assistance with Your Order?</h3>
+                        <p class="text-sm text-gray-600 mt-1">Our support team is here to help with shipping inquiries,
+                            tracking, or delivery concerns.</p>
+                        <div class="flex flex-wrap gap-4 mt-4">
+                            <button
+                                class="bg-primary text-white px-5 py-2 rounded-full text-sm hover:bg-primary/90 transition"><i
+                                    class="fas fa-phone-alt mr-2"></i> +91 9922236299</button>
+                            <button
+                                class="border border-primary text-primary px-5 py-2 rounded-full text-sm hover:bg-primary/10 transition"><i
+                                    class="fas fa-envelope mr-2"></i> info@artezo.in</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== FOOTER ========== -->
+    <div id="footer-container"></div>
+
+    <!-- Load header & footer scripts -->
+    <script src="../Header/load-header.js" defer></script>
+    <script src="../Header/header.js" defer></script>
+    <script src="../Footer/footer-loader.js" defer></script>
+</body>
+
+</html>

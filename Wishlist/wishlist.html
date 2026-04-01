@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Wishlist - Artezo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../Header/header.css">
+    <style>
+        body {
+            font-family: 'Lexend', sans-serif;
+            background-color: #f9fafb;
+        }
+
+        .loader {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #E6A62C;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .wishlist-item {
+            transition: all 0.3s ease;
+        }
+
+        .wishlist-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.02);
+        }
+
+        .move-to-cart-btn {
+            transition: all 0.3s ease;
+        }
+
+        .move-to-cart-btn:hover {
+            background-color: #1D3C4A !important;
+            color: white !important;
+        }
+
+        .remove-wishlist-btn {
+            transition: all 0.3s ease;
+        }
+
+        .remove-wishlist-btn:hover {
+            background-color: #dc2626 !important;
+            color: white !important;
+        }
+
+        .heart-animation {
+            animation: heartBeat 0.5s ease;
+        }
+
+        @keyframes heartBeat {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.2);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+    </style>
+
+    <!-- Tailwind config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#1D3C4A",
+                        accent: "#E39F32",
+                    },
+                    fontFamily: {
+                        lexend: ["Lexend", "sans-serif"],
+                        zain: ["Zain", "sans-serif"],
+                    },
+                },
+            },
+        };
+    </script>
+</head>
+
+<body class="bg-gray-50">
+    <!-- Header Container -->
+    <div id="header-container"></div>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Breadcrumb -->
+        <div class="flex items-center gap-2 text-sm text-gray-500 mb-6">
+            <a href="../index.html" class="hover:text-primary">Home</a>
+            <i class="fa-solid fa-chevron-right text-xs"></i>
+            <span class="text-primary font-medium">My Wishlist</span>
+        </div>
+
+        <!-- Page Title -->
+        <div class="flex items-center justify-between mb-8">
+            <div>
+                <h1 class="text-2xl md:text-3xl font-semibold text-gray-900">My Wishlist</h1>
+                <p class="text-gray-500 text-sm mt-1">Save your favorite items for later</p>
+            </div>
+            <div id="wishlist-stats" class="text-sm text-gray-500 bg-white px-4 py-2 rounded-full shadow-sm">
+                <span id="wishlist-count-display">0</span> items
+            </div>
+        </div>
+
+        <!-- Loading State -->
+        <div id="wishlist-loading" class="flex justify-center py-16">
+            <div class="loader"></div>
+        </div>
+
+        <!-- Empty State -->
+        <div id="empty-state" class="hidden text-center py-16 bg-white rounded-xl border border-gray-200">
+            <div class="mb-6">
+                <i class="fa-regular fa-heart text-7xl text-gray-300"></i>
+            </div>
+            <h3 class="text-xl font-semibold mb-2">Your wishlist is empty</h3>
+            <p class="text-gray-500 mb-8">Save your favorite items here to buy them later</p>
+            <a href="/"
+                class="inline-flex items-center gap-2 bg-primary text-white px-8 py-3 rounded-lg hover:bg-primary/90 transition">
+                <i class="fa-solid fa-arrow-left"></i>
+                Continue Shopping
+            </a>
+        </div>
+
+        <!-- Wishlist Grid -->
+        <div id="wishlist-grid" class="hidden grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <!-- Wishlist items will be dynamically inserted here -->
+        </div>
+
+        <!-- Move All to Cart Button (only shown when items exist) -->
+        <div id="move-all-container" class="hidden mt-8 flex justify-center">
+            <button id="move-all-to-cart"
+                class="bg-primary text-white px-8 py-3 rounded-lg hover:bg-primary/90 transition flex items-center gap-2">
+                <i class="fa-solid fa-cart-shopping"></i>
+                Move All to Cart
+            </button>
+        </div>
+    </main>
+
+    <!-- Footer Container -->
+    <div id="footer-container"></div>
+
+    <!-- Scripts -->
+    <script src="../services/product-data.js"></script>
+    <script src="../services/cart-wishlist-service.js"></script>
+    <script src="../services/global-utils.js"></script>
+    <script src="../services/customization.js"></script>
+    <script src="../Header/load-header.js"></script>
+    <script src="../Header/header.js"></script>
+    <script src="../Footer/footer-loader.js"></script>
+    <script src="../Wishlist/wishlist.js"></script>
+</body>
+
+</html>

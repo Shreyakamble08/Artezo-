@@ -431,12 +431,14 @@ bg-gradient-to-r from-[#fff3d9] via-[#faf7f2] to-stone-50" style="border-color:#
             <section class="flex-1">
                 <!-- skeleton grid -->
                 <div id="skeletonGrid"
-                    class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-5"></div>
+                    class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-3"></div>
+
                 <!-- product grid -->
                 <div id="productGrid"
-                    class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-4 md:gap-5 hidden"></div>
+                    class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-3 md:gap-3 hidden"></div>
+
                 <!-- empty state -->
-                <div id="emptyState" class="text-center py-16 hidden flex-col items-center w-full">
+                <div id="emptyState" class="text-center py-12 hidden flex-col items-center w-full">
                     <i class="far fa-frown text-5xl mb-4" style="color:#e39f32;"></i>
                     <p class="text-gray-500 text-lg">No products match your filters.</p>
                     <button id="emptyResetBtn"
@@ -450,10 +452,16 @@ bg-gradient-to-r from-[#fff3d9] via-[#faf7f2] to-stone-50" style="border-color:#
     <!-- FOOTER -->
     <div id="footer-container"></div>
 
+    <!-- IMPORTANT: Load product data FIRST, then header, then services -->
+    <!-- Scripts - Order matters -->
+    <script src="../services/product-data.js"></script>
+    <script src="../services/cart-wishlist-service.js"></script>
+    <script src="../services/global-utils.js"></script>
+    <script src="../services/customization.js"></script>
+    <script src="../HomeSub/homesubcategory.js"></script>
     <script src="../Header/load-header.js" defer></script>
     <script src="../Header/header.js" defer></script>
     <script src="../Footer/footer-loader.js"></script>
-    <script src="../HomeSub/homesubcategory.js"></script>
 
 
 

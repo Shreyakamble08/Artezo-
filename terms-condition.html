@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Terms & Conditions · Artezo</title>
+
+    <!-- Tailwind + Fonts -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
+    <!-- Header & Footer CSS -->
+    <link rel="stylesheet" href="../Header/header.css" />
+    <link rel="stylesheet" href="../Footer/footer.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Zain:ital,wght@0,200;0,300;0,400;0,700;0,800;0,900;1,300;1,400&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#033E59",
+                        accent: "#E6A62C",
+                        cream: "#FFF8EC",
+                        warmgray: "#F9F3E9",
+                        sand: "#F8F8EA",
+                        teal: "#133F53",
+                        warmbrown: "#957A54",
+                    },
+                    fontFamily: {
+                        lexend: ["Lexend", "sans-serif"],
+                        zain: ["Zain", "sans-serif"],
+                    },
+                },
+            },
+        };
+    </script>
+
+    <style>
+        body {
+            background-color: #F8F8EA;
+        }
+
+        .terms-card {
+            background: white;
+            border-radius: 1.5rem;
+            padding: 2rem;
+            border: 1px solid rgba(230, 166, 44, 0.2);
+            box-shadow: 0 8px 20px -8px rgba(230, 166, 44, 0.1);
+            transition: all 0.2s;
+        }
+
+        .terms-card:hover {
+            border-color: #E6A62C;
+            box-shadow: 0 12px 28px -12px rgba(230, 166, 44, 0.2);
+        }
+
+        .terms-section {
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #FFE9CE;
+        }
+
+        .terms-section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .effective-badge {
+            background: #FFF8EC;
+            border-radius: 2rem;
+            padding: 0.5rem 1.2rem;
+            display: inline-block;
+            font-size: 0.85rem;
+            color: #957A54;
+        }
+
+        .highlight-box {
+            background: #FFF9EF;
+            border-left: 4px solid #E6A62C;
+            padding: 1rem 1.2rem;
+            border-radius: 1rem;
+            margin: 1rem 0;
+        }
+
+        .term-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .term-list li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.75rem;
+            line-height: 1.5;
+        }
+
+        .term-list li:before {
+            content: "•";
+            color: #E6A62C;
+            font-weight: bold;
+            font-size: 1.2rem;
+            position: absolute;
+            left: 0;
+            top: -0.1rem;
+        }
+    </style>
+</head>
+
+<body class="bg-sand text-primary antialiased font-lexend">
+
+    <!-- ========== HEADER ========== -->
+    <div id="header-container"></div>
+
+    <!-- ========== MAIN CONTENT ========== -->
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+
+        <!-- Page Header -->
+        <div class="text-center mb-10">
+            <div class="inline-flex items-center gap-2 bg-cream rounded-full px-4 py-1 mb-4 border border-accent/20">
+                <i class="fas fa-scale-balanced text-accent text-sm"></i>
+                <span class="text-xs font-medium text-warmbrown">Legal Agreement</span>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-zain font-semibold text-primary tracking-tight">Terms & Conditions</h1>
+            <p class="text-warmbrown mt-3 max-w-2xl mx-auto">Welcome to ARTEZO. By accessing or using our website, you
+                agree to comply with and be bound by the following Terms & Conditions. Please read them carefully before
+                using our website or placing an order.</p>
+            <div class="mt-4">
+                <span class="effective-badge"><i class="far fa-calendar-alt mr-2 text-accent"></i> Effective Date: March
+                    24, 2026</span>
+            </div>
+        </div>
+
+        <!-- Terms Content Card -->
+        <div class="terms-card">
+
+            <!-- Section 1: General Information -->
+            <div class="terms-section">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">
+                        <i class="fas fa-building text-accent text-lg"></i>
+                    </div>
+                    <h2 class="text-xl font-semibold text-primary">1. General Information</h2>
+                </div>
+                <p class="text-gray-700 leading-relaxed mb-2">This website is owned and operated by:</p>
+                <p class="text-gray-700 leading-relaxed font-medium">Shree Ganesh Enterprises</p>
+                <p class="text-gray-700 leading-relaxed">(Operating under the brand name "ARTEZO")</p>
+                <p class="text-gray-700 leading-relaxed">Registered Address: 1st floor, M.J. Complex, SH 155, main bus
+                    stand road, Patoda, Maharashtra 414204</p>
+                <p class="text-gray-700 leading-relaxed">GST Number: 27BTMPC0023P1Z1</p>
+                <p class="text-gray-700 leading-relaxed mt-2">Throughout this website, the terms "we", "us", and "our"
+                    refer to ARTEZO.</p>
+            </div>
+
+            <!-- Section 2: Eligibility -->
+            <div class="terms-section">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">
+                        <i class="fas fa-user-check text-accent text-lg"></i>
+                    </div>
+                    <h2 class="text-xl font-semibold text-primary">2. Eligibility</h2>
+                </div>
+                <p class="text-gray-700 leading-relaxed mb-2">By using this website, you confirm that:</p>
+                <ul class="term-list">
+                    <li>You are at least 18 years of age</li>
+                    <li>You are legally capable of entering into binding contracts</li>
+                    <li>All information provided by you is accurate and complete</li>
+                </ul>
+            </div>
+
+            <!-- Section 3: Products & Services -->
+            <div class="terms-section">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">
+                        <i class="fas fa-gift text-accent text-lg"></i>
+                    </div>
+                    <h2 class="text-xl font-semibold text-primary">3. Products & Services</h2>
+                </div>
+                <p class="text-gray-700 leading-relaxed mb-2">ARTEZO offers products under the following categories:</p>
+                <ul class="term-list">
+                    <li>Photo Frames</li>
+                    <li>Home Decor</li>
+                    <li>Wall Decor</li>
+                    <li>Nameplates</li>
+                    <li>Personalized Gifts</li>
+                    <li>Corporate Gifts</li>
+                    <li>Trophies and Mementos</li>
+                    <li>Trending Products</li>
+                </ul>
+                <p class="text-gray-700 mt-3">We reserve the right to modify or discontinue any product without prior
+                    notice.</p>
+            </div>
+
+            <!-- Section 4: Product Descriptions -->
+            <div class="terms-section">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">
+                        <i class="fas fa-image text-accent text-lg"></i>
+                    </div>
+                    <h2 class="text-xl font-semibold text-primary">4. Product Descriptions</h2>
+                </div>
+                <p class="text-gray-700 leading-relaxed mb-2">We strive to ensure that all product details,
+                    descriptions, and images are accurate. However:</p>
+                <ul class="term-list">
+                    <li>Slight variations in color, texture, or finish may occur due to lighting or display settings
+                    </li>
+                    <li>Customized products may vary slightly based on design approval</li>
+                    <li>Such minor differences shall not be considered defects</li>
+                </ul>
+            </div>
+
+            <!-- Section 5: Pricing & Payments -->
+            <div class="terms-section">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">
+                        <i class="fas fa-rupee-sign text-accent text-lg"></i>
+                    </div>
+                    <h2 class="text-xl font-semibold text-primary">5. Pricing & Payments</h2>
+                </div>
+                <ul class="term-list">
+                    <li>All prices listed are in INR (₹) unless stated otherwise</li>
+                    <li>Prices are subject to change without prior notice</li>
+                    <li>Payments must be made through the approved payment methods available on the website</li>
+                    <li>ARTEZO reserves the right to cancel any order due to pricing errors or technical issues</li>
+                </ul>
+            </div>
+
+            <!-- Section 6: Order Acceptance & Cancellation -->
+            <div class="terms-section">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">
+                        <i class="fas fa-shopping-cart text-accent text-lg"></i>
+                    </div>
+                    <h2 class="text-xl font-semibold text-primary">6. Order Acceptance & Cancellation</h2>
+                </div>
+                <p class="text-gray-700 leading-relaxed mb-2">Once an order is placed:</p>
+                <ul class="term-list">
+                    <li>You will receive an order confirmation</li>
+                    <li>Orders may be cancelled within the permitted time window (as per Cancellation Policy)</li>
+                    <li>Customized or personalized products cannot be cancelled once production begins</li>
+                    <li>We reserve the right to refuse or cancel any order at our discretion</li>
+                </ul>
+            </div>
+
+            <!-- Section 7: Shipping & Delivery -->
+            <div class="terms-section">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">
+                        <i class="fas fa-truck-fast text-accent text-lg"></i>
+                    </div>
+                    <h2 class="text-xl font-semibold text-primary">7. Shipping & Delivery</h2>
+                </div>
+                <p class="text-gray-700 leading-relaxed">Shipping timelines and policies are governed by our Shipping
+                    Policy. Delivery timelines are estimates and may vary due to:</p>
+                <ul class="term-list mt-2">
+                    <li>Location</li>
+                    <li>Courier service disruptions</li>
+                    <li>External factors beyond our control</li>
+                </ul>
+                <p class="text-gray-700 mt-2">ARTEZO shall not be liable for delays caused by third-party logistics
+                    providers.</p>
+            </div>
+
+            <!-- Section 8: Returns & Refunds -->
+            <div class="terms-section">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">
+                        <i class="fas fa-rotate-left text-accent text-lg"></i>
+                    </div>
+                    <h2 class="text-xl font-semibold text-primary">8. Returns & Refunds</h2>
+                </div>
+                <p class="text-gray-700 leading-relaxed">Returns and refunds are governed by our Return & Refund Policy.
+                    Due to the nature of customized and personalized products, returns are limited to manufacturing
+                    defects or transit damage.</p>
+            </div>
+
+            <!-- Section 9: Intellectual Property -->
+            <div class="terms-section">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">
+                        <i class="fas fa-copyright text-accent text-lg"></i>
+                    </div>
+                    <h2 class="text-xl font-semibold text-primary">9. Intellectual Property</h2>
+                </div>
+                <p class="text-gray-700 leading-relaxed mb-2">All content on this website, including but not limited to:
+                </p>
+                <ul class="term-list">
+                    <li>Logos</li>
+                    <li>Brand name "ARTEZO"</li>
+                    <li>Product images</li>
+                    <li>Designs</li>
+                    <li>Text</li>
+                    <li>Graphics</li>
+                </ul>
+                <p class="text-gray-700 mt-2">are the intellectual property of ARTEZO and protected under applicable
+                    trademark and copyright laws. Unauthorized use, reproduction, or distribution is strictly
+                    prohibited.</p>
+            </div>
+
+            <!-- Section 10: User Conduct -->
+            <div class="terms-section">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">
+                        <i class="fas fa-ban text-accent text-lg"></i>
+                    </div>
+                    <h2 class="text-xl font-semibold text-primary">10. User Conduct</h2>
+                </div>
+                <p class="text-gray-700 leading-relaxed mb-2">You agree not to:</p>
+                <ul class="term-list">
+                    <li>Use the website for unlawful purposes</li>
+                    <li>Attempt to hack, disrupt, or misuse the platform</li>
+                    <li>Upload malicious software or harmful content</li>
+                    <li>Copy or misuse product designs</li>
+                </ul>
+                <p class="text-gray-700 mt-2">Any violation may result in legal action.</p>
+            </div>
+
+            <!-- Section 11: Limitation of Liability -->
+            <div class="terms-section">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">
+                        <i class="fas fa-shield-heart text-accent text-lg"></i>
+                    </div>
+                    <h2 class="text-xl font-semibold text-primary">11. Limitation of Liability</h2>
+                </div>
+                <p class="text-gray-700 leading-relaxed">ARTEZO shall not be liable for:</p>
+                <ul class="term-list">
+                    <li>Indirect or incidental damages</li>
+                    <li>Loss of profits or business interruption</li>
+                    <li>Delays caused by courier partners</li>
+                    <li>Customer errors in customization details</li>
+                </ul>
+                <p class="text-gray-700 mt-2">Our maximum liability shall not exceed the amount paid for the product.
+                </p>
+            </div>
+
+            <!-- Section 12: Privacy -->
+            <div class="terms-section">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">
+                        <i class="fas fa-lock text-accent text-lg"></i>
+                    </div>
+                    <h2 class="text-xl font-semibold text-primary">12. Privacy</h2>
+                </div>
+                <p class="text-gray-700 leading-relaxed">Your personal information is handled in accordance with our
+                    Privacy Policy. We are committed to protecting customer data and maintaining confidentiality.</p>
+            </div>
+
+            <!-- Section 13: Governing Law & Jurisdiction -->
+            <div class="terms-section">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">
+                        <i class="fas fa-gavel text-accent text-lg"></i>
+                    </div>
+                    <h2 class="text-xl font-semibold text-primary">13. Governing Law & Jurisdiction</h2>
+                </div>
+                <p class="text-gray-700 leading-relaxed">These Terms & Conditions shall be governed by the laws of
+                    India. Any disputes arising out of the use of this website shall be subject to the jurisdiction of
+                    courts located in <span class="font-semibold text-primary">Patoda, Maharashtra</span>.</p>
+            </div>
+
+            <!-- Section 14: Modifications to Terms -->
+            <div class="terms-section">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">
+                        <i class="fas fa-edit text-accent text-lg"></i>
+                    </div>
+                    <h2 class="text-xl font-semibold text-primary">14. Modifications to Terms</h2>
+                </div>
+                <p class="text-gray-700 leading-relaxed">ARTEZO reserves the right to update or modify these Terms &
+                    Conditions at any time without prior notice. Continued use of the website constitutes acceptance of
+                    the revised terms.</p>
+            </div>
+
+            <!-- Contact Information -->
+            <div class="mt-6 p-5 bg-accent/10 rounded-xl border border-accent/30">
+                <div class="flex items-start gap-3">
+                    <i class="fas fa-envelope-open-text text-accent text-xl mt-0.5"></i>
+                    <div>
+                        <h3 class="font-semibold text-primary">Contact Information</h3>
+                        <p class="text-sm text-gray-600 mt-1">For any queries regarding these Terms & Conditions, please
+                            contact:</p>
+                        <div class="mt-3 space-y-2">
+                            <p class="text-gray-700"><i class="fas fa-envelope text-accent mr-2"></i> <span
+                                    class="font-medium">Email:</span> info@artezo.in</p>
+                            <p class="text-gray-700"><i class="fab fa-whatsapp text-accent mr-2"></i> <span
+                                    class="font-medium">WhatsApp:</span> +91 99 22 23 62 99</p>
+                        </div>
+                        <p class="text-gray-700 mt-4 font-medium">ARTEZO — Elevating Spaces. Preserving Moments.
+                            Honoring Success.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer Note -->
+            <div class="mt-6 text-center text-xs text-gray-400 border-t border-accent/10 pt-5">
+                <i class="fas fa-leaf text-accent mr-1"></i> ARTEZO — Luxury Crafted. Thoughtfully Protected.
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== FOOTER ========== -->
+    <div id="footer-container"></div>
+
+    <!-- Load header & footer scripts -->
+    <script src="../Header/load-header.js" defer></script>
+    <script src="../Header/header.js" defer></script>
+    <script src="../Footer/footer-loader.js" defer></script>
+</body>
+
+</html>

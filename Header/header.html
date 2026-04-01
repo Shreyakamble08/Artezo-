@@ -259,21 +259,22 @@
                             </a>
 
                             <!-- Wishlist -->
-                            <button onclick="toggleWishlist()" class="relative hover:text-accent transition-colors">
+                            <button onclick="window.location.href='../Wishlist/wishlist.html'" class="relative hover:text-accent transition-colors group">
                                 <i class="fa-solid fa-heart"></i>
-                                <!-- <span id="wishlist-count"
-                                    class="absolute -top-1 -right-1 bg-accent text-white text-[10px] font-bold h-4 w-4 rounded-full flex items-center justify-center">
-                                    3
-                                </span> -->
+                                <span id="wishlist-count-badge" 
+                                      class="absolute -top-2 -right-2 bg-accent text-white text-[10px] font-bold h-5 min-w-[20px] px-1 rounded-full flex items-center justify-center">
+                                    0
+                                </span>
                             </button>
 
+
                             <!-- Cart -->
-                            <button id="cart-btn" class="relative hover:text-accent transition-colors">
+                             <button onclick="window.location.href='../Cart/cart.html'" class="relative hover:text-accent transition-colors group">
                                 <i class="fa-solid fa-bag-shopping"></i>
-                                <!-- <span id="cart-count"
-                                    class="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold h-4 w-4 rounded-full flex items-center justify-center">
-                                    4
-                                </span> -->
+                                <span id="cart-count-badge" 
+                                      class="absolute -top-2 -right-2 bg-red-500 text-white text-[10px] font-bold h-5 min-w-[20px] px-1 rounded-full flex items-center justify-center">
+                                    0
+                                </span>
                             </button>
 
                             <!-- Account -->
@@ -293,6 +294,8 @@
                             </div>
                         </div>
                     </div>
+
+                    
 
                     <!-- Row 2: Navigation links – updated flat list -->
                     <div class="border-t border-gray-100 py-2.5">
@@ -539,6 +542,7 @@
     </div>
 
     <script src="header.js"></script>
+    
 </body>
 
 </html>

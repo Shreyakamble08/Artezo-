@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Privacy Policy · Artezo</title>
+
+    <!-- Tailwind + Fonts -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
+    <!-- Header & Footer CSS (same paths as profile page) -->
+    <link rel="stylesheet" href="../Header/header.css" />
+    <link rel="stylesheet" href="../Footer/footer.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Zain:ital,wght@0,200;0,300;0,400;0,700;0,800;0,900;1,300;1,400&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#033E59",
+                        accent: "#E6A62C",
+                        cream: "#FFF8EC",
+                        warmgray: "#F9F3E9",
+                        sand: "#F8F8EA",
+                        teal: "#133F53",
+                        warmbrown: "#957A54",
+                    },
+                    fontFamily: {
+                        lexend: ["Lexend", "sans-serif"],
+                        zain: ["Zain", "sans-serif"],
+                    },
+                },
+            },
+        };
+    </script>
+
+    <style>
+        body {
+            background-color: #F8F8EA;
+        }
+
+        .policy-card {
+            background: white;
+            border-radius: 1.5rem;
+            padding: 2rem;
+            border: 1px solid rgba(230, 166, 44, 0.2);
+            box-shadow: 0 8px 20px -8px rgba(230, 166, 44, 0.1);
+            transition: all 0.2s;
+        }
+
+        .policy-card:hover {
+            border-color: #E6A62C;
+            box-shadow: 0 12px 28px -12px rgba(230, 166, 44, 0.2);
+        }
+
+        .policy-section {
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #FFE9CE;
+        }
+
+        .policy-section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .last-updated {
+            background: #FFF8EC;
+            border-radius: 2rem;
+            padding: 0.5rem 1.2rem;
+            display: inline-block;
+            font-size: 0.85rem;
+            color: #957A54;
+        }
+    </style>
+</head>
+
+<body class="bg-sand text-primary antialiased font-lexend">
+
+    <!-- ========== HEADER (shared component) ========== -->
+    <div id="header-container"></div>
+
+    <!-- ========== MAIN CONTENT ========== -->
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+
+        <!-- Page Header -->
+        <div class="text-center mb-10">
+            <div class="inline-flex items-center gap-2 bg-cream rounded-full px-4 py-1 mb-4 border border-accent/20">
+                <i class="fas fa-shield-alt text-accent text-sm"></i>
+                <span class="text-xs font-medium text-warmbrown">Your Trust Matters</span>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-zain font-semibold text-primary tracking-tight">Privacy Policy</h1>
+            <p class="text-warmbrown mt-3 max-w-2xl mx-auto">How we collect, use, and protect your information</p>
+            <div class="mt-4">
+                <span class="last-updated"><i class="far fa-calendar-alt mr-2 text-accent"></i> Last Updated: March 24,
+                    2026</span>
+            </div>
+        </div>
+
+        <!-- Policy Content Card -->
+        <div class="policy-card">
+
+            <!-- Section 1: Who We Are (Data Fiduciary) + Personal Data We Collect merged from provided text but keeping structure -->
+            <div class="policy-section">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">
+                        <i class="fas fa-building text-accent text-lg"></i>
+                    </div>
+                    <h2 class="text-xl font-semibold text-primary">1. Who We Are (Data Fiduciary)</h2>
+                </div>
+                <p class="text-gray-700 leading-relaxed mb-2"><span
+                        class="font-semibold text-primary">ARTEZO</span><br>Legal Entity Name: Shree Ganesh
+                    Enterprises<br>Registered Address: Patoda, Beed, Maharashtra. Pin 414204<br>Email: info@artezo.in |
+                    Phone: 9922236299</p>
+                <p class="text-gray-700 leading-relaxed">Under the DPDP Act, ARTEZO acts as a Data Fiduciary responsible
+                    for processing your personal data.</p>
+            </div>
+
+            <div class="policy-section">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">
+                        <i class="fas fa-database text-accent text-lg"></i>
+                    </div>
+                    <h2 class="text-xl font-semibold text-primary">2. Personal Data We Collect</h2>
+                </div>
+                <p class="text-gray-700 leading-relaxed mb-2">We may collect the following categories of personal data:
+                </p>
+                <ul class="list-disc pl-6 space-y-1 text-gray-600 mb-2">
+                    <li><span class="font-medium text-primary">Identity Information:</span> Full Name, Billing &
+                        Shipping Address, Phone Number, Email Address</li>
+                    <li><span class="font-medium text-primary">Transaction Information:</span> Order details, Payment
+                        confirmation (We do NOT store card details), Purchase history</li>
+                    <li><span class="font-medium text-primary">Customization Information:</span> Names, messages, images
+                        submitted for personalized products</li>
+                    <li><span class="font-medium text-primary">Technical Data:</span> IP address, Browser type, Device
+                        information, Cookies & usage data</li>
+                </ul>
+            </div>
+
+            <div class="policy-section">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">
+                        <i class="fas fa-hand-pointer text-accent text-lg"></i>
+                    </div>
+                    <h2 class="text-xl font-semibold text-primary">3. How We Collect Your Data</h2>
+                </div>
+                <p class="text-gray-700 leading-relaxed">We collect data when you: Place an order, Create an account,
+                    Subscribe to our newsletter, Contact customer support, Upload customization details, Browse our
+                    website (via cookies).</p>
+            </div>
+
+            <div class="policy-section">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">
+                        <i class="fas fa-chart-line text-accent text-lg"></i>
+                    </div>
+                    <h2 class="text-xl font-semibold text-primary">4. Purpose of Data Processing</h2>
+                </div>
+                <p class="text-gray-700 leading-relaxed mb-2">We process your data only for lawful purposes, including:
+                </p>
+                <ul class="list-disc pl-6 space-y-1 text-gray-600">
+                    <li>Order processing and delivery</li>
+                    <li>Customer support</li>
+                    <li>Payment verification</li>
+                    <li>Personalization of products</li>
+                    <li>Marketing communication (with consent)</li>
+                    <li>Legal and regulatory compliance</li>
+                </ul>
+                <p class="text-gray-700 mt-2">We do NOT sell your personal data to third parties.</p>
+            </div>
+
+            <div class="policy-section">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">
+                        <i class="fas fa-file-signature text-accent text-lg"></i>
+                    </div>
+                    <h2 class="text-xl font-semibold text-primary">5. Consent</h2>
+                </div>
+                <p class="text-gray-700 leading-relaxed">Under the DPDP Act, we collect and process personal data based
+                    on your consent. By: Placing an order, Filling out forms, Clicking “I Agree”, Using our services —
+                    you provide explicit consent for data processing. You may withdraw your consent at any time by
+                    contacting us.</p>
+            </div>
+
+            <div class="policy-section">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">
+                        <i class="fas fa-share-alt text-accent text-lg"></i>
+                    </div>
+                    <h2 class="text-xl font-semibold text-primary">6. Data Sharing</h2>
+                </div>
+                <p class="text-gray-700 leading-relaxed">We may share limited personal data with: Courier & logistics
+                    partners (for delivery), Payment gateway providers, IT and hosting service providers, Government
+                    authorities (if legally required). All third parties are required to maintain confidentiality and
+                    data security.</p>
+            </div>
+
+            <div class="policy-section">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">
+                        <i class="fas fa-clock text-accent text-lg"></i>
+                    </div>
+                    <h2 class="text-xl font-semibold text-primary">7. Data Retention</h2>
+                </div>
+                <p class="text-gray-700 leading-relaxed">We retain your data: As long as necessary to fulfill orders,
+                    For accounting and legal compliance, Until you request deletion (subject to legal obligations). Once
+                    no longer required, data is securely deleted or anonymized.</p>
+            </div>
+
+            <div class="policy-section">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">
+                        <i class="fas fa-lock text-accent text-lg"></i>
+                    </div>
+                    <h2 class="text-xl font-semibold text-primary">8. Data Security</h2>
+                </div>
+                <p class="text-gray-700 leading-relaxed">ARTEZO implements reasonable security safeguards including:
+                    Secure hosting, SSL encryption, Restricted internal access, Payment gateway security standards.
+                    However, no online transmission is 100% secure.</p>
+            </div>
+
+            <div class="policy-section">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">
+                        <i class="fas fa-gavel text-accent text-lg"></i>
+                    </div>
+                    <h2 class="text-xl font-semibold text-primary">9. Your Rights Under the DPDP Act</h2>
+                </div>
+                <p class="text-gray-700 leading-relaxed mb-2">As a Data Principal (customer), you have the right to:</p>
+                <ul class="list-disc pl-6 space-y-1 text-gray-600">
+                    <li>Access your personal data</li>
+                    <li>Correct inaccurate data</li>
+                    <li>Request erasure of personal data</li>
+                    <li>Withdraw consent</li>
+                    <li>Nominate another person to exercise rights in case of incapacity or death</li>
+                    <li>File a complaint with the Data Protection Board of India</li>
+                </ul>
+                <p class="text-gray-700 mt-2">To exercise your rights, contact: info@artezo.in. We will respond within a
+                    reasonable timeframe.</p>
+            </div>
+
+            <div class="policy-section">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">
+                        <i class="fas fa-child text-accent text-lg"></i>
+                    </div>
+                    <h2 class="text-xl font-semibold text-primary">10. Children's Data</h2>
+                </div>
+                <p class="text-gray-700 leading-relaxed">Our website is not intended for individuals under 18 years of
+                    age. We do not knowingly collect personal data from children.</p>
+            </div>
+
+            <div class="policy-section">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">
+                        <i class="fas fa-cookie-bite text-accent text-lg"></i>
+                    </div>
+                    <h2 class="text-xl font-semibold text-primary">11. Cookies Policy</h2>
+                </div>
+                <p class="text-gray-700 leading-relaxed">We use cookies to: Improve website performance, Analyze
+                    traffic, Enhance user experience. You may disable cookies through your browser settings.</p>
+            </div>
+
+            <div class="policy-section">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">
+                        <i class="fas fa-globe text-accent text-lg"></i>
+                    </div>
+                    <h2 class="text-xl font-semibold text-primary">12. International Data Transfers</h2>
+                </div>
+                <p class="text-gray-700 leading-relaxed">If any data is processed outside India through service
+                    providers, we ensure compliance with applicable Indian laws and safeguard mechanisms.</p>
+            </div>
+
+            <div class="policy-section">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">
+                        <i class="fas fa-user-tie text-accent text-lg"></i>
+                    </div>
+                    <h2 class="text-xl font-semibold text-primary">13. Grievance Officer</h2>
+                </div>
+                <p class="text-gray-700 leading-relaxed">As required under Indian law, you may contact our Grievance
+                    Officer:<br><span class="font-medium">Name:</span> Achhuyt Choure<br><span
+                        class="font-medium">Email:</span> info@artezo.in<br><span class="font-medium">Response
+                        Time:</span> Within 7–15 working days</p>
+            </div>
+
+            <div class="policy-section">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">
+                        <i class="fas fa-edit text-accent text-lg"></i>
+                    </div>
+                    <h2 class="text-xl font-semibold text-primary">14. Changes to This Policy</h2>
+                </div>
+                <p class="text-gray-700 leading-relaxed">We reserve the right to update this Privacy Policy at any time.
+                    Changes will be reflected on this page with an updated “Last Updated” date. Continued use of the
+                    website constitutes acceptance of the revised policy.</p>
+                <p class="text-gray-700 mt-3 font-medium">ARTEZO — Luxury Crafted. Thoughtfully Protected.</p>
+            </div>
+
+            <div class="mt-6 p-5 bg-cream rounded-xl border border-accent/20">
+                <div class="flex items-start gap-3">
+                    <i class="fas fa-envelope text-accent text-xl mt-0.5"></i>
+                    <div>
+                        <h3 class="font-semibold text-primary">Questions About Privacy?</h3>
+                        <p class="text-sm text-gray-600 mt-1">If you have any concerns about this policy or how we
+                            handle your data, please reach out to our privacy team. We're here to help!</p>
+                        <button
+                            class="mt-3 bg-primary text-white px-5 py-2 rounded-full text-sm hover:bg-primary/90 transition"><i
+                                class="fas fa-headset mr-2"></i> Contact Privacy Team</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== FOOTER (shared component) ========== -->
+    <div id="footer-container"></div>
+
+    <!-- Load header & footer scripts -->
+    <script src="../Header/load-header.js" defer></script>
+    <script src="../Header/header.js" defer></script>
+    <script src="../Footer/footer-loader.js" defer></script>
+</body>
+
+</html>

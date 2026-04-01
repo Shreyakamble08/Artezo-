@@ -87,13 +87,13 @@ const quickAccessLinks = [
     url: "../Profile/profile.html",
     requiresAuth: true,
     guestUrl: "#",
-    onClick: function() {
+    onClick: function () {
       if (!isLoggedIn) {
         alert("Please sign in to view your account");
         return false;
       }
       return true;
-    }
+    },
   },
   {
     icon: "fa-box",
@@ -101,51 +101,58 @@ const quickAccessLinks = [
     url: "../Myorders/orders.html",
     requiresAuth: true,
     guestUrl: "#",
-    onClick: function() {
+    onClick: function () {
       if (!isLoggedIn) {
         alert("Please sign in to view your orders");
         return false;
       }
       return true;
-    }
+    },
   },
   {
     icon: "fa-phone",
     label: "Contact Us",
     url: "#",
-    onClick: function() {
-      window.open('https://wa.me/1234567890', '_blank');
+    onClick: function () {
+      window.open("https://wa.me/1234567890", "_blank");
       return false;
-    }
+    },
   },
   {
     icon: "fa-info-circle",
     label: "About Us",
     url: "/about.html",
-    onClick: function() {
+    onClick: function () {
       return true;
-    }
-  }
+    },
+  },
 ];
-
 
 // Category images mapping
 const categoryImages = {
-  "Wall Decor": "https://cdn.shopify.com/s/files/1/0632/2526/6422/files/1_4345985e-c8a5-40af-9a03-0fcf35940ffc.jpg?v=1771484241&width=1728",
-  "Photo Frames": "https://cdn.shopify.com/s/files/1/0632/2526/6422/files/ASFRP25405_3.jpg?v=1772760662&width=1728",
-  "Home Decor": "https://m.media-amazon.com/images/S/shoppable-media-external-prod-iad-us-east-1/dc96db56-6f71-48d1-b4d5-af22a91e4d60/6b804-0a5f-4946-b7aa-22414c476._AC_._SX1200_SCLZZZZZZZ_.jpeg",
-  "Nameplates": "https://housenama.com/cdn/shop/files/veli-red-2.jpg?v=1766609828&width=1100",
-  "Corporate Gifting": "https://printo-s3.dietpixels.net/site/2025/Joining%20kit/1280/The-Onward-Box_1742898848.jpg?quality=70&format=webp&w=640",
-  "Personalised Gifts": "https://static-assets-prod.fnp.com/images/pr/l/v20240104150045/personalised-photo-magnets_1.jpg",
-  "Trophies and Mementos": "https://trophycreator.in/img/diamond-trophy-supplier-in-India-hm.jpg",
-  "Trending Products": "https://m.media-amazon.com/images/S/influencer-profile-image-prod/logo/influencer-0c420a42_1630818633966_original._CR396%2C159%2C289%2C289_._US500_SCLZZZZZZZ_.jpeg",
+  "Wall Decor":
+    "https://cdn.shopify.com/s/files/1/0632/2526/6422/files/1_4345985e-c8a5-40af-9a03-0fcf35940ffc.jpg?v=1771484241&width=1728",
+  "Photo Frames":
+    "https://cdn.shopify.com/s/files/1/0632/2526/6422/files/ASFRP25405_3.jpg?v=1772760662&width=1728",
+  "Home Decor":
+    "https://m.media-amazon.com/images/S/shoppable-media-external-prod-iad-us-east-1/dc96db56-6f71-48d1-b4d5-af22a91e4d60/6b804-0a5f-4946-b7aa-22414c476._AC_._SX1200_SCLZZZZZZZ_.jpeg",
+  Nameplates:
+    "https://housenama.com/cdn/shop/files/veli-red-2.jpg?v=1766609828&width=1100",
+  "Corporate Gifting":
+    "https://printo-s3.dietpixels.net/site/2025/Joining%20kit/1280/The-Onward-Box_1742898848.jpg?quality=70&format=webp&w=640",
+  "Personalised Gifts":
+    "https://static-assets-prod.fnp.com/images/pr/l/v20240104150045/personalised-photo-magnets_1.jpg",
+  "Trophies and Mementos":
+    "https://trophycreator.in/img/diamond-trophy-supplier-in-India-hm.jpg",
+  "Trending Products":
+    "https://m.media-amazon.com/images/S/influencer-profile-image-prod/logo/influencer-0c420a42_1630818633966_original._CR396%2C159%2C289%2C289_._US500_SCLZZZZZZZ_.jpeg",
 };
 
 // Banner images for carousel
 const bannerImages = [
   "https://t3.ftcdn.net/jpg/05/07/79/68/360_F_507796863_XOctjfN6VIiHa79bFj7GCg92P9TpELIe.jpg",
   "https://edit.org/editor/json/2022/01/07/2/c/2cb92d9336336c43f39a4567288ac342.webp",
-  "https://www.shutterstock.com/shutterstock/photos/2477506075/display_1500/stock-vector-banner-design-with-cozy-sofa-armchair-chair-interior-decor-elements-interior-design-home-decor-2477506075.jpg"
+  "https://www.shutterstock.com/shutterstock/photos/2477506075/display_1500/stock-vector-banner-design-with-cozy-sofa-armchair-chair-interior-decor-elements-interior-design-home-decor-2477506075.jpg",
 ];
 
 // Fallback static menu
@@ -266,11 +273,13 @@ function renderDesktopNavigation(categories) {
 
 // Function to render quick access links
 function renderQuickAccessLinks() {
-  const quickAccessHTML = quickAccessLinks.map(link => {
-    const url = (link.requiresAuth && !isLoggedIn) ? link.guestUrl || "#" : link.url;
-    const iconClass = link.icon;
-    
-    return `
+  const quickAccessHTML = quickAccessLinks
+    .map((link) => {
+      const url =
+        link.requiresAuth && !isLoggedIn ? link.guestUrl || "#" : link.url;
+      const iconClass = link.icon;
+
+      return `
       <a href="${url}" 
          class="quick-access-link flex flex-col items-center gap-2 p-3 bg-gray-50 rounded-xl hover:bg-accent/10 transition-colors group"
          data-label="${link.label}"
@@ -279,7 +288,8 @@ function renderQuickAccessLinks() {
         <span class="text-xs font-medium text-gray-700 group-hover:text-accent">${link.label}</span>
       </a>
     `;
-  }).join('');
+    })
+    .join("");
 
   return `
     <!-- Quick Access Section -->
@@ -293,8 +303,8 @@ function renderQuickAccessLinks() {
 }
 
 // Handle quick access link clicks
-window.handleQuickAccessClick = function(event, label) {
-  const link = quickAccessLinks.find(l => l.label === label);
+window.handleQuickAccessClick = function (event, label) {
+  const link = quickAccessLinks.find((l) => l.label === label);
   if (link && link.onClick) {
     return link.onClick();
   }
@@ -303,35 +313,42 @@ window.handleQuickAccessClick = function(event, label) {
 
 // Function to toggle view all categories - FIXED VERSION
 function toggleViewAllCategoriesFromMenu() {
-  console.log("Toggle view all categories clicked. Current state:", showingAllCategories);
-  
+  console.log(
+    "Toggle view all categories clicked. Current state:",
+    showingAllCategories,
+  );
+
   // Toggle the state
   showingAllCategories = !showingAllCategories;
   console.log("New state:", showingAllCategories);
-  
+
   // Fetch categories and re-render
-  fetchCategories().then(categories => {
-    if (!categories || categories.length === 0) {
-      categories = fallbackCategories.map(cat => ({
+  fetchCategories()
+    .then((categories) => {
+      if (!categories || categories.length === 0) {
+        categories = fallbackCategories.map((cat) => ({
+          productCategory: cat,
+          productCategoryRedirect: "#",
+        }));
+      }
+      renderMobileNavigation(categories);
+    })
+    .catch((error) => {
+      console.error("Error fetching categories:", error);
+      // Fallback to static categories
+      const fallback = fallbackCategories.map((cat) => ({
         productCategory: cat,
-        productCategoryRedirect: "#"
+        productCategoryRedirect: "#",
       }));
-    }
-    renderMobileNavigation(categories);
-  }).catch(error => {
-    console.error("Error fetching categories:", error);
-    // Fallback to static categories
-    const fallback = fallbackCategories.map(cat => ({
-      productCategory: cat,
-      productCategoryRedirect: "#"
-    }));
-    renderMobileNavigation(fallback);
-  });
+      renderMobileNavigation(fallback);
+    });
 }
 
 // Function to render mobile navigation - Updated with view all functionality and quick access
 function renderMobileNavigation(categories) {
-  const mobileNav = document.querySelector("#mobile-menu .flex-1.overflow-y-auto");
+  const mobileNav = document.querySelector(
+    "#mobile-menu .flex-1.overflow-y-auto",
+  );
   if (!mobileNav) {
     console.log("Mobile nav container not found");
     return;
@@ -341,23 +358,29 @@ function renderMobileNavigation(categories) {
   console.log("Showing all categories:", showingAllCategories);
 
   if (!categories || categories.length === 0) {
-    categories = fallbackCategories.map(cat => ({
+    categories = fallbackCategories.map((cat) => ({
       productCategory: cat,
-      productCategoryRedirect: "#"
+      productCategoryRedirect: "#",
     }));
   }
 
   // Determine which categories to show
-  const categoriesToShow = showingAllCategories ? categories : categories.slice(0, 6);
-  
+  const categoriesToShow = showingAllCategories
+    ? categories
+    : categories.slice(0, 6);
+
   // Create categories grid HTML with images
-  let categoriesGridHTML = '';
-  
+  let categoriesGridHTML = "";
+
   categoriesToShow.forEach((category) => {
-    const categoryName = typeof category === 'string' ? category : category.productCategory;
-    const categoryLink = typeof category === 'string' ? '#' : (category.productCategoryRedirect || '#');
+    const categoryName =
+      typeof category === "string" ? category : category.productCategory;
+    const categoryLink =
+      typeof category === "string"
+        ? "#"
+        : category.productCategoryRedirect || "#";
     const imageUrl = categoryImages[categoryName] || categoryImages["default"];
-    
+
     categoriesGridHTML += `
       <a href="${categoryLink}" class="flex flex-col items-center text-center group">
         <div class="w-full aspect-square bg-[#FFF9E5] rounded-2xl overflow-hidden mb-2 group-hover:shadow-md transition-shadow">
@@ -378,21 +401,29 @@ function renderMobileNavigation(categories) {
         <!-- Carousel Container -->
         <div id="banner-carousel" class="overflow-hidden rounded-xl">
           <div id="carousel-track" class="flex transition-transform duration-500 ease-in-out">
-            ${bannerImages.map((img, index) => `
+            ${bannerImages
+              .map(
+                (img, index) => `
               <div class="w-full flex-shrink-0 px-1">
                 <img src="${img}" 
                      alt="Banner ${index + 1}" 
                      class="w-full h-32 object-cover rounded-xl">
               </div>
-            `).join('')}
+            `,
+              )
+              .join("")}
           </div>
         </div>
 
         <!-- Navigation Dots -->
         <div class="flex justify-center gap-2 mt-4">
-          ${bannerImages.map((_, index) => `
+          ${bannerImages
+            .map(
+              (_, index) => `
             <button class="carousel-dot w-2 h-2 rounded-full bg-gray-300 transition-colors" data-index="${index}"></button>
-          `).join('')}
+          `,
+            )
+            .join("")}
         </div>
       </div>
     </div>
@@ -428,8 +459,8 @@ function renderMobileNavigation(categories) {
     <!-- View All Categories Link - FIXED BUTTON -->
     <div class="mt-6 text-center">
       <a href="javascript:void(0);" onclick="toggleViewAllCategoriesFromMenu(); return false;" class="view-all-categories-btn inline-flex items-center gap-2 text-accent font-medium hover:gap-3 transition-all cursor-pointer">
-        <span>${showingAllCategories ? 'Show Less Categories' : 'View All Categories'}</span>
-        <i class="fa-solid ${showingAllCategories ? 'fa-arrow-up' : 'fa-arrow-right'} text-sm"></i>
+        <span>${showingAllCategories ? "Show Less Categories" : "View All Categories"}</span>
+        <i class="fa-solid ${showingAllCategories ? "fa-arrow-up" : "fa-arrow-right"} text-sm"></i>
       </a>
     </div>
 
@@ -438,16 +469,16 @@ function renderMobileNavigation(categories) {
   `;
 
   mobileNav.innerHTML = mobileNavHTML;
-  
+
   // Reinitialize carousel after rendering
   setTimeout(initBannerCarousel, 100);
 }
 
 // Banner Carousel Functionality
 function initBannerCarousel() {
-  const track = document.getElementById('carousel-track');
-  const dots = document.querySelectorAll('.carousel-dot');
-  
+  const track = document.getElementById("carousel-track");
+  const dots = document.querySelectorAll(".carousel-dot");
+
   if (!track || dots.length === 0) return;
 
   let currentIndex = 0;
@@ -459,19 +490,19 @@ function initBannerCarousel() {
   // Function to update carousel position
   function updateCarousel(index) {
     index = (index + totalSlides) % totalSlides;
-    
+
     track.style.transform = `translateX(-${index * 100}%)`;
-    
+
     dots.forEach((dot, i) => {
       if (i === index) {
-        dot.classList.remove('bg-gray-300');
-        dot.classList.add('bg-accent');
+        dot.classList.remove("bg-gray-300");
+        dot.classList.add("bg-accent");
       } else {
-        dot.classList.remove('bg-accent');
-        dot.classList.add('bg-gray-300');
+        dot.classList.remove("bg-accent");
+        dot.classList.add("bg-gray-300");
       }
     });
-    
+
     currentIndex = index;
   }
 
@@ -482,8 +513,8 @@ function initBannerCarousel() {
 
   // Add click handlers to dots
   dots.forEach((dot) => {
-    dot.addEventListener('click', () => {
-      const index = parseInt(dot.getAttribute('data-index'));
+    dot.addEventListener("click", () => {
+      const index = parseInt(dot.getAttribute("data-index"));
       updateCarousel(index);
       resetAutoplay();
     });
@@ -507,15 +538,15 @@ function initBannerCarousel() {
   }
 
   // Touch events for mobile swipe
-  track.addEventListener('touchstart', (e) => {
+  track.addEventListener("touchstart", (e) => {
     touchStartX = e.changedTouches[0].screenX;
     stopAutoplay();
   });
 
-  track.addEventListener('touchend', (e) => {
+  track.addEventListener("touchend", (e) => {
     touchEndX = e.changedTouches[0].screenX;
     const diff = touchStartX - touchEndX;
-    
+
     if (Math.abs(diff) > 50) {
       if (diff > 0) {
         updateCarousel(currentIndex + 1);
@@ -523,22 +554,22 @@ function initBannerCarousel() {
         updateCarousel(currentIndex - 1);
       }
     }
-    
+
     startAutoplay();
   });
 
   // Pause on hover
-  track.addEventListener('mouseenter', stopAutoplay);
-  track.addEventListener('mouseleave', startAutoplay);
+  track.addEventListener("mouseenter", stopAutoplay);
+  track.addEventListener("mouseleave", startAutoplay);
 
   // Initialize
   updateCarousel(0);
   startAutoplay();
 
   // Clean up on menu close
-  const closeBtn = document.getElementById('close-menu-btn');
+  const closeBtn = document.getElementById("close-menu-btn");
   if (closeBtn) {
-    closeBtn.addEventListener('click', stopAutoplay);
+    closeBtn.addEventListener("click", stopAutoplay);
   }
 }
 
@@ -646,27 +677,19 @@ function renderAccountDropdown() {
           <i class="fa-solid fa-box w-5 text-gray-400"></i>
           <span>My Orders</span>
         </a>
-        <a href="#" class="flex items-center gap-x-4 px-7 py-4 hover:bg-zinc-50 text-sm">
+        <a href="../Wishlist/wishlist.html" class="flex items-center gap-x-4 px-7 py-4 hover:bg-zinc-50 text-sm">
           <i class="fa-solid fa-heart w-5 text-gray-400"></i>
           <span>Wishlist</span>
-        </a>
-        <a href="#" class="flex items-center gap-x-4 px-7 py-4 hover:bg-zinc-50 text-sm">
-          <i class="fa-solid fa-map-marker-alt w-5 text-gray-400"></i>
-          <span>Addresses</span>
-        </a>
-        <a href="#" class="flex items-center gap-x-4 px-7 py-4 hover:bg-zinc-50 text-sm">
-          <i class="fa-solid fa-bell w-5 text-gray-400"></i>
-          <span>Notifications</span>
         </a>
       </div>
       
       <div class="border-t mx-4 my-2"></div>
       
-      <button onclick="logout()" 
-              class="w-full text-left flex items-center gap-x-4 px-7 py-4 text-red-600 hover:bg-red-50 text-sm">
-        <i class="fa-solid fa-arrow-right-from-bracket"></i>
-        <span>Logout</span>
-      </button>
+   <a href="../Auth/auth-modal.html"
+   class="w-full text-left flex items-center gap-x-4 px-7 py-4 text-red-600 hover:bg-red-50 text-sm">
+  <i class="fa-solid fa-arrow-right-from-bracket"></i>
+  <span>Logout</span>
+</a>
     `;
 
     if (avatarContainer) {
@@ -714,10 +737,10 @@ function toggleWishlist() {
   wishlistCount = wishlistCount === 3 ? 4 : 3;
   const wishlistEl = document.getElementById("wishlist-count");
   const mobileWishlistEl = document.getElementById("mobile-wishlist-count");
-  
+
   if (wishlistEl) wishlistEl.textContent = wishlistCount;
   if (mobileWishlistEl) mobileWishlistEl.textContent = wishlistCount;
-  
+
   alert("❤️ Added to Wishlist (demo)");
 }
 
@@ -739,7 +762,8 @@ function quickSearch(el) {
 function clearRecentSearches() {
   const list = document.getElementById("recent-list");
   if (list) {
-    list.innerHTML = '<div class="text-gray-400 text-sm py-8 text-center">No recent searches</div>';
+    list.innerHTML =
+      '<div class="text-gray-400 text-sm py-8 text-center">No recent searches</div>';
   }
 }
 
@@ -747,11 +771,11 @@ function login() {
   isLoggedIn = true;
   renderAccountDropdown();
   // Re-render mobile navigation to update quick access links
-  fetchCategories().then(categories => {
+  fetchCategories().then((categories) => {
     if (!categories || categories.length === 0) {
-      categories = fallbackCategories.map(cat => ({
+      categories = fallbackCategories.map((cat) => ({
         productCategory: cat,
-        productCategoryRedirect: "#"
+        productCategoryRedirect: "#",
       }));
     }
     renderMobileNavigation(categories);
@@ -768,11 +792,11 @@ function logout() {
   isLoggedIn = false;
   renderAccountDropdown();
   // Re-render mobile navigation to update quick access links
-  fetchCategories().then(categories => {
+  fetchCategories().then((categories) => {
     if (!categories || categories.length === 0) {
-      categories = fallbackCategories.map(cat => ({
+      categories = fallbackCategories.map((cat) => ({
         productCategory: cat,
-        productCategoryRedirect: "#"
+        productCategoryRedirect: "#",
       }));
     }
     renderMobileNavigation(categories);
@@ -785,11 +809,11 @@ function toggleLoginState() {
   isLoggedIn = !isLoggedIn;
   renderAccountDropdown();
   // Re-render mobile navigation to update quick access links
-  fetchCategories().then(categories => {
+  fetchCategories().then((categories) => {
     if (!categories || categories.length === 0) {
-      categories = fallbackCategories.map(cat => ({
+      categories = fallbackCategories.map((cat) => ({
         productCategory: cat,
-        productCategoryRedirect: "#"
+        productCategoryRedirect: "#",
       }));
     }
     renderMobileNavigation(categories);
@@ -803,15 +827,15 @@ function openMobileMenu() {
   const mobileMenu = document.getElementById("mobile-menu");
   if (mobileMenu) {
     mobileMenu.classList.remove("translate-x-full");
-    document.body.style.overflow = 'hidden';
+    document.body.style.overflow = "hidden";
     // Reset view to show first 6 categories when menu opens
     showingAllCategories = false;
     // Re-render with current categories
-    fetchCategories().then(categories => {
+    fetchCategories().then((categories) => {
       if (!categories || categories.length === 0) {
-        categories = fallbackCategories.map(cat => ({
+        categories = fallbackCategories.map((cat) => ({
           productCategory: cat,
-          productCategoryRedirect: "#"
+          productCategoryRedirect: "#",
         }));
       }
       renderMobileNavigation(categories);
@@ -828,7 +852,7 @@ function closeMobileMenu() {
   const mobileMenu = document.getElementById("mobile-menu");
   if (mobileMenu) {
     mobileMenu.classList.add("translate-x-full");
-    document.body.style.overflow = '';
+    document.body.style.overflow = "";
   }
 }
 
@@ -851,11 +875,11 @@ function hideMobileSearch() {
 // Initialize mobile menu event listeners
 function initMobileMenu() {
   console.log("Initializing mobile menu...");
-  
+
   const hamburgerBtn = document.getElementById("hamburger-btn");
   if (hamburgerBtn) {
-    hamburgerBtn.removeEventListener('click', openMobileMenu);
-    hamburgerBtn.addEventListener("click", function(e) {
+    hamburgerBtn.removeEventListener("click", openMobileMenu);
+    hamburgerBtn.addEventListener("click", function (e) {
       e.preventDefault();
       e.stopPropagation();
       openMobileMenu();
@@ -864,8 +888,8 @@ function initMobileMenu() {
 
   const closeMenuBtn = document.getElementById("close-menu-btn");
   if (closeMenuBtn) {
-    closeMenuBtn.removeEventListener('click', closeMobileMenu);
-    closeMenuBtn.addEventListener("click", function(e) {
+    closeMenuBtn.removeEventListener("click", closeMobileMenu);
+    closeMenuBtn.addEventListener("click", function (e) {
       e.preventDefault();
       e.stopPropagation();
       closeMobileMenu();
@@ -874,20 +898,22 @@ function initMobileMenu() {
 
   const mobileSearchBtn = document.getElementById("mobile-search-btn");
   if (mobileSearchBtn) {
-    mobileSearchBtn.addEventListener("click", function(e) {
+    mobileSearchBtn.addEventListener("click", function (e) {
       e.preventDefault();
       showMobileSearch();
     });
   }
 
-  const closeSearchBtn = document.querySelector("#mobile-search-overlay button");
+  const closeSearchBtn = document.querySelector(
+    "#mobile-search-overlay button",
+  );
   if (closeSearchBtn) {
     closeSearchBtn.addEventListener("click", hideMobileSearch);
   }
 
   const mobileMenu = document.getElementById("mobile-menu");
   if (mobileMenu) {
-    mobileMenu.addEventListener("click", function(e) {
+    mobileMenu.addEventListener("click", function (e) {
       if (e.target === mobileMenu) {
         closeMobileMenu();
       }
@@ -895,8 +921,8 @@ function initMobileMenu() {
   }
 
   // Fallback click handler for view all categories button
-  document.addEventListener('click', function(e) {
-    const viewAllBtn = e.target.closest('.view-all-categories-btn');
+  document.addEventListener("click", function (e) {
+    const viewAllBtn = e.target.closest(".view-all-categories-btn");
     if (viewAllBtn) {
       e.preventDefault();
       console.log("View all categories clicked via delegation");
@@ -973,10 +999,10 @@ function typeEffect() {
 // Main initialization function
 async function initializeHeader() {
   console.log("Initializing header...");
-  
+
   await initializeCategories();
   initTypingAnimation();
-  
+
   setTimeout(() => {
     typeEffect();
   }, 100);
@@ -1027,7 +1053,10 @@ async function initializeHeader() {
     recentList.innerHTML = recentHTML;
   }
 
-  console.log("%c Artezo Store Header initialized successfully", "color:#E39F32; font-weight:600");
+  console.log(
+    "%c Artezo Store Header initialized successfully",
+    "color:#E39F32; font-weight:600",
+  );
 }
 
 function toggleCartPreview() {
@@ -1049,8 +1078,8 @@ window.toggleLoginState = toggleLoginState;
 window.toggleViewAllCategoriesFromMenu = toggleViewAllCategoriesFromMenu;
 
 // Auto start when page loads
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initializeHeader);
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initializeHeader);
 } else {
   initializeHeader();
 }
