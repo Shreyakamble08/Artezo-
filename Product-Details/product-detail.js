@@ -238,17 +238,16 @@
     />
   </div>
 
-  ${
-    banner.imgDescription
-      ? `
+  ${banner.imgDescription
+            ? `
       <div class="banner-desc">
         <p class="banner-text">
           ${banner.imgDescription}
         </p>
       </div>
       `
-      : ""
-  }
+            : ""
+          }
 
 </div>
       `;
@@ -287,11 +286,10 @@
           </h1>
 
           <p class="text-gray-600 font-lexend text-base md:text-lg leading-relaxed max-w-xl mx-auto">
-            ${
-              safeProductData.aboutItem?.[0] ||
-              safeProductData.description?.[0] ||
-              "Discover thoughtfully curated decor pieces that bring warmth and elegance into your space."
-            }
+            ${safeProductData.aboutItem?.[0] ||
+        safeProductData.description?.[0] ||
+        "Discover thoughtfully curated decor pieces that bring warmth and elegance into your space."
+        }
           </p>
 
         </div>
@@ -363,24 +361,22 @@
               <span class="text-3xl font-bold font-lexend text-[#1D3C4A]">
                 ₹${safeProductData.currentSellingPrice || 0}
               </span>
-              ${
-                safeProductData.currentMrpPrice &&
-                safeProductData.currentMrpPrice >
-                  (safeProductData.currentSellingPrice || 0)
-                  ? `
+              ${safeProductData.currentMrpPrice &&
+        safeProductData.currentMrpPrice >
+        (safeProductData.currentSellingPrice || 0)
+        ? `
               <span class="text-2xl text-gray-400 font-lexend line-through">
                 ₹${safeProductData.currentMrpPrice}
               </span>`
-                  : ""
-              }
-              ${
-                getDiscountPercent()
-                  ? `
+        : ""
+      }
+              ${getDiscountPercent()
+        ? `
               <span class="bg-[#e39f32] text-white font-bold px-4 py-1.5 rounded-2xl text-sm shadow-sm tracking-wide">
                 ${getDiscountPercent()}% OFF
               </span>`
-                  : ""
-              }
+        : ""
+      }
             </div>
           </div>
 
@@ -1351,7 +1347,7 @@
         ((safeProductData.currentMrpPrice -
           safeProductData.currentSellingPrice) /
           (safeProductData.currentMrpPrice || 1)) *
-          100,
+        100,
       ) || 0;
 
     // Get similar products from the database
@@ -1494,39 +1490,75 @@
     let variantCardsHTML = "";
     if (transformedData.colors && transformedData.colors.length > 0) {
       variantCardsHTML = `
-        <div class="space-y-4 mt-4">
-          <div class="flex flex-col sm:flex-row sm:items-start gap-4">
-            <span class="text-sm font-medium text-[#033E59] hidden sm:block sm:mt-4">Variant:</span>
-            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 w-full" id="colorSwatches">
-              ${transformedData.colors
-                .map((c, idx) => {
-                  const selected =
-                    idx === 0
-                      ? "ring-2 ring-[#E6A62C] ring-offset-2"
-                      : "ring-1 ring-gray-200 hover:ring-[#E6A62C]";
-                  return `
-                  <button class="group bg-white rounded-xl border border-gray-200 p-3 transition-all duration-300 hover:shadow-md ${selected}" 
-                          data-variant-id="${c.variantId}"
-                          data-sku="${c.sku}"
-                          data-price="${c.price}"
-                          data-mrp="${c.mrp}"
-                          data-stock="${c.stock}"
-                          data-image="${c.image}">
-                    <div class="w-full aspect-square rounded-lg overflow-hidden mb-3">
-                      <img src="${c.image}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" alt="${c.name}">
-                    </div>
-                    <div class="text-sm font-medium text-[#033E59] text-center mb-2">${c.name}</div>
-                    <div class="text-xs text-gray-500 text-center mb-1">${c.size || "Standard"}</div>
-                    <div class="flex justify-center gap-1 flex-wrap">
-                      ${(c.sizes || ["S", "M", "L"]).map((size) => `<span class="text-[10px] px-2 py-[3px] border border-gray-300 rounded text-gray-600">${size}</span>`).join("")}
-                    </div>
-                  </button>
-                `;
-                })
+       <div class="space-y-4 mt-4">
+
+  <div class="flex flex-col sm:flex-row sm:items-start gap-3 sm:gap-4">
+
+    <!-- Variant Label -->
+    <span class="text-sm font-medium text-[#033E59] hidden sm:block sm:mt-4">
+      Variant:
+    </span>
+
+    <!-- Variant Grid -->
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4 w-full px-1 sm:px-0" id="colorSwatches">
+
+      ${transformedData.colors
+          .map((c, idx) => {
+            const selected =
+              idx === 0
+                ? "ring-2 ring-[#E6A62C] ring-offset-1"
+                : "ring-1 ring-gray-200 hover:ring-[#E6A62C]";
+
+            return `
+          <button
+            class="group bg-white rounded-xl border border-gray-200 p-2 sm:p-3 transition-all duration-300 hover:shadow-md hover:-translate-y-[2px] ${selected}"
+            data-variant-id="${c.variantId}"
+            data-sku="${c.sku}"
+            data-price="${c.price}"
+            data-mrp="${c.mrp}"
+            data-stock="${c.stock}"
+            data-image="${c.image}"
+          >
+
+            <!-- Image -->
+            <div class="w-full aspect-square rounded-lg overflow-hidden mb-2 sm:mb-3">
+              <img
+                src="${c.image}"
+                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                alt="${c.name}"
+              >
+            </div>
+
+            <!-- Variant Name -->
+            <div class="text-xs sm:text-sm font-medium text-[#033E59] text-center mb-1 sm:mb-2">
+              ${c.name}
+            </div>
+
+            <!-- Size -->
+            <div class="text-[11px] sm:text-xs text-gray-500 text-center mb-1">
+              ${c.size || "Standard"}
+            </div>
+
+            <!-- Sizes -->
+            <div class="flex justify-center gap-1 flex-wrap">
+              ${(c.sizes || ["S", "M", "L"])
+                .map(
+                  (size) =>
+                    `<span class="text-[9px] sm:text-[10px] px-1.5 sm:px-2 py-[2px] border border-gray-300 rounded text-gray-600">${size}</span>`,
+                )
                 .join("")}
             </div>
-          </div>
-        </div>
+
+          </button>
+          `;
+          })
+          .join("")}
+
+    </div>
+
+  </div>
+
+</div>
       `;
     }
 
@@ -1576,12 +1608,12 @@
             <div class="flex gap-2">
               <div class="flex flex-col gap-2 w-12" id="thumbContainer">
                 ${transformedData.mainImages
-                  .map(
-                    (img, idx) => `
+        .map(
+          (img, idx) => `
                   <img src="${img.thumb}" data-full="${img.full}" class="thumbnail-img w-full h-16 object-cover rounded-md ${idx === 0 ? "active" : ""} cursor-pointer" />
                 `,
-                  )
-                  .join("")}
+        )
+        .join("")}
               </div>
               <div class="relative flex-1 bg-white rounded-xl border border-stone-100 shadow-sm flex items-center justify-center p-2 h-[320px]">
                 <img id="mainProductImage" src="${transformedData.mainImages[0]?.full || transformedData.mainImages[0]?.thumb}" alt="Product" class="max-h-full max-w-full object-contain" />
@@ -1737,9 +1769,8 @@
     Only ${transformedData.stock} items left in stock
   </p>
 
-  ${
-    safeProductData.isCustomizable
-      ? `
+  ${safeProductData.isCustomizable
+        ? `
       <span class="text-gray-300">|</span>
 
       <a href="https://wa.me/919876543210"
@@ -1754,8 +1785,8 @@
 
       </a>
       `
-      : ""
-  }
+        : ""
+      }
 
 </div>
 
