@@ -665,7 +665,7 @@
         if (response.ok) {
           // Success
           showToast(data.message || "Account created successfully!", "success");
-          
+
           // Optionally clear form
           document.getElementById("firstName").value = "";
           document.getElementById("middleName").value = "";
@@ -682,7 +682,7 @@
           document.getElementById("nearBy").value = "";
           document.getElementById("landmark").value = "";
           document.getElementById("signupStrengthBar").style.width = "0%";
-          
+
           // Auto switch to login after 1.5 seconds
           setTimeout(() => {
             toggleAuth(); // Switch to login form
@@ -714,16 +714,71 @@
       }
     }
 
-    function loginUser(event) {
+    // Enhanced loginUser function with proper response handling
+    async function loginUser(event) {
       event.preventDefault();
-      const phone = document.getElementById("loginPhone").value;
+
+      // Get input values from existing form fields
+      const identifier = document.getElementById("loginPhone").value;
       const password = document.getElementById("password").value;
-      if (!phone || !password) {
-        showToast("Please enter phone number and password", "error");
+
+      // Validation (preserving existing UX)
+      if (!identifier || !password) {
+        showToast("Please enter email/phone and password", "error");
         return;
       }
-      showToast("Login successfull!", "success");
-      setTimeout(() => { window.location.href = "/index.html"; }, 1200);
+
+      // Construct payload as required
+      const payload = {
+        identifier: identifier,
+        password: password
+      };
+
+      try {
+        // API call with session-based credentials (cookies)
+        const response = await fetch("http://localhost:8085/api/users/auth/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(payload),
+          credentials: "include"  // Mandatory for session-based auth
+        });
+
+        // Check if response has content before parsing JSON
+        const contentType = response.headers.get("content-type");
+        let data = {};
+
+        if (contentType && contentType.includes("application/json")) {
+          const textResponse = await response.text();
+          if (textResponse && textResponse.trim()) {
+            data = JSON.parse(textResponse);
+          }
+        }
+
+        if (response.ok) {
+          // Success - store userId if present in response
+          if (data.userId) {
+            localStorage.setItem("userId", data.userId);
+          }
+
+          // Show success message using existing toast system
+          showToast("Login successful!", "success");
+
+          // Redirect to index page
+          setTimeout(() => {
+            window.location.href = "/index.html";
+          }, 1200);
+        } else {
+          // Failed login - show error message from backend or default
+          const errorMessage = data.message || "Invalid credentials";
+          showToast(errorMessage, "error");
+        }
+      } catch (error) {
+        console.error("Login error:", error);
+        // Handle network errors or unreachable backend
+        showToast("Server error. Please try again.", "error");
+      }
     }
 
     // Password strength for signup
