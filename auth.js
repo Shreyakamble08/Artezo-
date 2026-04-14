@@ -63,13 +63,21 @@ const UserAuth = (() => {
         console.log(`[Login] ✅ Login successful`, data);
 
         // Store user info
-        if (data.userId) {
-          localStorage.setItem('userId', data.userId);
-          localStorage.setItem('userFirstName', data.firstName || data.userFirstName || '');
-          localStorage.setItem('userLastName', data.lastName || data.userLastName || '');
-          localStorage.setItem('userEmail', identifier.includes('@') ? identifier : '');
-          localStorage.setItem('lastLogin', new Date().toISOString());
-        }
+        // Store user info
+if (data.userId) {
+  localStorage.setItem('userId', data.userId);
+  localStorage.setItem('userFirstName', data.firstName || data.userFirstName || '');
+  localStorage.setItem('userLastName', data.lastName || data.userLastName || '');
+  
+  // Better email handling
+  if (data.email) {
+    localStorage.setItem('userEmail', data.email);
+  } else if (identifier.includes('@')) {
+    localStorage.setItem('userEmail', identifier);
+  }
+  
+  localStorage.setItem('lastLogin', new Date().toISOString());
+}
 
         // Verify session right after login
         await verifySession(data.userId || localStorage.getItem('userId'));
@@ -88,6 +96,9 @@ const UserAuth = (() => {
     }
   }
 
+
+  
+
   // ====================== VERIFY SESSION ======================
   async function verifySession(userId) {
     if (!userId) return false;
@@ -100,6 +111,9 @@ const UserAuth = (() => {
 
         if (data.firstName) localStorage.setItem('userFirstName', data.firstName);
         if (data.lastName) localStorage.setItem('userLastName', data.lastName);
+        if (data.email) {
+  localStorage.setItem('userEmail', data.email);
+}
 
         return true;
       }
@@ -135,7 +149,7 @@ const UserAuth = (() => {
     } finally {
       _clearSession();
       console.log('[Logout] Session cleared, redirecting to login');
-      window.location.href = LOGIN_PAGE;
+      window.location.href = HOME_PAGE;
     }
   }
 
@@ -202,6 +216,7 @@ const UserAuth = (() => {
  * Does NOT modify existing UserAuth.logout() logic.
  * Can be called from anywhere (header.js, etc.).
  */
+// Update the showLogoutOverlay function in auth.js:
 function showLogoutOverlay(message = "Are you sure you want to logout?") {
   if (document.getElementById('logoutOverlay')) return;
 
@@ -231,11 +246,11 @@ function showLogoutOverlay(message = "Are you sure you want to logout?") {
       
       <div style="display: flex; gap: 14px; justify-content: center;">
         <button id="logoutCancelBtn"
-          style="flex: 1; background: #f3f4f6; color: #374151; border: none; padding: 14px 24px; border-radius: 14px; font-weight: 600; font-size: 15px; cursor: pointer;">
+          style="flex: 1; background: #f3f4f6; color: #374151; border: none; padding: 14px 24px; border-radius: 14px; font-weight: 600; font-size: 15px; cursor: pointer; transition: all 0.2s ease;">
           Cancel
         </button>
         <button id="logoutConfirmBtn"
-          style="flex: 1; background: #dc2626; color: white; border: none; padding: 14px 24px; border-radius: 14px; font-weight: 600; font-size: 15px; cursor: pointer;">
+          style="flex: 1; background: #dc2626; color: white; border: none; padding: 14px 24px; border-radius: 14px; font-weight: 600; font-size: 15px; cursor: pointer; transition: all 0.2s ease;">
           Yes, Logout
         </button>
       </div>
@@ -244,10 +259,24 @@ function showLogoutOverlay(message = "Are you sure you want to logout?") {
 
   document.body.appendChild(overlay);
 
-  // Confirm → Call original logout logic
+  // Add hover effects
+  const cancelBtn = document.getElementById('logoutCancelBtn');
+  const confirmBtn = document.getElementById('logoutConfirmBtn');
+  
+  if (cancelBtn) {
+    cancelBtn.onmouseover = () => cancelBtn.style.background = '#e5e7eb';
+    cancelBtn.onmouseout = () => cancelBtn.style.background = '#f3f4f6';
+  }
+  
+  if (confirmBtn) {
+    confirmBtn.onmouseover = () => confirmBtn.style.background = '#ef4444';
+    confirmBtn.onmouseout = () => confirmBtn.style.background = '#dc2626';
+  }
+
+  // Confirm → Call the confirmLogout handler
   document.getElementById('logoutConfirmBtn').onclick = async () => {
     overlay.remove();
-    await UserAuth.logout();
+    await confirmLogout(); // Call the new confirm handler
   };
 
   // Cancel → Just close overlay
@@ -256,6 +285,25 @@ function showLogoutOverlay(message = "Are you sure you want to logout?") {
   };
 }
 
+// Add this new function to auth.js for the actual logout execution
+async function confirmLogout() {
+  console.log('[Auth] Executing logout with cleanup');
+  
+  // Close any open dropdowns/modals
+  const desktopDropdown = document.getElementById("account-dropdown");
+  if (desktopDropdown) desktopDropdown.classList.add("hidden");
+  
+  const mobileDropdown = document.getElementById("mobile-profile-dropdown");
+  if (mobileDropdown && mobileDropdown.remove) {
+    mobileDropdown.remove();
+  }
+  
+  // Execute the actual logout logic
+  await UserAuth.logout();
+}
+
+// Make confirmLogout available globally
+window.confirmLogout = confirmLogout;
 // ====================== MAKE AVAILABLE GLOBALLY ======================
 window.UserAuth = UserAuth;
 window.showLogoutOverlay = showLogoutOverlay;

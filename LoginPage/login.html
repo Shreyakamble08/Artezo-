@@ -756,7 +756,7 @@
           }
         }
 
-        if (response.ok) {
+                if (response.ok) {
           // Success - store userId if present in response
           if (data.userId) {
             localStorage.setItem("userId", data.userId);
@@ -764,6 +764,11 @@
 
           // Show success message using existing toast system
           showToast("Login successful!", "success");
+
+          // ←←← ADD THESE TWO LINES ←←←
+          if (typeof updateMobileLoginButton === "function") {
+            updateMobileLoginButton();   // Update footer button immediately
+          }
 
           // Redirect to index page
           setTimeout(() => {
