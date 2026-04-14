@@ -4,8 +4,8 @@
  */
 
 const UserAuth = (() => {
-  const LOGIN_PAGE = '../LoginPage/login.html';
-  const HOME_PAGE = '/index.html';
+  const LOGIN_PAGE = "../LoginPage/login.html";
+  const HOME_PAGE = "/index.html";
 
   console.log(`[UserAuth] Initializing in development mode`);
   console.log(`[UserAuth] Current origin: ${window.location.origin}`);
@@ -13,18 +13,18 @@ const UserAuth = (() => {
 
   // ====================== CORE API FETCH ======================
   async function apiFetch(path, options = {}) {
-    const url = path.startsWith('/') ? path : `/${path}`;
+    const url = path.startsWith("/") ? path : `/${path}`;
     const config = {
       ...options,
-      credentials: 'include',
+      credentials: "include",
       headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
+        "Content-Type": "application/json",
+        Accept: "application/json",
         ...(options.headers || {}),
       },
     };
 
-    console.log(`[API Fetch] ${options.method || 'GET'} ${url} (via proxy)`);
+    console.log(`[API Fetch] ${options.method || "GET"} ${url} (via proxy)`);
 
     try {
       const response = await fetch(url, config);
@@ -44,17 +44,17 @@ const UserAuth = (() => {
       // Clear any previous session
       await clearExistingSession();
 
-      const response = await fetch('/api/users/auth/login', {
-        method: 'POST',
-        credentials: 'include',
-        headers: { 'Content-Type': 'application/json' },
+      const response = await fetch("/api/users/auth/login", {
+        method: "POST",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ identifier, password }),
       });
 
       console.log(`[Login] Response status: ${response.status}`);
 
       let data = {};
-      if (response.headers.get('content-type')?.includes('application/json')) {
+      if (response.headers.get("content-type")?.includes("application/json")) {
         const text = await response.text();
         if (text.trim()) data = JSON.parse(text);
       }
@@ -64,40 +64,47 @@ const UserAuth = (() => {
 
         // Store user info
         // Store user info
-if (data.userId) {
-  localStorage.setItem('userId', data.userId);
-  localStorage.setItem('userFirstName', data.firstName || data.userFirstName || '');
-  localStorage.setItem('userLastName', data.lastName || data.userLastName || '');
-  
-  // Better email handling
-  if (data.email) {
-    localStorage.setItem('userEmail', data.email);
-  } else if (identifier.includes('@')) {
-    localStorage.setItem('userEmail', identifier);
-  }
-  
-  localStorage.setItem('lastLogin', new Date().toISOString());
-}
+        if (data.userId) {
+          localStorage.setItem("userId", data.userId);
+          localStorage.setItem(
+            "userFirstName",
+            data.firstName || data.userFirstName || "",
+          );
+          localStorage.setItem(
+            "userLastName",
+            data.lastName || data.userLastName || "",
+          );
+
+          // Better email handling
+          if (data.email) {
+            localStorage.setItem("userEmail", data.email);
+          } else if (identifier.includes("@")) {
+            localStorage.setItem("userEmail", identifier);
+          }
+
+          localStorage.setItem("lastLogin", new Date().toISOString());
+        }
 
         // Verify session right after login
-        await verifySession(data.userId || localStorage.getItem('userId'));
+        await verifySession(data.userId || localStorage.getItem("userId"));
 
         return { success: true, data };
       } else {
         console.warn(`[Login] Failed:`, data);
         return {
           success: false,
-          message: data.message || data.error || 'Invalid email/phone or password'
+          message:
+            data.message || data.error || "Invalid email/phone or password",
         };
       }
     } catch (err) {
-      console.error('[Login] Network/Parse error:', err);
-      return { success: false, message: 'Network error. Please check if backend is running.' };
+      console.error("[Login] Network/Parse error:", err);
+      return {
+        success: false,
+        message: "Network error. Please check if backend is running.",
+      };
     }
   }
-
-
-  
 
   // ====================== VERIFY SESSION ======================
   async function verifySession(userId) {
@@ -109,11 +116,9 @@ if (data.userId) {
         const data = await response.json();
         console.log(`[Verify] Session is valid`, data);
 
-        if (data.firstName) localStorage.setItem('userFirstName', data.firstName);
-        if (data.lastName) localStorage.setItem('userLastName', data.lastName);
-        if (data.email) {
-  localStorage.setItem('userEmail', data.email);
-}
+        if (data.firstName)
+          localStorage.setItem("userFirstName", data.firstName);
+        if (data.lastName) localStorage.setItem("userLastName", data.lastName);
 
         return true;
       }
@@ -127,9 +132,9 @@ if (data.userId) {
 
   // ====================== IS AUTHENTICATED ======================
   async function isAuthenticated() {
-    const userId = localStorage.getItem('userId');
+    const userId = localStorage.getItem("userId");
     if (!userId) {
-      console.log('[Auth Check] No userId found in localStorage');
+      console.log("[Auth Check] No userId found in localStorage");
       return false;
     }
     return await verifySession(userId);
@@ -137,40 +142,40 @@ if (data.userId) {
 
   // ====================== LOGOUT ======================
   async function logout() {
-    console.log('[Logout] Starting logout process');
+    console.log("[Logout] Starting logout process");
 
     try {
-      await fetch('/api/users/auth/logout', {
-        method: 'POST',
-        credentials: 'include',
+      await fetch("/api/users/auth/logout", {
+        method: "POST",
+        credentials: "include",
       });
     } catch (err) {
-      console.warn('[Logout] Backend logout failed - clearing locally anyway');
+      console.warn("[Logout] Backend logout failed - clearing locally anyway");
     } finally {
       _clearSession();
-      console.log('[Logout] Session cleared, redirecting to login');
+      console.log("[Logout] Session cleared, redirecting to login");
       window.location.href = HOME_PAGE;
     }
   }
 
   function clearExistingSession() {
-    console.log('[ClearSession] Clearing existing session before new login');
+    console.log("[ClearSession] Clearing existing session before new login");
     _clearSession();
   }
 
   function _clearSession() {
-    localStorage.removeItem('userId');
-    localStorage.removeItem('userFirstName');
-    localStorage.removeItem('userLastName');
-    localStorage.removeItem('userEmail');
-    localStorage.removeItem('lastLogin');
+    localStorage.removeItem("userId");
+    localStorage.removeItem("userFirstName");
+    localStorage.removeItem("userLastName");
+    localStorage.removeItem("userEmail");
+    localStorage.removeItem("lastLogin");
   }
 
   // ====================== ROUTE GUARDS ======================
   async function requireLogin() {
     const authenticated = await isAuthenticated();
     if (!authenticated) {
-      console.log('[Route Guard] Not authenticated → redirecting to login');
+      console.log("[Route Guard] Not authenticated → redirecting to login");
       window.location.href = LOGIN_PAGE;
     }
     return authenticated;
@@ -179,7 +184,7 @@ if (data.userId) {
   async function redirectIfLoggedIn() {
     const authenticated = await isAuthenticated();
     if (authenticated) {
-      console.log('[Route Guard] Already logged in → redirecting to home');
+      console.log("[Route Guard] Already logged in → redirecting to home");
       window.location.href = HOME_PAGE;
     }
   }
@@ -187,11 +192,12 @@ if (data.userId) {
   // ====================== GET CURRENT USER ======================
   function getCurrentUser() {
     return {
-      userId: localStorage.getItem('userId'),
-      firstName: localStorage.getItem('userFirstName'),
-      lastName: localStorage.getItem('userLastName'),
-      email: localStorage.getItem('userEmail'),
-      fullName: `${localStorage.getItem('userFirstName') || ''} ${localStorage.getItem('userLastName') || ''}`.trim()
+      userId: localStorage.getItem("userId"),
+      firstName: localStorage.getItem("userFirstName"),
+      lastName: localStorage.getItem("userLastName"),
+      email: localStorage.getItem("userEmail"),
+      fullName:
+        `${localStorage.getItem("userFirstName") || ""} ${localStorage.getItem("userLastName") || ""}`.trim(),
     };
   }
 
@@ -205,7 +211,7 @@ if (data.userId) {
     apiFetch,
     getCurrentUser,
     verifySession,
-    clearExistingSession
+    clearExistingSession,
   };
 })();
 
@@ -218,10 +224,10 @@ if (data.userId) {
  */
 // Update the showLogoutOverlay function in auth.js:
 function showLogoutOverlay(message = "Are you sure you want to logout?") {
-  if (document.getElementById('logoutOverlay')) return;
+  if (document.getElementById("logoutOverlay")) return;
 
-  const overlay = document.createElement('div');
-  overlay.id = 'logoutOverlay';
+  const overlay = document.createElement("div");
+  overlay.id = "logoutOverlay";
   overlay.style.cssText = `
     position: fixed; 
     top: 0; 
@@ -260,44 +266,44 @@ function showLogoutOverlay(message = "Are you sure you want to logout?") {
   document.body.appendChild(overlay);
 
   // Add hover effects
-  const cancelBtn = document.getElementById('logoutCancelBtn');
-  const confirmBtn = document.getElementById('logoutConfirmBtn');
-  
+  const cancelBtn = document.getElementById("logoutCancelBtn");
+  const confirmBtn = document.getElementById("logoutConfirmBtn");
+
   if (cancelBtn) {
-    cancelBtn.onmouseover = () => cancelBtn.style.background = '#e5e7eb';
-    cancelBtn.onmouseout = () => cancelBtn.style.background = '#f3f4f6';
+    cancelBtn.onmouseover = () => (cancelBtn.style.background = "#e5e7eb");
+    cancelBtn.onmouseout = () => (cancelBtn.style.background = "#f3f4f6");
   }
-  
+
   if (confirmBtn) {
-    confirmBtn.onmouseover = () => confirmBtn.style.background = '#ef4444';
-    confirmBtn.onmouseout = () => confirmBtn.style.background = '#dc2626';
+    confirmBtn.onmouseover = () => (confirmBtn.style.background = "#ef4444");
+    confirmBtn.onmouseout = () => (confirmBtn.style.background = "#dc2626");
   }
 
   // Confirm → Call the confirmLogout handler
-  document.getElementById('logoutConfirmBtn').onclick = async () => {
+  document.getElementById("logoutConfirmBtn").onclick = async () => {
     overlay.remove();
     await confirmLogout(); // Call the new confirm handler
   };
 
   // Cancel → Just close overlay
-  document.getElementById('logoutCancelBtn').onclick = () => {
+  document.getElementById("logoutCancelBtn").onclick = () => {
     overlay.remove();
   };
 }
 
 // Add this new function to auth.js for the actual logout execution
 async function confirmLogout() {
-  console.log('[Auth] Executing logout with cleanup');
-  
+  console.log("[Auth] Executing logout with cleanup");
+
   // Close any open dropdowns/modals
   const desktopDropdown = document.getElementById("account-dropdown");
   if (desktopDropdown) desktopDropdown.classList.add("hidden");
-  
+
   const mobileDropdown = document.getElementById("mobile-profile-dropdown");
   if (mobileDropdown && mobileDropdown.remove) {
     mobileDropdown.remove();
   }
-  
+
   // Execute the actual logout logic
   await UserAuth.logout();
 }
@@ -308,6 +314,6 @@ window.confirmLogout = confirmLogout;
 window.UserAuth = UserAuth;
 window.showLogoutOverlay = showLogoutOverlay;
 
-console.log('[UserAuth] ✅ Module loaded with proxy support');
-console.log('[UserAuth] Current origin:', window.location.origin);
-console.log('[UserAuth] Current user:', UserAuth.getCurrentUser());
+console.log("[UserAuth] ✅ Module loaded with proxy support");
+console.log("[UserAuth] Current origin:", window.location.origin);
+console.log("[UserAuth] Current user:", UserAuth.getCurrentUser());

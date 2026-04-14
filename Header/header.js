@@ -629,52 +629,59 @@ function renderAccountDropdown() {
   const isLoggedIn = !!(user && user.userId);
 
   if (isLoggedIn) {
-    const fullName = (user.fullName || `${user.firstName || ''} ${user.lastName || ''}`).trim();
-    const displayName = fullName || "Shreya Sharma";   // ← Fallback to your name
-    const displayEmail = user.email || "shreya.pune@gmail.com"; // ← Fallback to your email
-
     dropdown.innerHTML = `
-      <div class="px-6 py-6 border-b">
-        <div class="flex flex-col gap-1">
-          <div class="font-semibold text-xl">${displayName}</div>
-          <div class="text-gray-500 text-sm">${displayEmail}</div>
-        </div>
-      </div>
       <div class="py-2">
-        <a href="../Profile/profile.html" class="flex items-center gap-x-4 px-7 py-4 hover:bg-zinc-50 text-sm">
-          <i class="fa-solid fa-user w-5 text-gray-400"></i><span>My Profile</span>
+
+        <a href="../Profile/profile.html"
+           class="flex items-center gap-x-4 px-7 py-4 hover:bg-zinc-50 text-sm">
+          <i class="fa-solid fa-user w-5 text-gray-400"></i>
+          <span>My Profile</span>
         </a>
-        <a href="../Myorders/orders.html" class="flex items-center gap-x-4 px-7 py-4 hover:bg-zinc-50 text-sm">
-          <i class="fa-solid fa-box w-5 text-gray-400"></i><span>My Orders</span>
+
+        <a href="../Myorders/orders.html"
+           class="flex items-center gap-x-4 px-7 py-4 hover:bg-zinc-50 text-sm">
+          <i class="fa-solid fa-box w-5 text-gray-400"></i>
+          <span>My Orders</span>
         </a>
-        <a href="../Wishlist/wishlist.html" class="flex items-center gap-x-4 px-7 py-4 hover:bg-zinc-50 text-sm">
-          <i class="fa-solid fa-heart w-5 text-gray-400"></i><span>Wishlist</span>
+
+        <a href="../Wishlist/wishlist.html"
+           class="flex items-center gap-x-4 px-7 py-4 hover:bg-zinc-50 text-sm">
+          <i class="fa-solid fa-heart w-5 text-gray-400"></i>
+          <span>Wishlist</span>
         </a>
+
       </div>
+
       <div class="border-t mx-4 my-2"></div>
-      
-      <a href="#" onclick="showLogoutOverlay(); return false;" 
+
+      <a href="#"
+         onclick="showLogoutOverlay(); return false;"
          class="w-full text-left flex items-center gap-x-4 px-7 py-4 text-red-600 hover:bg-red-50 text-sm">
         <i class="fa-solid fa-arrow-right-from-bracket"></i>
         <span>Logout</span>
-      </a>`;
+      </a>
+    `;
 
-    // Header avatar (profile icon)
+    // Avatar icon
     avatar.innerHTML = `
       <div class="w-full h-full flex items-center justify-center bg-accent/10 text-accent rounded-full">
         <i class="fa-solid fa-user text-xl"></i>
-      </div>`;
+      </div>
+    `;
 
-    if (nameEl) nameEl.textContent = displayName.split(" ")[0] || "Shreya";
-
+    if (nameEl) nameEl.textContent = "";
   } else {
     dropdown.innerHTML = `
       <div class="p-10 text-center">
         <i class="fa-solid fa-user text-5xl text-gray-300 mb-4"></i>
-        <p class="text-gray-500 text-sm">Sign in to access your account, orders & wishlist</p>
-      </div>`;
+        <p class="text-gray-500 text-sm">
+          Sign in to access your account, orders & wishlist
+        </p>
+      </div>
+    `;
 
     avatar.innerHTML = `<i class="fa-solid fa-user text-2xl"></i>`;
+
     if (nameEl) nameEl.textContent = "";
   }
 }
