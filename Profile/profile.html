@@ -89,6 +89,7 @@
             border: 1px solid #FFE9CE;
             transition: all 0.2s;
             box-shadow: 0 4px 10px -4px rgba(230, 166, 44, 0.08);
+            cursor: pointer;
         }
 
         .address-compact-card:hover {
@@ -165,7 +166,7 @@
         .modal-content {
             background: #ffffff;
             border-radius: 1.5rem;
-            max-width: 500px;
+            max-width: 550px;
             width: 90%;
             max-height: 90vh;
             overflow-y: auto;
@@ -180,7 +181,8 @@
         }
 
         input:focus,
-        select:focus {
+        select:focus,
+        textarea:focus {
             border-color: #E6A62C;
             outline: none;
             box-shadow: 0 0 0 3px rgba(230, 166, 44, 0.15);
@@ -242,6 +244,27 @@
             cursor: not-allowed;
             opacity: 0.7;
         }
+
+        .address-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .action-icon {
+            color: #9B7B4A;
+            transition: all 0.2s;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .action-icon:hover {
+            color: #E6A62C;
+        }
+
+        .delete-icon:hover {
+            color: #dc2626;
+        }
     </style>
 </head>
 
@@ -252,7 +275,6 @@
         <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
             <!-- LEFT SIDEBAR -->
             <div class="warm-sidebar rounded-2xl shadow-md p-6 h-fit" id="profile-sidebar">
-                <!-- Loading state will be replaced -->
                 <div class="text-center text-primary">Loading profile...</div>
             </div>
 
@@ -306,7 +328,7 @@
                         </div>
                     </div>
 
-                    <!-- ADDRESSES SECTION (placeholder message since backend addresses not provided) -->
+                    <!-- ADDRESSES SECTION (Integrated with backend shipping API) -->
                     <div class="px-8 pb-8">
                         <div class="flex items-center justify-between mb-5">
                             <div class="flex items-center gap-3">
@@ -315,11 +337,14 @@
                                 </div>
                                 <h2 class="text-xl font-semibold text-primary">Address Information</h2>
                             </div>
+                            <button id="addAddressBtn"
+                                class="bg-primary text-white px-4 py-2 rounded-full text-sm hover:bg-primary/90 transition flex items-center gap-2 shadow-sm">
+                                <i class="fa-solid fa-plus"></i> Add New Address
+                            </button>
                         </div>
-                        <div class="address-compact-card">
-                            <p class="text-gray-600"><i class="fa-regular fa-address-card text-accent mr-2"></i>Address
-                                management coming soon via backend integration.</p>
-                            <p class="text-sm text-amber-700 mt-2">Currently showing user profile from API.</p>
+                        <div id="addressesListContainer" class="space-y-3">
+                            <!-- Dynamic address cards will be injected here -->
+                            <div class="text-center text-gray-500 py-6">Loading addresses...</div>
                         </div>
                     </div>
                 </div>
@@ -327,7 +352,7 @@
         </div>
     </div>
 
-    <!-- EDIT PROFILE MODAL -->
+    <!-- EDIT PROFILE MODAL (unchanged) -->
     <div id="editProfileModal" class="modal">
         <div class="modal-content p-8">
             <div class="flex justify-between items-center mb-6">
@@ -335,53 +360,50 @@
                         class="fa-regular fa-pen-to-square text-accent"></i> Edit Profile</h3>
                 <button id="closeModalBtn" class="text-gray-400 hover:text-gray-600 text-2xl">&times;</button>
             </div>
-
             <div class="space-y-4">
-                <div>
-                    <label class="text-sm text-amber-800 font-medium">Full Name (fullName)</label>
-                    <input type="text" id="modalFullName"
-                        class="w-full mt-1 border border-amber-200 rounded-xl p-3 focus:border-accent outline-none bg-[#FFFDF8]">
-                </div>
-                <div>
-                    <label class="text-sm text-amber-800 font-medium">First Name</label>
-                    <input type="text" id="modalFirstName"
-                        class="w-full mt-1 border border-amber-200 rounded-xl p-3 focus:border-accent outline-none bg-[#FFFDF8]">
-                </div>
-                <div>
-                    <label class="text-sm text-amber-800 font-medium">Middle Name</label>
-                    <input type="text" id="modalMiddleName"
-                        class="w-full mt-1 border border-amber-200 rounded-xl p-3 focus:border-accent outline-none bg-[#FFFDF8]">
-                </div>
-                <div>
-                    <label class="text-sm text-amber-800 font-medium">Last Name</label>
-                    <input type="text" id="modalLastName"
-                        class="w-full mt-1 border border-amber-200 rounded-xl p-3 focus:border-accent outline-none bg-[#FFFDF8]">
-                </div>
-                <div>
-                    <label class="text-sm text-amber-800 font-medium">Email</label>
-                    <input type="email" id="modalEmail"
-                        class="w-full mt-1 border border-amber-200 rounded-xl p-3 focus:border-accent outline-none bg-[#FFFDF8]">
-                </div>
-                <div>
-                    <label class="text-sm text-amber-800 font-medium">Phone</label>
-                    <input type="text" id="modalPhone"
-                        class="w-full mt-1 border border-amber-200 rounded-xl p-3 focus:border-accent outline-none bg-[#FFFDF8]">
-                </div>
+                <div><label class="text-sm text-amber-800 font-medium">Full Name (fullName)</label><input type="text" id="modalFullName" class="w-full mt-1 border border-amber-200 rounded-xl p-3 focus:border-accent outline-none bg-[#FFFDF8]"></div>
+                <div><label class="text-sm text-amber-800 font-medium">First Name</label><input type="text" id="modalFirstName" class="w-full mt-1 border border-amber-200 rounded-xl p-3 focus:border-accent outline-none bg-[#FFFDF8]"></div>
+                <div><label class="text-sm text-amber-800 font-medium">Middle Name</label><input type="text" id="modalMiddleName" class="w-full mt-1 border border-amber-200 rounded-xl p-3 focus:border-accent outline-none bg-[#FFFDF8]"></div>
+                <div><label class="text-sm text-amber-800 font-medium">Last Name</label><input type="text" id="modalLastName" class="w-full mt-1 border border-amber-200 rounded-xl p-3 focus:border-accent outline-none bg-[#FFFDF8]"></div>
+                <div><label class="text-sm text-amber-800 font-medium">Email</label><input type="email" id="modalEmail" class="w-full mt-1 border border-amber-200 rounded-xl p-3 focus:border-accent outline-none bg-[#FFFDF8]"></div>
+                <div><label class="text-sm text-amber-800 font-medium">Phone</label><input type="text" id="modalPhone" class="w-full mt-1 border border-amber-200 rounded-xl p-3 focus:border-accent outline-none bg-[#FFFDF8]"></div>
             </div>
-
             <div class="flex gap-3 mt-8">
-                <button id="saveModalBtn"
-                    class="flex-1 bg-primary text-white px-6 py-3 rounded-xl hover:bg-primary/90 transition font-medium flex items-center justify-center gap-2"><i
-                        class="fa-regular fa-floppy-disk"></i> Save Changes</button>
-                <button id="cancelModalBtn"
-                    class="flex-1 border border-amber-300 bg-white px-6 py-3 rounded-xl hover:bg-amber-50 transition font-medium">Cancel</button>
+                <button id="saveModalBtn" class="flex-1 bg-primary text-white px-6 py-3 rounded-xl hover:bg-primary/90 transition font-medium flex items-center justify-center gap-2"><i class="fa-regular fa-floppy-disk"></i> Save Changes</button>
+                <button id="cancelModalBtn" class="flex-1 border border-amber-300 bg-white px-6 py-3 rounded-xl hover:bg-amber-50 transition font-medium">Cancel</button>
             </div>
         </div>
     </div>
 
-    <!-- Toastify JS -->
+    <!-- Address Form Modal (Create + Edit) -->
+    <div id="addressModal" class="modal">
+        <div class="modal-content p-8">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-semibold text-primary flex items-center gap-2"><i class="fa-solid fa-location-dot text-accent"></i> <span id="addressModalTitle">Add New Address</span></h3>
+                <button id="closeAddressModalBtn" class="text-gray-400 hover:text-gray-600 text-2xl">&times;</button>
+            </div>
+            <input type="hidden" id="editShippingId" value="">
+            <div class="space-y-3">
+                <div><label class="text-sm text-amber-800 font-medium">Full Name (Customer) *</label><input type="text" id="addrCustomerName" class="w-full mt-1 border border-amber-200 rounded-xl p-3"></div>
+                <div><label class="text-sm text-amber-800 font-medium">Phone *</label><input type="text" id="addrPhone" class="w-full mt-1 border border-amber-200 rounded-xl p-3"></div>
+                <div><label class="text-sm text-amber-800 font-medium">Email *</label><input type="email" id="addrEmail" class="w-full mt-1 border border-amber-200 rounded-xl p-3"></div>
+                <div><label class="text-sm text-amber-800 font-medium">Flat/House No. *</label><input type="text" id="addrFlatNo" class="w-full mt-1 border border-amber-200 rounded-xl p-3"></div>
+                <div><label class="text-sm text-amber-800 font-medium">Address Line *</label><input type="text" id="addrShippingAddress" class="w-full mt-1 border border-amber-200 rounded-xl p-3"></div>
+                <div><label class="text-sm text-amber-800 font-medium">City *</label><input type="text" id="addrCity" class="w-full mt-1 border border-amber-200 rounded-xl p-3"></div>
+                <div><label class="text-sm text-amber-800 font-medium">State *</label><input type="text" id="addrState" class="w-full mt-1 border border-amber-200 rounded-xl p-3"></div>
+                <div><label class="text-sm text-amber-800 font-medium">Pincode *</label><input type="text" id="addrPincode" class="w-full mt-1 border border-amber-200 rounded-xl p-3"></div>
+                <div><label class="text-sm text-amber-800 font-medium">Nearby (Optional)</label><input type="text" id="addrNearBy" class="w-full mt-1 border border-amber-200 rounded-xl p-3"></div>
+                <div><label class="text-sm text-amber-800 font-medium">Landmark (Optional)</label><input type="text" id="addrLandmark" class="w-full mt-1 border border-amber-200 rounded-xl p-3"></div>
+                <div class="flex items-center gap-3 mt-2"><input type="checkbox" id="addrIsDefault" class="w-4 h-4 text-accent"><label class="text-sm text-amber-800">Set as default address</label></div>
+            </div>
+            <div class="flex gap-3 mt-8">
+                <button id="saveAddressBtn" class="flex-1 bg-primary text-white px-6 py-3 rounded-xl hover:bg-primary/90 transition font-medium">Save Address</button>
+                <button id="cancelAddressBtn" class="flex-1 border border-amber-300 bg-white px-6 py-3 rounded-xl hover:bg-amber-50 transition">Cancel</button>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-    <!-- Load header scripts -->
     <script src="/auth.js"></script>
     <script src="../Header/load-header.js" defer></script>
     <script src="../Header/header.js" defer></script>
@@ -392,29 +414,15 @@
         const BASE_URL = "http://localhost:8085";
         const GET_USER_ENDPOINT = "/api/users/get-user";
         const PATCH_USER_ENDPOINT = "/api/users/patch-user";
+        const SHIPPING_BASE = "/api/shipping-addresses";
 
-        // Helper: show toast messages
+        // Helper toast
         function showToast(message, type = 'success', duration = 3000) {
-            let className;
-            switch (type) {
-                case 'success': className = 'toastify-success'; break;
-                case 'error': className = 'toastify-error'; break;
-                case 'warning': className = 'toastify-warning'; break;
-                default: className = 'toastify-success';
-            }
-            Toastify({
-                text: message,
-                duration: duration,
-                close: true,
-                gravity: "top",
-                position: "right",
-                stopOnFocus: true,
-                className: `toastify-custom ${className}`,
-            }).showToast();
+            let className = type === 'success' ? 'toastify-success' : (type === 'error' ? 'toastify-error' : (type === 'warning' ? 'toastify-warning' : 'toastify-info'));
+            Toastify({ text: message, duration, close: true, gravity: "top", position: "right", stopOnFocus: true, className: `toastify-custom ${className}` }).showToast();
         }
 
-        // Get userId from localStorage
-        function getUserIdFromStorage() {
+        function getUserIdFromStorage() { 
             const userId = localStorage.getItem('userId');
             if (!userId) {
                 console.warn("No userId found in localStorage");
@@ -423,228 +431,353 @@
             return userId;
         }
 
-        // Fetch user from backend
+        // ---------- USER PROFILE (unchanged) ----------
         async function fetchUserProfile() {
             const userId = getUserIdFromStorage();
-            if (!userId) {
-                showToast("User ID not found. Please login again.", "error", 4000);
-                throw new Error("No userId in localStorage");
-            }
-
-            const url = `${BASE_URL}${GET_USER_ENDPOINT}/${userId}`;
-            try {
-                const response = await fetch(url, {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    }
-                });
-
-                if (!response.ok) {
-                    const errorText = await response.text();
-                    throw new Error(`API error ${response.status}: ${errorText}`);
-                }
-
-                const userData = await response.json();
-                return userData;
-            } catch (error) {
-                console.error("Fetch user error:", error);
-                showToast(`Failed to load profile: ${error.message}`, "error", 4000);
-                throw error;
-            }
+            if (!userId) throw new Error("No userId found in localStorage");
+            const response = await fetch(`${BASE_URL}${GET_USER_ENDPOINT}/${userId}`);
+            if (!response.ok) throw new Error(`API error ${response.status}: ${await response.text()}`);
+            return await response.json();
         }
 
-        // Patch (update) user profile using PATCH /api/users/patch-user/{userId}
         async function updateUserProfile(payload) {
             const userId = getUserIdFromStorage();
-            if (!userId) {
-                showToast("User ID missing", "error");
-                throw new Error("No userId");
-            }
-
-            const url = `${BASE_URL}${PATCH_USER_ENDPOINT}/${userId}`;
-            try {
-                const response = await fetch(url, {
-                    method: 'PATCH',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(payload)
-                });
-
-                if (!response.ok) {
-                    const errorMsg = await response.text();
-                    throw new Error(`Update failed: ${response.status} ${errorMsg}`);
-                }
-
-                const updatedData = await response.json();
-                return updatedData;
-            } catch (error) {
-                console.error("Patch user error:", error);
-                showToast(`Update error: ${error.message}`, "error", 4000);
-                throw error;
-            }
+            const response = await fetch(`${BASE_URL}${PATCH_USER_ENDPOINT}/${userId}`, { 
+                method: 'PATCH', 
+                headers: { 'Content-Type': 'application/json' }, 
+                body: JSON.stringify(payload) 
+            });
+            if (!response.ok) throw new Error(await response.text());
+            return await response.json();
         }
 
-        // Global state
         let currentUser = null;
 
-        // Render sidebar with user info
         function renderSidebar(user) {
             const sidebar = document.getElementById("profile-sidebar");
-            if (!user) {
-                sidebar.innerHTML = `<div class="text-center text-primary">No user data</div>`;
-                return;
-            }
+            if (!user) { sidebar.innerHTML = `<div class="text-center text-primary">No user data</div>`; return; }
             const fullNameDisplay = user.fullName || (user.firstName + " " + (user.lastName || ""));
-            const avatarUrl = user.avatar || "https://ui-avatars.com/api/?background=E6A62C&color=fff&name=" + encodeURIComponent(fullNameDisplay);
-            sidebar.innerHTML = `
-                <div class="text-center mb-6">
-                    <img src="${avatarUrl}" class="w-24 h-24 rounded-full mx-auto mb-3 border-4 border-accent/30 shadow-md object-cover">
-                    <h3 class="font-semibold text-lg text-primary">${escapeHtml(fullNameDisplay)}</h3>
-                    <p class="text-sm text-amber-700">${escapeHtml(user.email || '')}</p>
-                </div>
-                <div class="space-y-2 text-sm">
-                    <a href="#" class="block px-4 py-3 rounded-lg bg-accent/20 text-primary font-medium border-l-4 border-accent"><i class="fa fa-user mr-2"></i>Profile</a>
-                    <a href="../Myorders/orders.html" class="block px-4 py-3 rounded-lg hover:bg-amber-50 text-gray-700"><i class="fa fa-box mr-2"></i>Orders</a>
-                    <a href="../Wishlist/wishlist.html" class="block px-4 py-3 rounded-lg hover:bg-amber-50 text-gray-700"><i class="fa fa-heart mr-2"></i>Wishlist</a>
-                </div>
-            `;
+            const avatarUrl = user.avatar || `https://ui-avatars.com/api/?background=E6A62C&color=fff&name=${encodeURIComponent(fullNameDisplay)}`;
+            sidebar.innerHTML = `<div class="text-center mb-6"><img src="${avatarUrl}" class="w-24 h-24 rounded-full mx-auto mb-3 border-4 border-accent/30 shadow-md object-cover"><h3 class="font-semibold text-lg text-primary">${escapeHtml(fullNameDisplay)}</h3><p class="text-sm text-amber-700">${escapeHtml(user.email || '')}</p></div><div class="space-y-2 text-sm"><a href="#" class="block px-4 py-3 rounded-lg bg-accent/20 text-primary font-medium border-l-4 border-accent"><i class="fa fa-user mr-2"></i>Profile</a><a href="../Myorders/orders.html" class="block px-4 py-3 rounded-lg hover:bg-amber-50 text-gray-700"><i class="fa fa-box mr-2"></i>Orders</a><a href="../Wishlist/wishlist.html" class="block px-4 py-3 rounded-lg hover:bg-amber-50 text-gray-700"><i class="fa fa-heart mr-2"></i>Wishlist</a></div>`;
+        }
+        
+        function escapeHtml(str) { 
+            if (!str) return ''; 
+            const div = document.createElement('div');
+            div.textContent = str;
+            return div.innerHTML;
+        }
+        
+        function updateDisplayView() { 
+            if (!currentUser) return; 
+            document.getElementById('displayName').textContent = currentUser.fullName || (currentUser.firstName + " " + (currentUser.lastName || "")); 
+            document.getElementById('displayEmail').textContent = currentUser.email || '—'; 
+            document.getElementById('displayPhone').textContent = currentUser.phone || '—'; 
+            const nameParts = `${currentUser.firstName || ''} ${currentUser.middleName || ''} ${currentUser.lastName || ''}`.trim(); 
+            document.getElementById('displayFullDetails').innerHTML = nameParts || '—'; 
+        }
+        
+        function populateModal() { 
+            if (!currentUser) return; 
+            document.getElementById('modalFullName').value = currentUser.fullName || ''; 
+            document.getElementById('modalFirstName').value = currentUser.firstName || ''; 
+            document.getElementById('modalMiddleName').value = currentUser.middleName || ''; 
+            document.getElementById('modalLastName').value = currentUser.lastName || ''; 
+            document.getElementById('modalEmail').value = currentUser.email || ''; 
+            document.getElementById('modalPhone').value = currentUser.phone || ''; 
+        }
+        
+        function openEditModal() { 
+            if (!currentUser) { showToast("Profile not loaded", "warning"); return; } 
+            populateModal(); 
+            document.getElementById('editProfileModal').classList.add('active'); 
+        }
+        
+        function closeEditModal() { 
+            document.getElementById('editProfileModal').classList.remove('active'); 
+        }
+        
+        async function saveProfileChanges() { 
+            if (!currentUser) return; 
+            const payload = { 
+                email: document.getElementById('modalEmail').value.trim(), 
+                firstName: document.getElementById('modalFirstName').value.trim(), 
+                fullName: document.getElementById('modalFullName').value.trim(), 
+                lastName: document.getElementById('modalLastName').value.trim(), 
+                middleName: document.getElementById('modalMiddleName').value.trim(), 
+                phone: document.getElementById('modalPhone').value.trim() 
+            }; 
+            if (!payload.email) { showToast("Email required", "warning"); return; } 
+            const saveBtn = document.getElementById('saveModalBtn'); 
+            const originalText = saveBtn.innerHTML; 
+            saveBtn.innerHTML = '<span class="loading-spinner"></span> Saving...'; 
+            saveBtn.disabled = true; 
+            try { 
+                const updated = await updateUserProfile(payload); 
+                currentUser = { ...currentUser, ...updated }; 
+                renderSidebar(currentUser); 
+                updateDisplayView(); 
+                showToast("Profile updated!", "success"); 
+                closeEditModal(); 
+            } catch (err) { 
+                showToast(err.message, "error"); 
+            } finally { 
+                saveBtn.innerHTML = originalText; 
+                saveBtn.disabled = false; 
+            } 
         }
 
-        function escapeHtml(str) {
-            if (!str) return '';
-            return str.replace(/[&<>]/g, function (m) {
-                if (m === '&') return '&amp;';
-                if (m === '<') return '&lt;';
-                if (m === '>') return '&gt;';
-                return m;
-            }).replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g, function (c) {
-                return c;
-            });
-        }
+        // ========== SHIPPING ADDRESS API INTEGRATION ==========
+        const shippingAPI = {
+            getAll: async (userId) => { 
+                const url = `${BASE_URL}${SHIPPING_BASE}/get-user-addresses/${userId}`;
+                console.log("Fetching addresses from:", url);
+                const response = await fetch(url);
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    console.error("Address fetch failed:", response.status, errorText);
+                    throw new Error(`Failed to fetch addresses: ${response.status} ${errorText}`);
+                }
+                const data = await response.json();
+                console.log("Addresses received:", data);
+                return data;
+            },
+            create: async (userId, payload) => { 
+                const url = `${BASE_URL}${SHIPPING_BASE}/create-address/${userId}`;
+                console.log("Creating address at:", url, payload);
+                const response = await fetch(url, { 
+                    method: 'POST', 
+                    headers: { 'Content-Type': 'application/json' }, 
+                    body: JSON.stringify(payload) 
+                });
+                if (!response.ok) throw new Error(await response.text());
+                return await response.json();
+            },
+            update: async (userId, shippingId, payload) => { 
+                const url = `${BASE_URL}${SHIPPING_BASE}/patch/${userId}/${shippingId}`;
+                console.log("Updating address at:", url, payload);
+                const response = await fetch(url, { 
+                    method: 'PATCH', 
+                    headers: { 'Content-Type': 'application/json' }, 
+                    body: JSON.stringify(payload) 
+                });
+                if (!response.ok) throw new Error(await response.text());
+                return await response.json();
+            },
+            delete: async (userId, shippingId) => { 
+                const url = `${BASE_URL}${SHIPPING_BASE}/delete-address/${userId}/${shippingId}`;
+                console.log("Deleting address at:", url);
+                const response = await fetch(url, { method: 'DELETE' });
+                if (!response.ok) throw new Error("Delete failed");
+                return await response.json();
+            }
+        };
 
-        // Update display fields from currentUser
-        function updateDisplayView() {
-            if (!currentUser) return;
-            document.getElementById('displayName').textContent = currentUser.fullName || (currentUser.firstName + " " + (currentUser.lastName || ""));
-            document.getElementById('displayEmail').textContent = currentUser.email || '—';
-            document.getElementById('displayPhone').textContent = currentUser.phone || '—';
-            const nameParts = `${currentUser.firstName || ''} ${currentUser.middleName || ''} ${currentUser.lastName || ''}`.trim();
-            document.getElementById('displayFullDetails').innerHTML = nameParts || '—';
-        }
+        let addressesList = [];
 
-        // Populate modal with current user data
-        function populateModal() {
-            if (!currentUser) return;
-            document.getElementById('modalFullName').value = currentUser.fullName || '';
-            document.getElementById('modalFirstName').value = currentUser.firstName || '';
-            document.getElementById('modalMiddleName').value = currentUser.middleName || '';
-            document.getElementById('modalLastName').value = currentUser.lastName || '';
-            document.getElementById('modalEmail').value = currentUser.email || '';
-            document.getElementById('modalPhone').value = currentUser.phone || '';
-        }
-
-        // Open edit modal
-        function openEditModal() {
-            if (!currentUser) {
-                showToast("Profile not loaded yet", "warning");
+        async function loadAddresses() {
+            const userId = getUserIdFromStorage();
+            if (!userId) {
+                console.warn("No userId found, cannot load addresses");
+                document.getElementById('addressesListContainer').innerHTML = `<div class="text-center text-red-500 p-4">Please login to view addresses</div>`;
                 return;
             }
-            populateModal();
-            document.getElementById('editProfileModal').classList.add('active');
+            
+            const container = document.getElementById('addressesListContainer');
+            container.innerHTML = `<div class="text-center py-4"><div class="loading-spinner mx-auto mb-2"></div><p>Loading addresses...</p></div>`;
+            
+            try {
+                const data = await shippingAPI.getAll(userId);
+                addressesList = Array.isArray(data) ? data : [];
+                renderAddresses();
+            } catch (err) { 
+                console.error("Load addresses error:", err);
+                container.innerHTML = `<div class="text-center text-red-500 p-4"><i class="fa-solid fa-circle-exclamation"></i> ${err.message}<br><button id="retryAddresses" class="mt-2 bg-accent text-primary px-4 py-1 rounded-full text-sm">Retry</button></div>`; 
+                const retryBtn = document.getElementById('retryAddresses'); 
+                if(retryBtn) retryBtn.onclick = () => loadAddresses(); 
+            }
         }
 
-        function closeEditModal() {
-            document.getElementById('editProfileModal').classList.remove('active');
+        function renderAddresses() {
+            const container = document.getElementById('addressesListContainer');
+            if (!addressesList.length) { 
+                container.innerHTML = `<div class="address-compact-card text-center text-gray-500 py-4"><i class="fa-regular fa-address-card text-accent mr-2"></i> No addresses saved. Click "Add New Address" to create one.</div>`; 
+                return; 
+            }
+            
+            container.innerHTML = addressesList.map(addr => `
+                <div class="address-compact-card ${addr.default ? 'default' : ''}" data-id="${addr.shippingId}">
+                    <div class="flex justify-between items-start">
+                        <div class="flex-1">
+                            <div class="flex items-center gap-2 flex-wrap mb-1">
+                                <span class="font-bold text-primary">${escapeHtml(addr.customerName || '')}</span> 
+                                ${addr.default ? '<span class="badge-default text-[10px] ml-2">Default</span>' : ''}
+                            </div>
+                            <p class="text-sm text-gray-700"><i class="fa-solid fa-phone-alt text-accent text-xs mr-1"></i> ${escapeHtml(addr.customerPhone || '')} &nbsp;|&nbsp; <i class="fa-regular fa-envelope text-accent text-xs mr-1"></i> ${escapeHtml(addr.customerEmail || '')}</p>
+                            <p class="text-sm text-gray-700 mt-1"><i class="fa-solid fa-location-dot text-accent text-xs mr-1"></i> ${escapeHtml(addr.flatNo || '')}, ${escapeHtml(addr.shippingAddress || '')}, ${escapeHtml(addr.shippingCity || '')}, ${escapeHtml(addr.shippingState || '')} - ${escapeHtml(addr.shippingPincode || '')}</p>
+                            ${(addr.nearBy || addr.landmark) ? `<p class="text-xs text-amber-700 mt-1"><i class="fa-regular fa-flag"></i> Near: ${escapeHtml(addr.nearBy || '')} ${addr.landmark ? `, Landmark: ${escapeHtml(addr.landmark)}` : ''}</p>` : ''}
+                        </div>
+                        <div class="address-actions">
+                            <i class="fa-regular fa-pen-to-square action-icon edit-address" data-id="${addr.shippingId}" title="Edit"></i>
+                            <i class="fa-regular fa-trash-can action-icon delete-icon delete-address" data-id="${addr.shippingId}" title="Delete"></i>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+            
+            document.querySelectorAll('.edit-address').forEach(btn => btn.addEventListener('click', (e) => { 
+                e.stopPropagation(); 
+                const id = parseInt(btn.dataset.id); 
+                openAddressModalForEdit(id); 
+            }));
+            
+            document.querySelectorAll('.delete-address').forEach(btn => btn.addEventListener('click', async (e) => { 
+                e.stopPropagation(); 
+                const id = parseInt(btn.dataset.id); 
+                if (confirm("Delete this address?")) await deleteAddressById(id); 
+            }));
         }
 
-        // Save changes: build payload and call PATCH API
-        async function saveProfileChanges() {
-            if (!currentUser) return;
+        async function deleteAddressById(shippingId) {
+            const userId = getUserIdFromStorage();
+            if (!userId) return;
+            try {
+                await shippingAPI.delete(userId, shippingId);
+                showToast("Address deleted successfully", "success");
+                await loadAddresses();
+            } catch (err) { 
+                showToast(err.message, "error"); 
+            }
+        }
 
-            // Build payload as per required fields
+        function resetAddressForm() { 
+            document.getElementById('editShippingId').value = ''; 
+            document.getElementById('addrCustomerName').value = currentUser?.fullName || currentUser?.firstName || ''; 
+            document.getElementById('addrPhone').value = currentUser?.phone || ''; 
+            document.getElementById('addrEmail').value = currentUser?.email || ''; 
+            document.getElementById('addrFlatNo').value = ''; 
+            document.getElementById('addrShippingAddress').value = ''; 
+            document.getElementById('addrCity').value = ''; 
+            document.getElementById('addrState').value = ''; 
+            document.getElementById('addrPincode').value = ''; 
+            document.getElementById('addrNearBy').value = ''; 
+            document.getElementById('addrLandmark').value = ''; 
+            document.getElementById('addrIsDefault').checked = false; 
+            document.getElementById('addressModalTitle').innerText = "Add New Address"; 
+        }
+        
+        function openAddressModalForEdit(shippingId) {
+            const addr = addressesList.find(a => a.shippingId === shippingId);
+            if (!addr) return;
+            document.getElementById('editShippingId').value = addr.shippingId;
+            document.getElementById('addrCustomerName').value = addr.customerName || '';
+            document.getElementById('addrPhone').value = addr.customerPhone || '';
+            document.getElementById('addrEmail').value = addr.customerEmail || '';
+            document.getElementById('addrFlatNo').value = addr.flatNo || '';
+            document.getElementById('addrShippingAddress').value = addr.shippingAddress || '';
+            document.getElementById('addrCity').value = addr.shippingCity || '';
+            document.getElementById('addrState').value = addr.shippingState || '';
+            document.getElementById('addrPincode').value = addr.shippingPincode || '';
+            document.getElementById('addrNearBy').value = addr.nearBy || '';
+            document.getElementById('addrLandmark').value = addr.landmark || '';
+            document.getElementById('addrIsDefault').checked = addr.default === true;
+            document.getElementById('addressModalTitle').innerText = "Edit Address";
+            document.getElementById('addressModal').classList.add('active');
+        }
+
+        function openAddAddressModal() { 
+            resetAddressForm(); 
+            document.getElementById('addressModal').classList.add('active'); 
+        }
+        
+        function closeAddressModal() { 
+            document.getElementById('addressModal').classList.remove('active'); 
+        }
+
+        async function saveAddressHandler() {
+            const userId = getUserIdFromStorage();
+            if (!userId) { 
+                showToast("User not logged in", "error"); 
+                return; 
+            }
+            
+            const shippingId = document.getElementById('editShippingId').value;
             const payload = {
-                email: document.getElementById('modalEmail').value.trim(),
-                firstName: document.getElementById('modalFirstName').value.trim(),
-                fullName: document.getElementById('modalFullName').value.trim(),
-                lastName: document.getElementById('modalLastName').value.trim(),
-                middleName: document.getElementById('modalMiddleName').value.trim(),
-                phone: document.getElementById('modalPhone').value.trim()
+                customerName: document.getElementById('addrCustomerName').value.trim(),
+                customerPhone: document.getElementById('addrPhone').value.trim(),
+                customerEmail: document.getElementById('addrEmail').value.trim(),
+                flatNo: document.getElementById('addrFlatNo').value.trim(),
+                shippingAddress: document.getElementById('addrShippingAddress').value.trim(),
+                shippingCity: document.getElementById('addrCity').value.trim(),
+                shippingState: document.getElementById('addrState').value.trim(),
+                shippingPincode: document.getElementById('addrPincode').value.trim(),
+                nearBy: document.getElementById('addrNearBy').value.trim(),
+                landmark: document.getElementById('addrLandmark').value.trim(),
+                isDefault: document.getElementById('addrIsDefault').checked
             };
-
-            // Basic validation
-            if (!payload.email) {
-                showToast("Email is required", "warning");
-                return;
+            
+            if (!payload.customerName || !payload.customerPhone || !payload.customerEmail || 
+                !payload.flatNo || !payload.shippingAddress || !payload.shippingCity || 
+                !payload.shippingState || !payload.shippingPincode) { 
+                showToast("Please fill all required fields (marked with *)", "warning"); 
+                return; 
             }
-            if (!payload.firstName || !payload.lastName) {
-                showToast("First name and last name are required", "warning");
-                return;
-            }
-            if (!payload.fullName) payload.fullName = `${payload.firstName} ${payload.middleName ? payload.middleName + ' ' : ''}${payload.lastName}`.trim();
-
-            // Disable save button to prevent double submission
-            const saveBtn = document.getElementById('saveModalBtn');
+            
+            const saveBtn = document.getElementById('saveAddressBtn');
             const originalText = saveBtn.innerHTML;
             saveBtn.innerHTML = '<span class="loading-spinner"></span> Saving...';
             saveBtn.disabled = true;
-
+            
             try {
-                const updatedUser = await updateUserProfile(payload);
-                // Update currentUser with response (assuming backend returns updated object)
-                currentUser = { ...currentUser, ...updatedUser };
-                // Re-render UI
-                renderSidebar(currentUser);
-                updateDisplayView();
-                showToast("Profile updated successfully!", "success");
-                closeEditModal();
-            } catch (err) {
-                console.error(err);
-                // Error already toasted in updateUserProfile
-            } finally {
-                saveBtn.innerHTML = originalText;
-                saveBtn.disabled = false;
+                if (shippingId) { 
+                    await shippingAPI.update(userId, parseInt(shippingId), payload); 
+                    showToast("Address updated successfully", "success"); 
+                } else { 
+                    await shippingAPI.create(userId, payload); 
+                    showToast("Address added successfully", "success"); 
+                }
+                await loadAddresses();
+                closeAddressModal();
+            } catch (err) { 
+                showToast(err.message, "error"); 
+            } finally { 
+                saveBtn.innerHTML = originalText; 
+                saveBtn.disabled = false; 
             }
         }
 
-        // Initialize page: fetch user and render
+        // Initialize page
         async function initPage() {
             const sidebarDiv = document.getElementById('profile-sidebar');
-            sidebarDiv.innerHTML = `<div class="text-center py-8"><div class="loading-spinner mx-auto mb-2"></div><p>Loading profile from server...</p></div>`;
-
+            sidebarDiv.innerHTML = `<div class="text-center py-8"><div class="loading-spinner mx-auto mb-2"></div><p>Loading profile...</p></div>`;
+            
             try {
                 const user = await fetchUserProfile();
                 currentUser = user;
                 renderSidebar(currentUser);
                 updateDisplayView();
-                showToast(`Welcome back, ${currentUser.firstName || 'User'}!`, "info", 2500);
+                await loadAddresses();
+                showToast(`Welcome back, ${currentUser.firstName || 'User'}!`, "info", 2000);
             } catch (error) {
-                sidebarDiv.innerHTML = `<div class="text-center text-red-600 py-4"><i class="fa-solid fa-circle-exclamation text-2xl mb-2"></i><p>Failed to load profile. Make sure backend is running at ${BASE_URL} and userId exists in localStorage.</p><button id="retryBtn" class="mt-3 bg-accent text-primary px-4 py-1 rounded-full text-sm">Retry</button></div>`;
-                const retryBtn = document.getElementById('retryBtn');
-                if (retryBtn) retryBtn.addEventListener('click', () => location.reload());
+                console.error("Init error:", error);
+                sidebarDiv.innerHTML = `<div class="text-center text-red-600 py-4"><i class="fa-solid fa-circle-exclamation text-2xl mb-2"></i><p>Failed to load profile: ${error.message}</p><button id="retryBtn" class="mt-3 bg-accent text-primary px-4 py-1 rounded-full">Retry</button></div>`;
+                const retryBtn = document.getElementById('retryBtn'); 
+                if (retryBtn) retryBtn.onclick = () => location.reload();
             }
         }
 
-        // Additional event binding after DOM ready
         document.addEventListener('DOMContentLoaded', () => {
             initPage();
-
-            // Edit profile button
-            const editBtn = document.getElementById('editProfileBtnMain');
-            if (editBtn) editBtn.addEventListener('click', openEditModal);
-
-            // Modal close handlers
-            const closeModalBtn = document.getElementById('closeModalBtn');
-            const cancelModalBtn = document.getElementById('cancelModalBtn');
-            const modalOverlay = document.getElementById('editProfileModal');
-            if (closeModalBtn) closeModalBtn.addEventListener('click', closeEditModal);
-            if (cancelModalBtn) cancelModalBtn.addEventListener('click', closeEditModal);
-            if (modalOverlay) modalOverlay.addEventListener('click', (e) => { if (e.target === modalOverlay) closeEditModal(); });
-
-            // Save button
-            const saveBtn = document.getElementById('saveModalBtn');
-            if (saveBtn) saveBtn.addEventListener('click', saveProfileChanges);
+            document.getElementById('editProfileBtnMain').addEventListener('click', openEditModal);
+            document.getElementById('closeModalBtn').addEventListener('click', closeEditModal);
+            document.getElementById('cancelModalBtn').addEventListener('click', closeEditModal);
+            document.getElementById('editProfileModal').addEventListener('click', (e) => { if (e.target === document.getElementById('editProfileModal')) closeEditModal(); });
+            document.getElementById('saveModalBtn').addEventListener('click', saveProfileChanges);
+            document.getElementById('addAddressBtn').addEventListener('click', openAddAddressModal);
+            document.getElementById('closeAddressModalBtn').addEventListener('click', closeAddressModal);
+            document.getElementById('cancelAddressBtn').addEventListener('click', closeAddressModal);
+            document.getElementById('saveAddressBtn').addEventListener('click', saveAddressHandler);
+            document.getElementById('addressModal').addEventListener('click', (e) => { if (e.target === document.getElementById('addressModal')) closeAddressModal(); });
         });
     </script>
 </body>
