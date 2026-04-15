@@ -23,14 +23,13 @@
             <div id="banner-slider" class="overflow-hidden relative rounded-2xl w-full">
               <div class="flex w-full transition-transform duration-700 ease-in-out" id="banner-slides-wrapper">
                 ${data.bannerSlides
-                  .map(
-                    (slide, idx) => `
+        .map(
+          (slide, idx) => `
                   <div class="flex-none min-w-full w-full flex flex-col md:flex-row gap-4 md:gap-6">
                     <div class="w-full md:w-2/3 relative rounded-2xl border border-gray-300 overflow-hidden shadow-lg h-[220px] sm:h-[260px] md:h-[350px]">
                       <img src="${slide.mainImage}" class="w-full h-full object-cover" alt="banner" />
-                      ${
-                        slide.overlayText
-                          ? `
+                      ${slide.overlayText
+              ? `
                         <div class="absolute inset-0 bg-black/25 flex items-center justify-start p-4 sm:p-6 md:p-12">
                           <div class="text-white">
                             <h2 class="text-xl sm:text-2xl md:text-4xl lg:text-5xl font-zain font-bold">${slide.overlayText.title}</h2>
@@ -38,8 +37,8 @@
                           </div>
                         </div>
                       `
-                          : ""
-                      }
+              : ""
+            }
                     </div>
                     <div class="w-full md:w-1/3 flex flex-col gap-4 md:gap-2">
                       <div class="relative rounded-2xl overflow-hidden border border-gray-300 h-[160px] sm:h-[200px] md:h-[170px]">
@@ -55,8 +54,8 @@
                     </div>
                   </div>
                 `,
-                  )
-                  .join("")}
+        )
+        .join("")}
               </div>
               <div class="absolute bottom-3 sm:bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
                 ${data.bannerSlides.map((_, idx) => `<button class="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-white/50" data-slide="${idx}"></button>`).join("")}
@@ -73,16 +72,16 @@
               </div>
               <div class="grid grid-cols-2 md:grid-cols-4 gap-4 auto-rows-[140px] -mt-6">
                 ${data.categories
-                  .map(
-                    (cat) => `
+        .map(
+          (cat) => `
                   <a href="${cat.link}" class="relative ${cat.spanClass} rounded-xl overflow-hidden group">
                     <img src="${cat.image}" class="w-full h-full object-cover transition duration-500 group-hover:scale-105" />
                     <div class="absolute inset-x-0 bottom-0 ${cat.gradientHeight} bg-gradient-to-t from-black to-transparent"></div>
                     <h3 class="absolute bottom-${cat.bottomOffset} left-4 text-white font-lexend ${cat.fontSize} font-semibold">${cat.name}</h3>
                   </a>
                 `,
-                  )
-                  .join("")}
+        )
+        .join("")}
               </div>
             </div>
           </section>
@@ -114,8 +113,8 @@
         class="flex gap-4 sm:gap-6 overflow-x-auto scroll-smooth no-scrollbar pb-4 px-8 sm:px-12 md:px-10 snap-x snap-mandatory scrollbar-hide">
         
         ${data.discover.products
-          .map(
-            (prod) => `
+        .map(
+          (prod) => `
           <div class="min-w-[85%] sm:min-w-[47%] md:min-w-[31%] lg:min-w-[280px] xl:min-w-[300px] 
                       bg-white rounded-xl shadow-sm p-1 hover:shadow-md transition snap-start flex-shrink-0">
            
@@ -153,8 +152,8 @@
             </div>
           </div>
         `,
-          )
-          .join("")}
+        )
+        .join("")}
       </div>
 
       <!-- Next Button - Slightly outside -->
@@ -177,25 +176,25 @@
                   <p class="text-lg font-medium text-[#1D3C4A]">UPTO <span class="text-[#e39f32] font-semibold">60% OFF</span></p>
                 </div>
                 ${data.dealCategories
-                  .map(
-                    (cat) => `
+        .map(
+          (cat) => `
                   <div class="col-span-6 sm:col-span-4 lg:col-span-2 bg-white rounded-lg shadow-sm overflow-hidden">
                     <img src="${cat.image}" class="w-full h-44 object-cover" />
                     <div class="py-3 text-center text-sm font-medium">${cat.name}</div>
                   </div>
                 `,
-                  )
-                  .join("")}
+        )
+        .join("")}
                 ${data.dealCategoriesSecondRow
-                  .map(
-                    (cat) => `
+        .map(
+          (cat) => `
                   <div class="col-span-6 sm:col-span-6 lg:col-span-3 bg-white rounded-lg shadow-sm overflow-hidden">
                     <img src="${cat.image}" class="w-full h-44 object-cover" />
                     <div class="py-3 text-center text-sm font-medium">${cat.name}</div>
                   </div>
                 `,
-                  )
-                  .join("")}
+        )
+        .join("")}
               </div>
             </div>
           </section>
@@ -214,10 +213,10 @@
         </p>
       </div>
 
-      <button class="border border-gray-300 px-5 py-2 rounded-full text-xs sm:text-sm hover:bg-white transition view-all-btn flex items-center gap-2">
+      <!----<button class="border border-gray-300 px-5 py-2 rounded-full text-xs sm:text-sm hover:bg-white transition view-all-btn flex items-center gap-2">
         View All
         <span class="text-base leading-none">→</span>
-      </button>
+      </button>--->
     </div>
 
     <div class="relative">
@@ -235,8 +234,8 @@
         class="flex gap-4 sm:gap-6 overflow-x-auto scroll-smooth no-scrollbar pb-4 px-10 sm:px-14 md:px-12 snap-x snap-mandatory scrollbar-hide">
 
         ${data.topRated
-          .map(
-            (prod) => `
+        .map(
+          (prod) => `
         
         <div class="relative min-w-[86%] sm:min-w-[48%] md:min-w-[32%] lg:min-w-[260px] xl:min-w-[280px] 
                     bg-white rounded-xl shadow-sm hover:shadow-md transition flex-shrink-0 snap-start">
@@ -278,8 +277,8 @@
         </div>
 
         `,
-          )
-          .join("")}
+        )
+        .join("")}
 
       </div>
 
@@ -296,23 +295,37 @@
 
           <!-- Banner Section (Corporate Gifting) -->
           <section class="py-8 px-4 sm:px-6 lg:px-8">
-            <div class="max-w-7xl mx-auto">
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                ${data.corporateBanners
-                  .map(
-                    (banner) => `
-                  <a href="${banner.link}" class="relative block overflow-hidden rounded-2xl group">
-                    <img src="${banner.image}" alt="${banner.title}" class="w-full h-[220px] sm:h-[260px] md:h-[280px] lg:h-[300px] object-cover transition duration-500 group-hover:scale-105" />
-                    ${banner.showText ? `<div class="absolute top-6 left-6 text-[#1D3C4A]" style="text-shadow: 0 2px 6px rgba(0,0,0,0.5)"><h3 class="text-xl sm:text-2xl md:text-2xl lg:text-3xl font-lexend font-semibold">${banner.title}</h3><p class="text-sm sm:text-base md:text-base lg:text-base font-lexend mt-1 max-w-xs">${banner.subtitle}</p></div>` : ""}
-                  </a>
-                `,
-                  )
-                  .join("")}
-              </div>
-            </div>
-          </section>
+  <div class="max-w-7xl mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      ${data.corporateBanners
+        .map(
+          (banner) => `
+          <div class="relative block overflow-hidden rounded-2xl group">
+            <img 
+              src="${banner.image}" 
+              alt="${banner.title}" 
+              class="w-full h-[220px] sm:h-[260px] md:h-[280px] lg:h-[300px] object-cover transition duration-500 group-hover:scale-105"
+            />
+            ${banner.showText
+              ? `
+                <div class="absolute top-6 left-6 text-[#1D3C4A]" style="text-shadow: 0 2px 6px rgba(0,0,0,0.5)">
+                  <h3 class="text-xl sm:text-2xl md:text-2xl lg:text-3xl font-lexend font-semibold">
+                    ${banner.title}
+                  </h3>
+                  <p class="text-sm sm:text-base md:text-base lg:text-base font-lexend mt-1 max-w-xs">
+                    ${banner.subtitle}
+                  </p>
+                </div>`
+              : ""
+            }
+          </div>
+        `,
+        )
+        .join("")}
+    </div>
+  </div>
+</section>
 
-          <!-- Trending Products Section -->
          <!-- Trending Products Section -->
 <section class="py-10 bg-gray-50">
 
@@ -349,8 +362,8 @@
       <div class="flex gap-4 sm:gap-6 w-max px-4 sm:px-6">
 
         ${data.trendingProducts.row1
-          .map((prod) => renderTrendingCard(prod))
-          .join("")}
+        .map((prod) => renderTrendingCard(prod))
+        .join("")}
 
       </div>
     </div>
@@ -374,8 +387,8 @@
       <div class="flex gap-4 sm:gap-6 w-max px-4 sm:px-6">
 
         ${data.trendingProducts.row2
-          .map((prod) => renderTrendingCard(prod))
-          .join("")}
+        .map((prod) => renderTrendingCard(prod))
+        .join("")}
 
       </div>
     </div>
@@ -386,15 +399,15 @@
           <!-- Services Section -->
           <section class="py-6 sm:py-8 md:py-10 px-4 sm:px-6 lg:px-8 mt-2 sm:mt-4 md:mt-6 bg-[url('./Images/servicebg.jfif')] bg-cover bg-center bg-no-repeat bg-fixed">
             <div class="max-w-7xl mx-auto"><div class="rounded-2xl sm:rounded-3xl bg-white/85 backdrop-blur-md shadow-md sm:shadow-lg px-4 sm:px-6 lg:px-8 py-5 sm:py-6 md:py-7"><div class="grid grid-cols-1 md:grid-cols-4 gap-4 sm:gap-5 lg:gap-6">${data.services
-              .map(
-                (service) => `
+        .map(
+          (service) => `
               <div class="flex items-center gap-3 sm:gap-4 px-3 sm:px-4 py-3 sm:py-4 border-b md:border-b-0 md:border-r border-[#1D3C4A]/30 group transition hover:scale-[1.02]">
                 <div class="flex-shrink-0 w-11 h-11 sm:w-12 sm:h-12 bg-[#e8f4f7] text-[#1D3C4A] rounded-xl flex items-center justify-center text-xl sm:text-2xl group-hover:bg-[#1D3C4A] group-hover:text-white transition-colors duration-200"><i class="${service.icon}"></i></div>
                 <div><p class="text-sm sm:text-base font-semibold text-[#1D3C4A]">${service.title}</p><p class="text-xs sm:text-sm text-gray-600">${service.desc}</p></div>
               </div>
             `,
-              )
-              .join("")}</div></div></div>
+        )
+        .join("")}</div></div></div>
           </section>
 
           <!-- Photo Frames Section -->
@@ -423,8 +436,8 @@
         class="flex gap-3 xs:gap-4 sm:gap-5 md:gap-6 overflow-x-auto pb-4 sm:pb-5 scroll-smooth snap-x snap-mandatory scrollbar-hide -mx-1 xs:-mx-2 sm:-mx-0 px-1 xs:px-2 sm:px-0">
 
         ${data.photoFrames
-          .map(
-            (frame) => `
+        .map(
+          (frame) => `
         
         <div class="flex-none min-w-[160px] xs:min-w-[170px] sm:min-w-[190px] md:min-w-[210px] lg:min-w-[225px] max-w-[180px] xs:max-w-[195px] sm:max-w-[220px] md:max-w-[240px] bg-white border border-gray-200/80 rounded-xl sm:rounded-2xl shadow-sm hover:shadow-md transition-all duration-200 snap-start">
 
@@ -471,8 +484,8 @@
         </div>
 
         `,
-          )
-          .join("")}
+        )
+        .join("")}
 
       </div>
 
