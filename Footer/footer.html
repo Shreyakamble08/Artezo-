@@ -53,19 +53,27 @@
     .social-btn {
       width: 38px;
       height: 38px;
-      border-radius: 9999px;
+      border-radius: 50%;
       border: 1px solid rgba(255, 255, 255, 0.15);
-      display: inline-flex;
+      display: flex;
       align-items: center;
       justify-content: center;
-      transition: all 0.25s ease;
-      background: transparent;
+      transition: all .3s ease;
+      color: #cde0e8;
+    }
+
+    .social-btn i {
+      transition: all .3s ease;
     }
 
     .social-btn:hover {
       background: var(--accent);
       border-color: var(--accent);
-      transform: translateY(-2px);
+      transform: translateY(-3px) scale(1.05);
+    }
+
+    .social-btn:hover i {
+      color: #fff;
     }
 
     .app-btn {
@@ -144,34 +152,6 @@
       color: var(--muted);
     }
 
-    .newsletter-input {
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      border-radius: 8px 0 0 8px;
-      padding: 0.625rem 0.875rem;
-      color: white;
-      outline: none;
-      flex: 1;
-    }
-
-    .newsletter-input:focus {
-      border-color: var(--accent);
-    }
-
-    .newsletter-btn {
-      background: var(--accent);
-      border: none;
-      border-radius: 0 8px 8px 0;
-      padding: 0.625rem 1.125rem;
-      font-weight: 500;
-      color: #1a1a1a;
-      white-space: nowrap;
-      cursor: pointer;
-    }
-
-    .newsletter-btn:hover {
-      background: var(--accent-light);
-    }
 
     .bottom-bar {
       background: var(--surface2);
@@ -255,24 +235,7 @@
           <p class="text-gray-100 leading-relaxed text-xs mb-4">
             Curating premium products for modern lifestyles. Delivering joy, quality, and elegance.
           </p>
-          <div class="flex gap-2">
-            <div
-              class="w-8 h-8 rounded-full bg-gray-100 text-[#1D3C4A] hover:bg-[#E39F32] hover:text-white flex items-center justify-center text-xs transition cursor-pointer">
-              <i class="fab fa-facebook-f"></i>
-            </div>
-            <div
-              class="w-8 h-8 rounded-full bg-gray-100 text-[#1D3C4A] hover:bg-[#E39F32] hover:text-white flex items-center justify-center text-xs transition cursor-pointer">
-              <i class="fab fa-instagram"></i>
-            </div>
-            <div
-              class="w-8 h-8 rounded-full bg-gray-100 text-[#1D3C4A] hover:bg-[#E39F32] hover:text-white flex items-center justify-center text-xs transition cursor-pointer">
-              <i class="fab fa-x-twitter"></i>
-            </div>
-            <div
-              class="w-8 h-8 rounded-full bg-gray-100 text-[#1D3C4A] hover:bg-[#E39F32] hover:text-white flex items-center justify-center text-xs transition cursor-pointer">
-              <i class="fab fa-youtube"></i>
-            </div>
-          </div>
+
         </div>
 
         <!-- Column 2: Cities/Delivery (Compact) -->
@@ -390,77 +353,84 @@
 
       </div>
 
-      <!-- Links grid -->
-      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 lg:gap-10 mb-12">
+      <!-- Links Grid -->
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 lg:gap-10 mb-12">
+
+        <!-- Shop -->
         <div>
           <div class="col-title">Shop</div>
-          <a href="#" class="footer-link">New Arrivals</a>
-          <a href="#" class="footer-link">Best Sellers</a>
-          <a href="#" class="footer-link">Sale & Offers</a>
-          <a href="#" class="footer-link">Gift Ideas</a>
+          <a href="../HomeCategory/homecategory.html" class="footer-link">Photo Frames</a>
+          <a href="../HomeSub/homesubcategory.html" class="footer-link">Nameplates</a>
+          <a href="../HomeSub/homesubcategory.html" class="footer-link">Wall Decor</a>
+          <a href="../HomeCategory/homecategory.html" class="footer-link">Trophies & Mementos</a>
+          <a href="../HomeCategory/homecategory.html" class="footer-link">Corporate Gifts</a>
         </div>
+
+        <!-- About -->
         <div>
-          <div class="col-title">Support</div>
-          <a href="#" class="footer-link">Help Center</a>
-          <a href="#" class="footer-link">Track Order</a>
-          <a href="#" class="footer-link">Returns</a>
-          <a href="../Conatct/contact.html" class="footer-link">Contact Us</a>
-        </div>
-        <div>
-          <div class="col-title">About</div>
+          <div class="col-title">About Artezo</div>
           <a href="../About/about.html" class="footer-link">Our Story</a>
-          <a href="#" class="footer-link">Blog</a>
-          <a href="#" class="footer-link">Careers</a>
+          <a href="../About/about.html#journey" class="footer-link">Our Vision</a>
+          <a href="../About/about.html#quality" class="footer-link">Quality Assurance</a>
+          <a href="../Contact/contact.html" class="footer-link">Contact Us</a>
         </div>
+
+        <!-- Policies -->
         <div>
-          <div class="col-title">Partners</div>
-          <a href="#" class="footer-link">Sell on Artezo</a>
-          <a href="#" class="footer-link">Affiliates</a>
+          <div class="col-title">Policies</div>
+          <a href="../privacy.html" class="footer-link">Privacy Policy</a>
+          <a href="../terms-condition.html" class="footer-link">Terms & Conditions</a>
+          <a href="../shipping.html" class="footer-link">Shipping Policy</a>
+          <a href="../return-refund.html" class="footer-link">Return & Refund</a>
         </div>
+
+        <!-- Follow Us -->
         <div>
-          <div class="col-title">Connect</div>
-          <a href="#" class="footer-link">Newsletter</a>
-          <a href="#" class="footer-link">Wishlist</a>
+          <div class="col-title">Follow Us</div>
+
+          <div class="flex items-center gap-4 mt-4">
+
+            <a href="#" class="social-btn">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+
+            <a href="#" class="social-btn">
+              <i class="fab fa-instagram"></i>
+            </a>
+
+            <a href="#" class="social-btn">
+              <i class="fab fa-x-twitter"></i>
+            </a>
+
+            <a href="#" class="social-btn">
+              <i class="fab fa-youtube"></i>
+            </a>
+
+          </div>
+
         </div>
+
       </div>
 
 
-      <!-- Bottom Bar - Simple Dark Theme -->
-      <div class="border-t border-gray-700 bg-[#1D3C4A] py-5">
+      <!-- Bottom Bar -->
+      <div class="border-t border-gray-700 bg-[#1D3C4A] py-4">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-          <!-- Main Footer Links & Copyright -->
-          <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 pb-4 border-b border-gray-600">
-
-            <!-- Policy Links -->
-            <div class="flex flex-wrap items-center justify-center md:justify-start gap-4 sm:gap-6">
-              <a href="../terms-condition.html"
-                class="text-xs text-gray-300 hover:text-white transition-colors duration-200">Terms & Conditions</a>
-              <span class="text-gray-600 hidden sm:inline">|</span>
-              <a href="../privacy.html"
-                class="text-xs text-gray-300 hover:text-white transition-colors duration-200">Privacy Policy</a>
-              <span class="text-gray-600 hidden sm:inline">|</span>
-              <a href="../return-refund.html"
-                class="text-xs text-gray-300 hover:text-white transition-colors duration-200">Returns & Refunds</a>
-              <span class="text-gray-600 hidden sm:inline">|</span>
-              <a href="../shipping.html"
-                class="text-xs text-gray-300 hover:text-white transition-colors duration-200">Shipping & Delivery</a>
-            </div>
-
-            <!-- Copyright -->
-            <div class="text-xs text-gray-400 text-center md:text-right">
-              © 2025 <span class="text-white font-medium">Artezo</span>. All rights reserved.
-            </div>
+          <!-- Company Info -->
+          <div class="text-center text-xs text-gray-400 mb-2">
+            Artezo Furnitures Private Limited | CIN: U36100RJ2015PTC047992 |
+            Registered Office: 101-104, Luhadia Tower, C Scheme, Jaipur - 302001
           </div>
 
-          <!-- Company Info -->
-          <div class="pt-4 space-y-1">
-            <p class="text-xs text-gray-400 text-center md:text-left">
-              Artezo Furnitures Private Limited | CIN: U36100RJ2015PTC047992
-            </p>
-            <p class="text-xs text-gray-400 text-center md:text-left">
-              Registered Office: 101-104, Luhadia Tower, C Scheme, Jaipur - 302001
-            </p>
+          <!-- Copyright -->
+          <div class="text-center text-xs text-gray-400">
+            © 2025 <span class="text-white font-medium">Artezo</span>. All rights reserved. |
+            Developed by
+            <a href="https://kunashmedia.com" target="_blank"
+              class="text-[#E39F32] font-medium hover:text-[#f2b44d] transition">
+              Kunash Media
+            </a>
           </div>
 
         </div>
